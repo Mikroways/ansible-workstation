@@ -1,0 +1,32 @@
+image: docker:stable-dind
+
+services:
+  - docker:dind
+
+stages:
+  - prepare
+  - test
+
+build_image:
+  stage: prepare
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull ${CI_REGISTRY_IMAGE}:latest || true
+    - docker build --cache-from ${CI_REGISTRY_IMAGE}:latest -t current:latest .
+    - docker tag current:latest ${CI_REGISTRY_IMAGE}:latest
+    - docker push ${CI_REGISTRY_IMAGE}:latest
+  only:
+    refs:
+      - merge_requests
+      - main
+      - master
+
+test:
+  image: "${CI_REGISTRY_IMAGE}:latest"
+  stage: test
+  script:
+    - source /opt/venv/bin/activate && molecule test
+  only:
+    - merge_requests
+    - main
+    - master

@@ -1,0 +1,35 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: mw-workstation-packages-ubuntu-20.04
+    image: ubuntu:20.04
+    groups:
+      - all_local_packages
+  - name: mw-workstation-packages-ubuntu-18.04
+    image: ubuntu:18.04
+    groups:
+      - all_local_packages
+  - name: mw-workstation-local-packages-ubuntu-20.04
+    image: ubuntu:20.04
+    groups:
+      - only_local_packages
+provisioner:
+  name: ansible
+  inventory:
+    group_vars:
+      all:
+        ansible_user: ansible
+    host_vars:
+      mw-workstation-local-packages-ubuntu-20.04:
+        mw_workstation_local_packages_only:
+          - kubectl
+          - helm
+verifier:
+  name: ansible
+lint: |
+  set -e
+  yamllint .
+  ansible-lint .

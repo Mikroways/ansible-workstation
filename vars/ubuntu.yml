@@ -1,0 +1,33 @@
+---
+# defaults file for workstation_packages
+mw_workstation_repositories:
+  - ppa:nextcloud-devs/client
+mw_workstation_packages:
+  - locales
+  - bzip2
+  - python3
+  - python3-venv
+  - openssh-server
+  - wget
+  - curl
+  - nmap
+  - jq
+  - unzip
+  - yamllint
+  - git
+  - git-extras
+  - git-flow
+  - vim
+  - vim-gtk3
+  - tmux
+  - openfortivpn
+  - openconnect
+  - shellcheck
+  - sshuttle
+  - dnsutils
+  - ppp
+  - nextcloud-client
+  - haveged
+  - asciinema
+  - tree
+  - uidmap

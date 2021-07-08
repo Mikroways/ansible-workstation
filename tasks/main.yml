@@ -1,0 +1,9 @@
+---
+-
+  name: Install system packages
+  include_tasks: system_packages.yml
+  tags: system_packages
+-
+  name: Install local packages
+  include_tasks: local_packages.yml
+  tags: local_packages

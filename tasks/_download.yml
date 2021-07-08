@@ -1,0 +1,52 @@
+---
+- name: "Package name is defined?"
+  fail:
+    msg: "Name not defined for {{ _item }}"
+  when: name is not defined
+
+- name: "Check whether {{ name }} is installed"
+  command: "{{ version_command }}"
+  register: need_install
+  ignore_errors: yes
+  changed_when: false
+
+  environment:
+    PATH: "{{ install_directory }}:{{ ansible_env.PATH }}"
+
+- name: "Install package {{ name }} when needed"
+  block:
+    - name: Generate temporary filename
+      tempfile:
+        state: file
+      register: tempfile
+
+    - name: "Download {{ name }}"
+      get_url:
+        url: "{{ url }}"
+        dest: "{{ tempfile.path }}"
+        force: yes
+
+    - name: "Install {{ name }}"
+      shell: >-
+        set -eo pipefail &&
+        {{ install_command | replace('%downloaded%', tempfile.path) }}
+      args:
+        executable: /bin/bash
+
+    - name: Delete temporary data
+      file:
+        path: "{{ tempfile.path }}"
+        state: absent
+
+    - name: "Check {{ name }} installed"
+      command: "{{ version_command }}"
+      register: just_installed
+      failed_when: 
+        just_installed.rc != 0 or
+          ( just_installed.rc == 0 and version not in just_installed.stdout )
+      changed_when: false
+      environment:
+        PATH: "{{ install_directory }}:{{ ansible_env.PATH }}"
+
+  when: need_install.rc != 0 or
+      ( need_install.rc == 0 and version not in need_install.stdout )

@@ -1,0 +1,178 @@
+---
+
+# System packages can be modified with vars/{{ ansible_distribution }}.yml
+
+mw_workstation_local_install_directory: "{{ ansible_env.HOME }}/.mikroways/bin"
+# if empty install every package, otherwise only install packages with name in
+# list, for example:
+#   mw_workstation_local_packages_only: [ kubectl, helm ]
+# would install kubectl and helm only
+mw_workstation_local_packages_only: []
+mw_workstation_local_packages:
+  -
+    name: kubectl
+    version: v1.21.0
+    url: >-
+      https://dl.k8s.io/release/%version%/bin/{{ ansible_system | lower}}/amd64/kubectl
+    install_command: >-
+      chmod +x %downloaded% &&
+      mv %downloaded% %install_directory%/kubectl
+    version_command: "kubectl version --client --short"
+  -
+    name: helm
+    version: v3.5.3
+    url: >-
+      https://get.helm.sh/helm-%version%-{{ ansible_system | lower }}-amd64.tar.gz
+    install_command: >-
+     tar xfz %downloaded% -C /tmp &&
+     mv /tmp/{{ ansible_system | lower }}-amd64/helm %install_directory%
+    version_command: "helm version --short"
+  -
+    name: kubetail
+    version: 1.6.12
+    url: https://raw.githubusercontent.com/johanhaleby/kubetail/%version%/kubetail
+    install_command: >-
+      mv %downloaded% %install_directory%/kubetail && 
+      chmod +x %install_directory%/kubetail
+    version_command: "kubetail -v"
+  -
+    name: aws-cli
+    version: 2.2.1
+    url: https://awscli.amazonaws.com/awscli-exe-{{ ansible_system | lower }}-x86_64-%version%.zip
+    install_command: >-
+      unzip %downloaded% -d /tmp &&
+      /tmp/aws/install -i ~/.aws-cli -b %install_directory%/ -u
+    version_command: "aws --version"
+  -
+    name: aws-iam-authenticator
+    url: >-
+      https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/{{ansible_system | lower }}/amd64/aws-iam-authenticator
+    version: 0.5.0
+    install_command: >-
+      mv %downloaded% %install_directory%/aws-iam-authenticator &&
+      chmod +x %install_directory%/aws-iam-authenticator
+    version_command: "aws-iam-authenticator version"
+  -
+    name: navi
+    url: >- 
+      https://github.com/denisidoro/navi/releases/download/v%version%/navi-v%version%-x86_64-unknown-{{ ansible_system | lower }}-musl.tar.gz
+    version: 2.16.0
+    install_command: "tar xfz %downloaded% -C %install_directory% navi"
+    version_command: "navi -V"
+  -
+    name: yq
+    url: >-
+      https://github.com/mikefarah/yq/releases/download/v%version%/yq_{{ansible_system | lower}}_amd64
+    version: 4.7.1
+    install_command: >-
+      mv %downloaded% %install_directory%/yq &&
+      chmod +x %install_directory%/yq
+    version_command: "yq --version"
+  -
+    name: eksctl 
+    url: >-
+      https://github.com/weaveworks/eksctl/releases/download/%version%/eksctl_{{ansible_system}}_amd64.tar.gz
+    version: 0.47.0
+    install_command: "tar xfz %downloaded% -C %install_directory%"
+    version_command: "eksctl version"
+  -
+    name: govc
+    url: >-
+      https://github.com/vmware/govmomi/releases/download/v%version%/govc_{{ansible_system}}_x86_64.tar.gz
+    version: 0.25.0
+    install_command: "tar xfz %downloaded% -C %install_directory% govc"
+    version_command: "govc version"
+  -
+    name: helmfile
+    url: >-
+      https://github.com/roboll/helmfile/releases/download/v%version%/helmfile_{{ansible_system | lower}}_amd64
+    version: 0.138.7
+    install_command: >-
+      mv %downloaded% %install_directory%/helmfile &&
+      chmod +x %install_directory%/helmfile
+    version_command: "helmfile version"
+  -
+    name: kind
+    url: >-
+      https://github.com/kubernetes-sigs/kind/releases/download/v%version%/kind-{{ansible_system | lower}}-amd64
+    version: 0.10.0
+    install_command: >-
+      mv %downloaded% %install_directory%/kind &&
+      chmod +x %install_directory%/kind
+    version_command: "kind version"
+  -
+    name: direnv
+    url: >-
+      https://github.com/direnv/direnv/releases/download/v%version%/direnv.{{ansible_system | lower}}-amd64
+    version: 2.28.0
+    install_command: >-
+      mv %downloaded% %install_directory%/direnv &&
+      chmod +x %install_directory%/direnv
+    version_command: "direnv version"
+  -
+    name: kustomize
+    url: >-
+      https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv%version%/kustomize_v%version%_{{ansible_system | lower}}_amd64.tar.gz
+    version: 4.1.2
+    install_command: "tar xfz %downloaded% -C %install_directory%"
+    version_command: "kustomize version"
+  -
+    name: restic
+    url: >-
+      https://github.com/restic/restic/releases/download/v%version%/restic_%version%_{{ansible_system | lower}}_amd64.bz2
+    version: 0.12.0
+    install_command: >-
+      cat %downloaded% | bzip2 -d > %install_directory%/restic &&
+      chmod +x %install_directory%/restic
+    version_command: "restic version"
+  -
+    name: velero
+    url: >-
+      https://github.com/vmware-tanzu/velero/releases/download/v%version%/velero-v%version%-{{ ansible_system | lower }}-amd64.tar.gz
+    version: 1.6.0
+    install_command: >-
+      tar fxz %downloaded% -C /tmp && mv /tmp/velero-*/velero %install_directory%
+    version_command: "velero version --client-only"
+  -
+    name: terraform-switch
+    url: >-
+      https://github.com/warrensbox/terraform-switcher/releases/download/%version%/terraform-switcher_%version%_{{ansible_system | lower}}_amd64.tar.gz
+    version: 0.11.1071
+    install_command: "tar xfz %downloaded% -C %install_directory%"
+    version_command: "tfswitch -v"
+  -
+    name: sops
+    url: >-
+      https://github.com/mozilla/sops/releases/download/v%version%/sops-v%version%.{{ ansible_system | lower}}
+    version: 3.7.1
+    install_command: >-
+      mv %downloaded% %install_directory%/sops &&
+      chmod +x %install_directory%/sops
+    version_command: "sops -v"
+  -
+    name: krew
+    url: >-
+      https://github.com/kubernetes-sigs/krew/releases/download/v%version%/krew.tar.gz
+    version: 0.4.1
+    version_command: >-
+      {{ ansible_env.HOME }}/.krew/bin/kubectl-krew version
+    install_command: >-
+      tar xfz  %downloaded% -C /tmp &&
+      cd /tmp && ./krew-{{ ansible_system | lower }}_amd64 install krew
+  -
+    name: clusterapi
+    url: >-
+      https://github.com/kubernetes-sigs/cluster-api/releases/download/v%version%/clusterctl-{{ ansible_system | lower}}-amd64
+    version: 0.3.19
+    install_command: >-
+      mv %downloaded% %install_directory%/clusterctl &&
+      chmod +x %install_directory%/clusterctl
+    version_command: "clusterctl version -o short"
+  -
+    name: packer
+    url: >-
+      https://releases.hashicorp.com/packer/%version%/packer_%version%_linux_amd64.zip
+    version: 1.7.2
+    install_command: >-
+      unzip %downloaded% -d %install_directory%
+    version_command: "packer version"
