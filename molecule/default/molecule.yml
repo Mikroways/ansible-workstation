@@ -1,6 +1,8 @@
 ---
 dependency:
   name: galaxy
+  options:
+    role-file: meta/requirements.yml
 driver:
   name: docker
 platforms:
@@ -8,11 +10,13 @@ platforms:
     image: ubuntu:20.04
     groups:
       - all_local_packages
-  - name: mw-workstation-packages-ubuntu-18.04
-    image: ubuntu:18.04
+  - name: mw-workstation-packages-debian-10
+    image: debian:10
+    env:
+      SUDO_GROUP: sudo
     groups:
       - all_local_packages
-  - name: mw-workstation-local-packages-ubuntu-20.04
+  - name: mw-workstation-local-packages
     image: ubuntu:20.04
     groups:
       - only_local_packages
@@ -22,8 +26,9 @@ provisioner:
     group_vars:
       all:
         ansible_user: ansible
-    host_vars:
-      mw-workstation-local-packages-ubuntu-20.04:
+        mw_docker_enabled: false
+        mw_podman_enabled: false
+      only_local_packages:
         mw_workstation_local_packages_only:
           - kubectl
           - helm

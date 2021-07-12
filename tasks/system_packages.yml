@@ -26,3 +26,31 @@
     name: "{{ mw_workstation_packages }}"
     state: present
   become: true
+- 
+  name: Setup configured locale
+  locale_gen:
+    name: "{{ item }}"
+    state: present
+  become: true
+  tags:
+    - locales
+  with_items: "{{ mw_locales }}"
+-
+  name: Install docker
+  import_role:
+    name: geerlingguy.docker
+  become: true
+  vars:
+    docker_users: "{{ mw_docker_users }}"
+    docker_install_compose: "{{ mw_docker_compose_enabled }}"
+  when: mw_docker_enabled
+  tags:
+    - docker
+-
+  name: Install podman
+  import_role:
+    name: alvistack.podman
+  become: true
+  when: mw_podman_enabled
+  tags:
+    - podman

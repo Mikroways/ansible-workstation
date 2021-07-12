@@ -28,14 +28,14 @@
         dir: ../../defaults
         name: role_vars
     - name: "Verify installed packages"
-      command: "{{ item.version_command }}"
+      command: "{{ item }}"
       register: cmd
-      failed_when: cmd.rc != 0 or item.version not in cmd.stdout
+      failed_when: cmd.rc != 0
       changed_when: false
       environment:
         PATH: "{{ role_vars.mw_workstation_local_install_directory }}:{{ ansible_env.PATH }}"
       loop: 
-        - kubectl
-        - helm
+        - kubectl version --client --short
+        - helm version --short
       loop_control:
         label: "{{ item.name }} is version {{ item.version }}"

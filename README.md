@@ -12,7 +12,9 @@ por sí solo no es suficiente. Quien complementa este role, es el role
 
 ## Requerimientos
 
-No posee
+Este role depende de dos roles para la instalación de docker y podman. Sin
+embargo, el role ya instala dichos roles porque se han definido como
+requerimientos de éste.
 
 ## Variables
 
@@ -56,3 +58,13 @@ Luego, en un playbook es posible invocar el role usando:
         name: mikroways.mw_workstation_local_packages
       become: true
 ```
+
+## Nota sobre Pop!_OS
+
+Si se desea utilizar en una distribución basada en este sistema operativo,
+entonces debe setearse `ansible_distribution` a Ubuntu:
+
+```
+ansible-playbook ... -e ansible_distribution=Ubuntu
+```
+

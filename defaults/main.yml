@@ -1,4 +1,15 @@
 ---
+mw_docker_enabled: true
+mw_docker_compose_enabled: true
+mw_docker_users:
+  - "{{ ansible_user }}"
+
+mw_podman_enabled: true
+
+mw_locales:
+  - es_ES.UTF-8
+  - es_AR.UTF-8
+  - en_US.UTF-8
 
 # System packages can be modified with vars/{{ ansible_distribution }}.yml
 

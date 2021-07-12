@@ -22,9 +22,9 @@ RUN if [ $(command -v apt-get) ]; then export DEBIAN_FRONTEND=noninteractive && 
     elif [ $(command -v xbps-install) ]; then xbps-install -Syu && xbps-install -y python3 sudo bash ca-certificates iproute2 && xbps-remove -O; fi
 
 # Create `ansible` user
-ENV ANSIBLE_USER=ansible SUDO_GROUP=admin
+ENV ANSIBLE_USER=ansible SUDO_GROUP=${SUDO_GROUP:-admin}
 RUN set -xe \
-  && groupadd ${SUDO_GROUP} \
+  && groupadd ${SUDO_GROUP} || true \
   && groupadd -r ${ANSIBLE_USER} \
   && useradd -m -g ${ANSIBLE_USER} -G ${SUDO_GROUP} ${ANSIBLE_USER} \
   && sed -i "/^%${SUDO_GROUP}/s/ALL\$/NOPASSWD:ALL/g" /etc/sudoers
