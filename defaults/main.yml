@@ -31,7 +31,7 @@ mw_workstation_local_packages:
     version_command: "kubectl version --client --short"
   -
     name: helm
-    version: v3.5.3
+    version: v3.6.2
     url: >-
       https://get.helm.sh/helm-%version%-{{ ansible_system | lower }}-amd64.tar.gz
     install_command: >-
@@ -40,7 +40,7 @@ mw_workstation_local_packages:
     version_command: "helm version --short"
   -
     name: kubetail
-    version: 1.6.12
+    version: 1.6.13
     url: https://raw.githubusercontent.com/johanhaleby/kubetail/%version%/kubetail
     install_command: >-
       mv %downloaded% %install_directory%/kubetail && 
@@ -90,14 +90,14 @@ mw_workstation_local_packages:
     name: govc
     url: >-
       https://github.com/vmware/govmomi/releases/download/v%version%/govc_{{ansible_system}}_x86_64.tar.gz
-    version: 0.25.0
+    version: 0.26.0
     install_command: "tar xfz %downloaded% -C %install_directory% govc"
     version_command: "govc version"
   -
     name: helmfile
     url: >-
       https://github.com/roboll/helmfile/releases/download/v%version%/helmfile_{{ansible_system | lower}}_amd64
-    version: 0.138.7
+    version: 0.139.9
     install_command: >-
       mv %downloaded% %install_directory%/helmfile &&
       chmod +x %install_directory%/helmfile
@@ -106,7 +106,7 @@ mw_workstation_local_packages:
     name: kind
     url: >-
       https://github.com/kubernetes-sigs/kind/releases/download/v%version%/kind-{{ansible_system | lower}}-amd64
-    version: 0.10.0
+    version: 0.11.1
     install_command: >-
       mv %downloaded% %install_directory%/kind &&
       chmod +x %install_directory%/kind
@@ -124,7 +124,7 @@ mw_workstation_local_packages:
     name: kustomize
     url: >-
       https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv%version%/kustomize_v%version%_{{ansible_system | lower}}_amd64.tar.gz
-    version: 4.1.2
+    version: 4.2.0
     install_command: "tar xfz %downloaded% -C %install_directory%"
     version_command: "kustomize version"
   -
@@ -140,7 +140,7 @@ mw_workstation_local_packages:
     name: velero
     url: >-
       https://github.com/vmware-tanzu/velero/releases/download/v%version%/velero-v%version%-{{ ansible_system | lower }}-amd64.tar.gz
-    version: 1.6.0
+    version: 1.6.1
     install_command: >-
       tar fxz %downloaded% -C /tmp && mv /tmp/velero-*/velero %install_directory%
     version_command: "velero version --client-only"
@@ -148,7 +148,7 @@ mw_workstation_local_packages:
     name: terraform-switch
     url: >-
       https://github.com/warrensbox/terraform-switcher/releases/download/%version%/terraform-switcher_%version%_{{ansible_system | lower}}_amd64.tar.gz
-    version: 0.11.1071
+    version: 0.12.1119
     install_command: "tar xfz %downloaded% -C %install_directory%"
     version_command: "tfswitch -v"
   -
@@ -174,7 +174,7 @@ mw_workstation_local_packages:
     name: clusterapi
     url: >-
       https://github.com/kubernetes-sigs/cluster-api/releases/download/v%version%/clusterctl-{{ ansible_system | lower}}-amd64
-    version: 0.3.19
+    version: 0.3.20
     install_command: >-
       mv %downloaded% %install_directory%/clusterctl &&
       chmod +x %install_directory%/clusterctl
@@ -183,7 +183,7 @@ mw_workstation_local_packages:
     name: packer
     url: >-
       https://releases.hashicorp.com/packer/%version%/packer_%version%_linux_amd64.zip
-    version: 1.7.2
+    version: 1.7.3
     install_command: >-
       unzip %downloaded% -d %install_directory%
     version_command: "packer version"
