@@ -1,5 +1,5 @@
-roles:
-  - name: geerlingguy.docker
-    version: 3.1.2
-  - name: alvistack.podman
-    version: 5.0.6
+---
+- name: geerlingguy.docker
+  version: 3.1.2
+- name: alvistack.podman
+  version: 5.0.6

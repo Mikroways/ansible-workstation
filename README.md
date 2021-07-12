@@ -41,8 +41,8 @@ contenido:
 
 ```yaml
 # from GitLab or other git-based scm
-- name: mikroways.mw_workstation_local_packages
-  src: git@gitlab.com:mikroways/ansible/mw-workstation-local-packages.git
+- name: mikroways.mw_workstation_packages
+  src: git@gitlab.com:mikroways/ansible/mw-workstation-packages.git
   scm: git
   version: "1.0.0" 
 ```
