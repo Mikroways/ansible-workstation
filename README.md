@@ -24,14 +24,17 @@ talentos, sino además para VMs que serán bastión, a veces no necesitamos toda
 las herramientas requeridas para el día a día. Es por ello, que proveemos las
 siguientes variables que pueden modificarse:
 
-* **`mw_workstation_local_install_directory`:** directorio donde se instalarán las herramientas de Mikroways. No se espera un directorio del sistema, sino un directorio relativo al usuario que lo vaya a usar. Por default el valor es `"{{ ansible_env.HOME }}/.mikroways/bin`.
+* **`mw_workstation_local_install_directory`:** directorio donde se instalarán
+    las herramientas de Mikroways. No se espera un directorio del sistema, sino
+    un directorio relativo al usuario que lo vaya a usar. Por default el valor
+    es `"{{ ansible_env.HOME }}/.mikroways/bin`.
 * **`mw_workstation_local_packages_only`:**  lista de qué local packages
   instalar únicamente. Como se menciona arriba, esta variable puede usarse para
-sólo instalar paquetes usados desde un bastión y no todas las herramientas. Por
-defecto el valor es `[]` indicando que se instale todo.
+  sólo instalar paquetes usados desde un bastión y no todas las herramientas. Por
+  defecto el valor es `[]` indicando que se instale todo.
 * **`mw_workstation_local_packages:`** lista de paquetes a descargar e
   indicaciones de cómo instalarlo. Puede verse el archivo `default/main.yml`
-para comprender el formato.
+  para comprender el formato.
 
 
 ## Ejemplo
