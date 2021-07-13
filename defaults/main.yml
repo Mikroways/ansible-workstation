@@ -187,3 +187,11 @@ mw_workstation_local_packages:
     install_command: >-
       unzip %downloaded% -d %install_directory%
     version_command: "packer version"
+  -
+    name: hugo
+    url: >-
+      https://github.com/gohugoio/hugo/releases/download/v%version%/hugo_extended_%version%_{{ ansible_system }}-64bit.tar.gz
+    version: 0.85.0
+    install_command: >-
+      tar xfz %downloaded% -C %install_directory% hugo
+    version_command: "hugo version"
