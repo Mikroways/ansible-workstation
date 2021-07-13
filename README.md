@@ -36,6 +36,8 @@ siguientes variables que pueden modificarse:
   indicaciones de cómo instalarlo. Puede verse el archivo `default/main.yml`
   para comprender el formato.
 
+Los paquetes del sistema se cargan desde el directorio `vars/` dependiendo del
+OS en custión. Los paquetes pueden verse ingresando a tal directorio
 
 ## Ejemplo
 
