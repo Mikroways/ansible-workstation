@@ -1,6 +1,9 @@
 ---
 # defaults file for workstation_packages
-mw_workstation_repositories: []
+mw_workstation_apt_keys:
+  - https://apt.releases.hashicorp.com/gpg
+mw_workstation_repositories:
+  - repo: deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
 mw_workstation_packages:
   - locales
   - bzip2
@@ -25,7 +28,9 @@ mw_workstation_packages:
   - sshuttle
   - dnsutils
   - ppp
+  - nextcloud-desktop-cmd
   - haveged
   - asciinema
   - tree
   - uidmap
+  - vagrant

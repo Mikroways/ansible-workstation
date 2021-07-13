@@ -19,7 +19,14 @@
         name: python-apt
         state: present
     -
+      name: Add Apt keys
+      apt_key:
+        url: "{{ item }}"
+        state: present
+      loop: "{{ mw_workstation_apt_keys }}"
+    -
       name: Add repositories
       apt_repository:
-        repo: "{{ item }}"
+        repo: "{{ item.repo }}"
+        codename: "{{ item.codename | d() }}"
       loop: "{{ mw_workstation_repositories }}"
