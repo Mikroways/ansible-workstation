@@ -58,8 +58,7 @@ Luego, en un playbook es posible invocar el role usando:
   gather_facts: true
   tasks:
     - import_role:
-        name: mikroways.mw_workstation_local_packages
-      become: true
+        name: mikroways.mw_workstation_packages
 ```
 
 ## Nota sobre Pop!_OS
