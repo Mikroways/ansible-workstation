@@ -174,7 +174,7 @@ mw_workstation_local_packages:
     name: clusterapi
     url: >-
       https://github.com/kubernetes-sigs/cluster-api/releases/download/v%version%/clusterctl-{{ ansible_system | lower}}-amd64
-    version: 0.3.20
+    version: 0.3.22
     install_command: >-
       mv %downloaded% %install_directory%/clusterctl &&
       chmod +x %install_directory%/clusterctl
@@ -183,7 +183,7 @@ mw_workstation_local_packages:
     name: packer
     url: >-
       https://releases.hashicorp.com/packer/%version%/packer_%version%_linux_amd64.zip
-    version: 1.7.3
+    version: 1.7.4
     install_command: >-
       unzip %downloaded% -d %install_directory%
     version_command: "packer version"
