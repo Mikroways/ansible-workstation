@@ -161,6 +161,16 @@ mw_workstation_local_packages:
       chmod +x %install_directory%/sops
     version_command: "sops -v"
   -
+    name: age
+    url: >-
+      https://github.com/FiloSottile/age/releases/download/v%version%/age-v%version%-{{ ansible_system | lower}}-amd64.tar.gz
+    version: 1.0.0
+    install_command: >-
+      tar fxz %downloaded% -C /tmp &&
+      mv /tmp/age/age* %install_directory% &&
+      chmod +x %install_directory%/age*
+    version_command: "age --version"
+  -
     name: krew
     url: >-
       https://github.com/kubernetes-sigs/krew/releases/download/v%version%/krew.tar.gz
