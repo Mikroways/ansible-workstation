@@ -72,3 +72,20 @@ entonces debe setearse `ansible_distribution` a Ubuntu:
 ansible-playbook ... -e ansible_distribution=Ubuntu
 ```
 
+## Probando con molecule
+
+Este playbook se integra con CI/CD de gitlab. Corre molecule con docker. Sin
+embargo, si queremos verificar que los roles que instalan docker y podman
+funcionan de forma adecuada, localmente podemos usar:
+
+```
+pip install molecule-vagrant python-vagrant
+```
+
+Luego, podemos correr:
+
+```
+molecule test -s vagrant
+```
+
+> O sólo converge

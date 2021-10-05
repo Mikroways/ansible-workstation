@@ -75,7 +75,7 @@ mw_workstation_local_packages:
     name: yq
     url: >-
       https://github.com/mikefarah/yq/releases/download/v%version%/yq_{{ansible_system | lower}}_amd64
-    version: 4.7.1
+    version: 4.13.3
     install_command: >-
       mv %downloaded% %install_directory%/yq &&
       chmod +x %install_directory%/yq

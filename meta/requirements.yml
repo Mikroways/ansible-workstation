@@ -1,5 +1,5 @@
 ---
 - name: geerlingguy.docker
-  version: 3.1.2
+  version: 4.1.0
 - name: alvistack.podman
-  version: 5.0.6
+  version: 5.2.2
