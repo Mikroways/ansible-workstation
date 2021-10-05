@@ -19,6 +19,7 @@ mw_workstation_packages:
   - git
   - git-extras
   - git-flow
+  - git-lfs
   - vim
   - vim-gtk3
   - tmux

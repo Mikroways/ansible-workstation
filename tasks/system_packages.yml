@@ -43,6 +43,7 @@
   vars:
     docker_users: "{{ mw_docker_users }}"
     docker_install_compose: "{{ mw_docker_compose_enabled }}"
+    docker_compose_version: "{{ mw_docker_compose_version }}"
   when: mw_docker_enabled
   tags:
     - docker

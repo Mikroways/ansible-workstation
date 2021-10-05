@@ -1,6 +1,7 @@
 ---
 mw_docker_enabled: true
 mw_docker_compose_enabled: true
+mw_docker_compose_version: "1.27.0"
 mw_docker_users:
   - "{{ ansible_user }}"
 

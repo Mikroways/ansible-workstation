@@ -1,0 +1,26 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: meta/requirements.yml
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+platforms:
+  - name: ubuntu-20
+    box: ubuntu/focal64
+provisioner:
+  name: ansible
+  inventory:
+    group_vars:
+      all:
+        ansible_user: vagrant
+        mw_docker_enabled: true
+        mw_podman_enabled: true
+verifier:
+  name: ansible
+lint: |
+  set -e
+  yamllint .
+  ansible-lint .
