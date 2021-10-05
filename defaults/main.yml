@@ -51,7 +51,7 @@ mw_workstation_local_packages:
     version: 2.2.1
     url: https://awscli.amazonaws.com/awscli-exe-{{ ansible_system | lower }}-x86_64-%version%.zip
     install_command: >-
-      unzip %downloaded% -d /tmp &&
+      unzip -o %downloaded% -d /tmp &&
       /tmp/aws/install -i ~/.aws-cli -b %install_directory%/ -u
     version_command: "aws --version"
   -
@@ -193,9 +193,9 @@ mw_workstation_local_packages:
     name: packer
     url: >-
       https://releases.hashicorp.com/packer/%version%/packer_%version%_linux_amd64.zip
-    version: 1.7.4
+    version: 1.7.6
     install_command: >-
-      unzip %downloaded% -d %install_directory%
+      unzip -o %downloaded% -d %install_directory%
     version_command: "packer version"
   -
     name: hugo
