@@ -36,3 +36,4 @@ mw_workstation_packages:
   - tree
   - uidmap
   - vagrant
+  - gopls
