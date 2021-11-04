@@ -22,7 +22,6 @@ mw_workstation_packages:
   - git-flow
   - git-lfs
   - vim
-  - vim-gtk3
   - tmux
   - openfortivpn
   - openconnect
