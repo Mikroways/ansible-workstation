@@ -175,7 +175,7 @@ mw_workstation_local_packages:
     name: krew
     url: >-
       https://github.com/kubernetes-sigs/krew/releases/download/v%version%/krew.tar.gz
-    version: 0.4.1
+    version: 0.4.2
     version_command: >-
       {{ ansible_env.HOME }}/.krew/bin/kubectl-krew version
     install_command: >-
