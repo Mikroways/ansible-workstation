@@ -181,7 +181,7 @@ mw_workstation_local_packages:
     install_command: >-
       tar xfz  %downloaded% -C /tmp &&
       cd /tmp && ./krew-{{ ansible_system | lower }}_amd64 install krew &&
-      ./krew-{{ ansible_system | lower }}_amd64 upgrade krew
+      ./krew-{{ ansible_system | lower }}_amd64 upgrade krew || true
   -
     name: clusterapi
     url: >-

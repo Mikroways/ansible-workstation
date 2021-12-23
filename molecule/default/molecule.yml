@@ -10,8 +10,18 @@ platforms:
     image: ubuntu:20.04
     groups:
       - all_local_packages
+  - name: mw-workstation-packages-ubuntu-21.10
+    image: ubuntu:21.10
+    groups:
+      - all_local_packages
   - name: mw-workstation-packages-debian-10
     image: debian:10
+    env:
+      SUDO_GROUP: sudo
+    groups:
+      - all_local_packages
+  - name: mw-workstation-packages-debian-11
+    image: debian:11
     env:
       SUDO_GROUP: sudo
     groups:
