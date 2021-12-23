@@ -10,6 +10,10 @@ driver:
 platforms:
   - name: ubuntu-20
     box: ubuntu/focal64
+  - name: ubuntu-21.10
+    box: ubuntu/impish64
+  - name: debian-11
+    box: debian/bullseye64
 provisioner:
   name: ansible
   inventory:
