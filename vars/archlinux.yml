@@ -1,0 +1,28 @@
+---
+# defaults file for workstation_packages
+
+mw_workstation_packages:
+  - bzip2
+  - python
+  - openssh
+  - wget
+  - curl
+  - nmap
+  - jq
+  - unzip
+  - yamllint
+  - git
+  - git-lfs
+  - vim
+  - tmux
+  - openfortivpn
+  - openconnect
+  - shellcheck
+  - sshuttle
+  - dnsutils
+  - ppp
+  - nextcloud-client
+  - haveged
+  - asciinema
+  - tree
+  - vagrant

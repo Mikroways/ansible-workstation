@@ -1,0 +1,10 @@
+---
+- name: Update apt packages
+  become: true
+  block:
+    -
+        name: Install base-devel and git
+        package:
+          name: "base-devel git"
+          state: present
+        become: true
