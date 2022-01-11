@@ -26,3 +26,4 @@ mw_workstation_packages:
   - asciinema
   - tree
   - vagrant
+  - swaks
