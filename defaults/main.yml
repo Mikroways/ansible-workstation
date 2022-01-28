@@ -210,8 +210,8 @@ mw_workstation_local_packages:
   -
     name: tgswitch
     url: >-
-      https://github.com/warrensbox/tgswitch/releases/download/%version%/tgswitch_%version%_{{ ansible_system }}64.tar.gz
+      https://github.com/warrensbox/tgswitch/releases/download/%version%/tgswitch_%version%_{{ ansible_system | lower }}_amd64.tar.gz
     version: 0.5.382
     install_command: >-
       tar xfz %downloaded% -C %install_directory% tgswitch
-    version_command: "tgswitch version"
+    version_command: "tgswitch -v"
