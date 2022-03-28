@@ -14,7 +14,8 @@ por sí solo no es suficiente. Quien complementa este role, es el role
 
 Este role depende de dos roles para la instalación de docker y podman. Sin
 embargo, el role ya instala dichos roles porque se han definido como
-requerimientos de éste.
+requerimientos de éste. Ademas el role depende de un rol para la configuracion
+del proxy HTTP/HTTPS, aunque esta instalacion es opcional.
 
 ## Variables
 
@@ -72,6 +73,26 @@ entonces debe setearse `ansible_distribution` a Ubuntu:
 ansible-playbook ... -e ansible_distribution=Ubuntu
 ```
 
+## Nota sobre configuracion de Proxy HTTP/HTTPS
+
+En el caso de que la estacion de trabajo este detras de un proxy HTTP/HTTPS se
+deberan agregar las siguientes variables de entorno de la siguiente forma.
+
+```yaml
+- name: Some useful playbook
+  hosts: all
+  gather_facts: true
+  tasks:
+    - import_role:
+        name: mikroways.mw_workstation_packages
+  vars:
+    mw_proxy_enabled: true
+    mw_proxy_settings_http_proxy: 'http://myuser:mypassword@px01.example.com:3128'
+    mw_proxy_settings_https_proxy: 'http://px01.example.com:3128'
+    mw_proxy_settings_no_proxy: 'example.com,192.168.122.1'
+    mw_proxy_settings_ftp_proxy: 'http://proxy.example.com:8080'
+```
+
 ## Probando con molecule
 
 Este playbook se integra con CI/CD de gitlab. Corre molecule con docker. Sin
@@ -88,4 +109,11 @@ Luego, podemos correr:
 molecule test -s vagrant
 ```
 
-> O sólo converge
+> O converge de la siguiente forma:
+
+```
+# Para crear las instancias y correr el playbook
+molecule converge -s vagrant
+# Al finalizar
+molecule destroy -s vagrant
+```
