@@ -238,7 +238,7 @@ mw_workstation_local_packages:
       https://github.com/prometheus/alertmanager/releases/download/v%version%/alertmanager-%version%.{{ ansible_system | lower }}-amd64.tar.gz
     version: 0.24.0
     install_command: >-
-      tar xfz %downloaded% -C %install_directory% amtool
+      tar xfz %downloaded% -C %install_directory% alertmanager-%version%.{{ ansible_system | lower }}-amd64/amtool --strip-components=1
     version_command: "amtool --version"
   -
     name: promtool
@@ -246,5 +246,5 @@ mw_workstation_local_packages:
       https://github.com/prometheus/prometheus/releases/download/v%version%/prometheus-%version%.{{ ansible_system | lower }}-amd64.tar.gz
     version: 2.34.0
     install_command: >-
-      tar xfz %downloaded% -C %install_directory% promtool
+      tar xfz %downloaded% -C %install_directory% prometheus-%version%.{{ ansible_system | lower }}-amd64/promtool --strip-components=1
     version_command: "promtool --version"
