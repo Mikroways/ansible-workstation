@@ -17,10 +17,12 @@
         install_directory: "{{ mw_workstation_local_install_directory }}"
         install_command: >-
           {{ item.install_command | replace('%install_directory%',
-              mw_workstation_local_install_directory) }}
+              mw_workstation_local_install_directory) |
+              replace('%version%', item.version) }}
         version_command: >-
           {{ item.version_command | replace('%install_directory%',
-              mw_workstation_local_install_directory) }}
+              mw_workstation_local_install_directory) |
+              replace('%version%', item.version) }}
       when: (mw_workstation_local_packages_only | length == 0) or
         ( mw_workstation_local_packages_only | length > 0 and
           item.name in mw_workstation_local_packages_only )

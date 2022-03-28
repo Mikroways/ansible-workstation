@@ -183,10 +183,19 @@ mw_workstation_local_packages:
       cd /tmp && ./krew-{{ ansible_system | lower }}_amd64 install krew &&
       ./krew-{{ ansible_system | lower }}_amd64 upgrade krew || true
   -
-    name: clusterapi
+    name: clusterapi-0.3.22
     url: >-
       https://github.com/kubernetes-sigs/cluster-api/releases/download/v%version%/clusterctl-{{ ansible_system | lower}}-amd64
     version: 0.3.22
+    install_command: >-
+      mv %downloaded% %install_directory%/clusterctl-%version% &&
+      chmod +x %install_directory%/clusterctl-%version%
+    version_command: "clusterctl-%version% version -o short"
+  -
+    name: clusterapi
+    url: >-
+      https://github.com/kubernetes-sigs/cluster-api/releases/download/v%version%/clusterctl-{{ ansible_system | lower}}-amd64
+    version: 1.1.3
     install_command: >-
       mv %downloaded% %install_directory%/clusterctl &&
       chmod +x %install_directory%/clusterctl
@@ -215,3 +224,27 @@ mw_workstation_local_packages:
     install_command: >-
       tar xfz %downloaded% -C %install_directory% tgswitch
     version_command: "tgswitch -v"
+  -
+    name: mc
+    url: https://dl.min.io/client/mc/release/linux-amd64/mc
+    version: RELEASE.2022-03-17T20-25-06Z
+    install_command: >-
+      chmod +x %downloaded% &&
+      mv %downloaded% %install_directory%/mc
+    version_command: "mc -v"
+  -
+    name: amtool
+    url: >-
+      https://github.com/prometheus/alertmanager/releases/download/v%version%/alertmanager-%version%.{{ ansible_system | lower }}-amd64.tar.gz
+    version: 0.24.0
+    install_command: >-
+      tar xfz %downloaded% -C %install_directory% amtool
+    version_command: "amtool --version"
+  -
+    name: promtool
+    url: >-
+      https://github.com/prometheus/prometheus/releases/download/v%version%/prometheus-%version%.{{ ansible_system | lower }}-amd64.tar.gz
+    version: 2.34.0
+    install_command: >-
+      tar xfz %downloaded% -C %install_directory% promtool
+    version_command: "promtool --version"
