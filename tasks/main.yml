@@ -1,5 +1,9 @@
 ---
 -
+  name: Configure proxy
+  include_tasks: proxy_configure.yml
+  tags: proxy_configure
+-
   name: Install system packages
   include_tasks: system_packages.yml
   tags: system_packages
