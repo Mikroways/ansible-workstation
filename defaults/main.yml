@@ -49,14 +49,6 @@ mw_workstation_local_packages:
      mv /tmp/{{ ansible_system | lower }}-amd64/helm %install_directory%
     version_command: "helm version --short"
   -
-    name: kubetail
-    version: 1.6.13
-    url: https://raw.githubusercontent.com/johanhaleby/kubetail/%version%/kubetail
-    install_command: >-
-      mv %downloaded% %install_directory%/kubetail && 
-      chmod +x %install_directory%/kubetail
-    version_command: "kubetail -v"
-  -
     name: aws-cli
     version: 2.2.1
     url: https://awscli.amazonaws.com/awscli-exe-{{ ansible_system | lower }}-x86_64-%version%.zip
