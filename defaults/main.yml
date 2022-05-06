@@ -228,8 +228,7 @@ mw_workstation_local_packages:
   -
     name: mc
     url: https://dl.min.io/client/mc/release/linux-amd64/mc
-    version: RELEASE
-
+    version: RELEASE.2022-05
     install_command: >-
       chmod +x %downloaded% &&
       mv %downloaded% %install_directory%/mc
