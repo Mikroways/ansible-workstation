@@ -274,3 +274,19 @@ mw_workstation_local_packages:
     install_command: >-
       tar xfz %downloaded% -C %install_directory% sonobuoy
     version_command: "sonobuoy version --short"
+  -
+    name: certinfo
+    url: >-
+      https://github.com/pete911/certinfo/releases/download/v%version%/certinfo_%version%_{{ ansible_system | lower }}_amd64.tar.gz 
+    version: 1.0.6
+    install_command: >-
+      tar xfz %downloaded% -C %install_directory% certinfo
+    version_command: "certinfo --version"
+  -
+    name: telepresence
+    url: >-
+      https://app.getambassador.io/download/tel2/linux/amd64/2.5.8/telepresence 
+    version: 2.5.8
+    install_command: >-
+      chmod +x %downloaded% && mv %downloaded% %install_directory%/telepresence
+    version_command: "telepresence version"
