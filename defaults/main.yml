@@ -297,4 +297,4 @@ mw_workstation_local_packages:
     version: 4.6
     install_command: >-
       tar xfz %downloaded% -C %install_directory% oc
-    version_command: "oc version --short --client"
+    version_command: "oc version --client"
