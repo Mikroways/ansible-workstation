@@ -150,7 +150,7 @@ mw_workstation_local_packages:
     name: terraform-switch
     url: >-
       https://github.com/warrensbox/terraform-switcher/releases/download/%version%/terraform-switcher_%version%_{{ansible_system | lower}}_amd64.tar.gz
-    version: 0.12.1119
+    version: 0.13.1221
     install_command: "tar xfz %downloaded% -C %install_directory%"
     version_command: "tfswitch -v"
   -
