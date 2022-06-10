@@ -2,6 +2,6 @@
 - name: geerlingguy.docker
   version: 4.1.1
 - name: alvistack.podman
-  version: 5.3.6
+  version: 5.9.0
 - name: ruzickap.proxy_settings
   version: v0.1.3
