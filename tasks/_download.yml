@@ -7,7 +7,7 @@
 - name: "Check whether {{ name }} is installed"
   command: "{{ version_command }}"
   register: need_install
-  ignore_errors: yes
+  ignore_errors: true
   changed_when: false
 
   environment:
@@ -24,12 +24,13 @@
       get_url:
         url: "{{ url }}"
         dest: "{{ tempfile.path }}"
-        force: yes
+        force: true
 
     - name: "Install {{ name }}"
       shell: >-
         set -eo pipefail &&
         {{ install_command | replace('%downloaded%', tempfile.path) }}
+      changed_when: false
       args:
         executable: /bin/bash
 
@@ -41,8 +42,7 @@
     - name: "Check {{ name }} installed"
       command: "{{ version_command }}"
       register: just_installed
-      failed_when: 
-        just_installed.rc != 0 or
+      failed_when: just_installed.rc != 0 or
           ( just_installed.rc == 0 and version not in just_installed.stdout )
       changed_when: false
       environment:

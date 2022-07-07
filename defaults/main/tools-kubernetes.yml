@@ -1,0 +1,105 @@
+---
+workstation_kubernetes_tools:
+  -
+    name: kubectl
+    version: v1.24.2
+    url: >-
+      https://dl.k8s.io/release/%version%/bin/{{ ansible_system | lower}}/amd64/kubectl
+    install_command: >-
+      chmod +x %downloaded% &&
+      mv %downloaded% %install_directory%/kubectl
+    version_command: "kubectl version --client --short"
+  -
+    name: helm
+    version: v3.9.0
+    url: >-
+      https://get.helm.sh/helm-%version%-{{ ansible_system | lower }}-amd64.tar.gz
+    install_command: >-
+     tar xfz %downloaded% -C /tmp &&
+     mv /tmp/{{ ansible_system | lower }}-amd64/helm %install_directory%
+    version_command: "helm version --short"
+  -
+    name: helmfile
+    url: >-
+      https://github.com/helmfile/helmfile/releases/download/v%version%/helmfile_%version%_{{ansible_system | lower}}_amd64.tar.gz
+    version: 0.145.0
+    install_command: >-
+      tar xfz %downloaded% -C %install_directory% helmfile
+    version_command: "helmfile version"
+  -
+    name: kind
+    url: >-
+      https://github.com/kubernetes-sigs/kind/releases/download/v%version%/kind-{{ansible_system | lower}}-amd64
+    version: 0.11.1
+    install_command: >-
+      mv %downloaded% %install_directory%/kind &&
+      chmod +x %install_directory%/kind
+    version_command: "kind version"
+  -
+    name: kustomize
+    url: >-
+      https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv%version%/kustomize_v%version%_{{ansible_system | lower}}_amd64.tar.gz
+    version: 4.2.0
+    install_command: "tar xfz %downloaded% -C %install_directory%"
+    version_command: "kustomize version"
+  -
+    name: velero
+    url: >-
+      https://github.com/vmware-tanzu/velero/releases/download/v%version%/velero-v%version%-{{ ansible_system | lower }}-amd64.tar.gz
+    version: 1.6.1
+    install_command: >-
+      tar fxz %downloaded% -C /tmp && mv /tmp/velero-*/velero %install_directory%
+    version_command: "velero version --client-only"
+  -
+    name: krew
+    url: >-
+      https://github.com/kubernetes-sigs/krew/releases/download/v%version%/krew-{{ ansible_system | lower }}_amd64.tar.gz
+    version: 0.4.3
+    version_command: >-
+      {{ ansible_env.HOME }}/.krew/bin/kubectl-krew version
+    install_command: >-
+      tar xfz  %downloaded% -C /tmp &&
+      cd /tmp && ./krew-{{ ansible_system | lower }}_amd64 install krew &&
+      ./krew-{{ ansible_system | lower }}_amd64 upgrade krew || true
+  -
+    name: clusterapi-0.3.22
+    url: >-
+      https://github.com/kubernetes-sigs/cluster-api/releases/download/v%version%/clusterctl-{{ ansible_system | lower}}-amd64
+    version: 0.3.22
+    install_command: >-
+      mv %downloaded% %install_directory%/clusterctl-%version% &&
+      chmod +x %install_directory%/clusterctl-%version%
+    version_command: "clusterctl-%version% version -o short"
+  -
+    name: clusterapi
+    url: >-
+      https://github.com/kubernetes-sigs/cluster-api/releases/download/v%version%/clusterctl-{{ ansible_system | lower}}-amd64
+    version: 1.1.3
+    install_command: >-
+      mv %downloaded% %install_directory%/clusterctl &&
+      chmod +x %install_directory%/clusterctl
+    version_command: "clusterctl version -o short"
+  -
+    name: sonobuoy
+    url: >-
+      https://github.com/vmware-tanzu/sonobuoy/releases/download/v%version%/sonobuoy_%version%_{{ ansible_system | lower }}_amd64.tar.gz
+    version: 0.56.3
+    install_command: >-
+      tar xfz %downloaded% -C %install_directory% sonobuoy
+    version_command: "sonobuoy version --short"
+  -
+    name: telepresence
+    url: >-
+      https://app.getambassador.io/download/tel2/linux/amd64/2.5.8/telepresence
+    version: 2.5.8
+    install_command: >-
+      chmod +x %downloaded% && mv %downloaded% %install_directory%/telepresence
+    version_command: "telepresence version"
+  -
+    name: oc
+    url: >-
+      https://mirror.openshift.com/pub/openshift-v4/clients/oc/%version%/linux/oc.tar.gz
+    version: 4.6
+    install_command: >-
+      tar xfz %downloaded% -C %install_directory% oc
+    version_command: "oc version --client"

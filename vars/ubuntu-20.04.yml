@@ -1,11 +1,5 @@
 ---
-# defaults file for workstation_packages
-mw_workstation_apt_keys:
-  - https://apt.releases.hashicorp.com/gpg
-mw_workstation_repositories:
-  - repo: ppa:nextcloud-devs/client
-  - repo: deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
-mw_workstation_packages:
+workstation_packages:
   - locales
   - bzip2
   - python3
@@ -36,3 +30,9 @@ mw_workstation_packages:
   - uidmap
   - vagrant
   - swaks
+  - zsh
+
+workstation_apt_keys:
+  - https://apt.releases.hashicorp.com/gpg
+workstation_repositories:
+  - repo: deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main

@@ -1,0 +1,36 @@
+---
+-
+  name: Create binary dir for Mikroways tools
+  file:
+    path: "{{ workstation_tools_install_directory }}"
+    state: directory
+    mode: '0755'
+-
+  name: "Installing {{ item.name }} ({{ item.version }})"
+  include_tasks: _download.yml
+  vars:
+    _item: "{{ item }}"
+    name: "{{ item.name }}"
+    url: "{{item.url | replace('%version%', item.version) }}"
+    version: "{{ item.version }}"
+    install_directory: "{{ workstation_tools_install_directory }}"
+    install_command: >-
+      {{ item.install_command |
+          replace('%install_directory%', workstation_tools_install_directory) |
+          replace('%version%', item.version)
+      }}
+    version_command: >-
+      {{ item.version_command |
+          replace('%install_directory%', workstation_tools_install_directory) |
+          replace('%version%', item.version) }}
+  when: >-
+    ( workstation_tools_only | length == 0 ) or
+    ( workstation_tools_only | length > 0 and
+      item.name in workstation_tools_only )
+  loop: "{{ workstation_tools }}"
+-
+  name: "Install krew plugins"
+  include_tasks: krew-plugins.yml
+-
+  name: "Install helm plugins"
+  include_tasks: helm-plugins.yml

@@ -1,13 +1,35 @@
 ---
 -
   name: Configure proxy
-  include_tasks: proxy_configure.yml
+  import_tasks: proxy_configure.yml
   tags: proxy_configure
 -
   name: Install system packages
-  include_tasks: system_packages.yml
+  import_tasks: system_packages.yml
   tags: system_packages
 -
-  name: Install local packages
-  include_tasks: local_packages.yml
-  tags: local_packages
+  name: Install docker
+  import_role:
+    name: geerlingguy.docker
+  become: true
+  vars:
+    docker_users: "{{ workstation_docker_users }}"
+    docker_install_compose: "{{ workstation_docker_install_compose }}"
+    docker_compose_version: "{{ workstation_docker_compose_version }}"
+  when: workstation_docker_enabled
+  tags:
+    - docker
+-
+  name: Install tools
+  import_tasks: tools.yml
+  tags: tools
+-
+  name: Install language managers
+  import_tasks: language-managers.yml
+  when: workstation_language_managers_enabled
+  tags: language-managers
+-
+  name: Install dotfiles
+  import_tasks: dotfiles.yml
+  when: workstation_dotfiles_enabled
+  tags: dotfiles

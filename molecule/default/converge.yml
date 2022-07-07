@@ -1,7 +1,16 @@
 ---
-- name: Converge
-  hosts: all
+- name: Converge system packages
+  hosts: system_packages
+  roles:
+    - role: mikroways.workstation
+  vars:
+    workstation_docker_enabled: false
+    workstation_tools_only: [kubectl, helm, krew]
+
+- name: Converge tools
+  hosts: tools
   tasks:
-    - name: "Include workstation_packages"
-      include_role:
-        name: "mw-workstation-packages"
+    - name: "Import only tools task from role"
+      ansible.builtin.import_role:
+        name: mikroways.workstation
+        tasks_from: tools.yml

@@ -1,0 +1,42 @@
+---
+workstation_hashicorp_tools:
+  -
+    name: terraform-switch
+    url: >-
+      https://github.com/warrensbox/terraform-switcher/releases/download/%version%/terraform-switcher_%version%_{{ansible_system | lower}}_amd64.tar.gz
+    version: 0.13.1288
+    install_command: "tar xfz %downloaded% -C %install_directory% tfswitch"
+    version_command: "tfswitch -v"
+  -
+    name: tgswitch
+    url: >-
+      https://github.com/warrensbox/tgswitch/releases/download/%version%/tgswitch_%version%_{{ ansible_system | lower }}_amd64.tar.gz
+    version: 0.5.382
+    install_command: >-
+      tar xfz %downloaded% -C %install_directory% tgswitch
+    version_command: "tgswitch -v"
+  -
+    name: tflint
+    url: >-
+      https://github.com/terraform-linters/tflint/releases/download/v%version%/tflint_{{ ansible_system | lower }}_amd64.zip
+    version: 0.35.0
+    install_command: >-
+      unzip -o %downloaded% -d /tmp &&
+      mv /tmp/tflint %install_directory%/tflint
+    version_command: "tflint --version"
+  -
+    name: terraform-docs
+    url: >-
+      https://github.com/terraform-docs/terraform-docs/releases/download/v%version%/terraform-docs-v%version%-linux-amd64.tar.gz
+    version: 0.16.0
+    install_command: >-
+      tar xfz %downloaded% -C %install_directory% terraform-docs
+    version_command: "terraform-docs --version"
+  -
+    name: packer
+    url: >-
+      https://releases.hashicorp.com/packer/%version%/packer_%version%_linux_amd64.zip
+    version: 1.7.6
+    install_command: >-
+      unzip -o %downloaded% -d %install_directory%
+    version_command: "packer version"

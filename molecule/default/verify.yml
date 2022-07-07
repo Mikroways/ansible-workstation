@@ -1,41 +1,45 @@
 ---
 # This is an example playbook to execute Ansible tests.
 
-- name: Verify all packages
-  hosts: all_local_packages
-  gather_facts: true
+- name: Verify
+  hosts: system_packages
+  gather_facts: false
   tasks:
-    - name: "Include role vars"
-      include_vars:
-        dir: ../../defaults
-        name: role_vars
-    - name: "Verify installed packages"
-      command: "{{ item.version_command }}"
-      register: cmd
-      failed_when: cmd.rc != 0 or item.version not in cmd.stdout
-      changed_when: false
-      environment:
-        PATH: "{{ role_vars.mw_workstation_local_install_directory }}:{{ ansible_env.PATH }}"
-      loop: "{{ role_vars.mw_workstation_local_packages }}"
-      loop_control:
-        label: "{{ item.name }} is version {{ item.version }}"
-- name: Verify only some packages
-  hosts: only_local_packages
-  gather_facts: true
-  tasks:
-    - name: "Include role vars"
-      include_vars:
-        dir: ../../defaults
-        name: role_vars
-    - name: "Verify installed packages"
-      command: "{{ item }}"
-      register: cmd
-      failed_when: cmd.rc != 0
-      changed_when: false
-      environment:
-        PATH: "{{ role_vars.mw_workstation_local_install_directory }}:{{ ansible_env.PATH }}"
-      loop: 
-        - kubectl version --client --short
-        - helm version --short
-      loop_control:
-        label: "{{ item.name }} is version {{ item.version }}"
+    - name: "Check kubectl is installed"
+      stat:
+        path: "/home/ansible/.mikroways/bin/kubectl"
+      register: tool
+    - name: "Assert kubectl exists"
+      assert:
+        that:
+          - tool.stat.exists == True
+        success_msg: "jq exists"
+        fail_msg: "jq doesn't exist"
+    - name: "Check if user shell is zsh"
+      shell: "getent passwd {{ ansible_user }} | cut -d: -f7"
+      register: which_shell
+    - name: "Assert shell is zsh"
+      assert:
+        that:
+          - which_shell.rc == 0
+          - which_shell.stdout == "/bin/zsh"
+        success_msg: "zsh is current shell"
+        fail_msg: "zsh is not users shell"
+    - name: "Check if helm plugin is installed"
+      shell: "/home/ansible/.mikroways/bin/helm plugin list | grep secrets"
+      register: helm_plugins
+    - name: "Assert helm plugin installed"
+      assert:
+        that:
+          - helm_plugins.rc == 0
+        success_msg: "helm plugin is present"
+        fail_msg: "helm plugin is not present"
+    - name: "Check if krew plugin is installed"
+      shell: "/home/ansible/.krew/bin/kubectl-krew list | grep popeye"
+      register: krew_plugins
+    - name: "Assert krew plugin installed"
+      assert:
+        that:
+          - krew_plugins.rc == 0
+        success_msg: "krew plugin is present"
+        fail_msg: "krew plugin is not present"

@@ -1,7 +1,6 @@
 ---
-# defaults file for workstation_packages
-
-mw_workstation_packages:
+workstation_packages:
+  - base-devel
   - bzip2
   - python
   - openssh
@@ -27,3 +26,5 @@ mw_workstation_packages:
   - tree
   - vagrant
   - swaks
+  - podman
+  - zsh

@@ -5,13 +5,13 @@
     name: ruzickap.proxy_settings
   become: true
   vars:
-    proxy_settings_http_proxy: "{{ mw_proxy_settings_http_proxy }}"
-    proxy_settings_ftp_proxy: "{{ mw_proxy_settings_ftp_proxy }}"
-    proxy_settings_https_proxy: "{{ mw_proxy_settings_https_proxy }}"
-    proxy_settings_no_proxy: "{{ mw_proxy_settings_no_proxy }}"
-    proxy_settings_yum_proxy: "{{ mw_proxy_settings_yum_proxy }}"
-    proxy_settings_yum_proxy_username: "{{ mw_proxy_settings_yum_proxy_username }}"
-    proxy_settings_yum_proxy_password: "{{ mw_proxy_settings_yum_proxy_password }}"
-  when: mw_proxy_enabled
+    proxy_settings_http_proxy: "{{ workstation_proxy_http }}"
+    proxy_settings_ftp_proxy: "{{ workstation_proxy_ftp }}"
+    proxy_settings_https_proxy: "{{ workstation_proxy_https }}"
+    proxy_settings_no_proxy: "{{ workstation_proxy_no_proxy  }}"
+    proxy_settings_yum_proxy: "{{ workstation_proxy_yum }}"
+    proxy_settings_yum_proxy_username: "{{ workstation_proxy_yum_username }}"
+    proxy_settings_yum_proxy_password: "{{ workstation_proxy_yum_password }}"
+  when: workstation_proxy_enabled
   tags:
     - proxy

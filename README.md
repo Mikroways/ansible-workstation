@@ -1,119 +1,115 @@
-# Role mw-workstation-packages
+# Role mikroways.workstation
 
 Este role instala las herramientas que usamos día a día en Mikroways. Es una
-forma de mantener los workstation de nuestro personal al día, unificando las
-versiones de las aplicaciones que usamos, como así la suite de herramientas que
-debe tener cada talento de Mikroways en su caja de pandora.
+forma de mantener el workstation de nuestros talentos con las versiones de
+aquellas herramientas usadas en el día a día.
 
-Si bien este role instala paquetes del sistema, otros paquetes se instalan en un
-directorio que debe exponerse en el `PATH` para que sea útil. Por tanto, el role
-por sí solo no es suficiente. Quien complementa este role, es el role
-`mikroways.mw_home_environment`.
+En resumen, este role realiza las siguientes tareas:
+
+* Configura el proxy en caso de tener que instalar un equipo en una red
+  restringida al acceso a internet por medio de un proxy.
+* Instala una serie de paquetes del sistema esenciales en nuestros desktops
+* Instala docker y compose.
+* Herramientas varias, que en general corren como un binario que se descarga en
+  el home del usuario y no es una instalación de paquetes del sistema. Estas
+  herramientas no quedarán en el PATH si no se utilizan los dotfiles de
+  Mikroways, por lo que debe tenerse en cuenta este punto.
+* Manejadores de lenguajes que flexibilizan el trabajo con diferentes versiones
+  de distintos lenguajes: go, node, ruby, python.
+* Instala en el usuario que corre el role (y que se asume e sudoer), los
+  dotfiles de Mikroways.
+* Además, se instalan los plugins de helm y krew más usados por nuestros
+  ingenieros DevOps.
 
 ## Requerimientos
 
-Este role depende de dos roles para la instalación de docker y podman. Sin
-embargo, el role ya instala dichos roles porque se han definido como
-requerimientos de éste. Ademas el role depende de un rol para la configuracion
-del proxy HTTP/HTTPS, aunque esta instalacion es opcional.
+Dependemos de los roles especificados en [`meta/requirements.yml`](meta/requirements.yml).
+Por ello, cuando se instale este role, se instalarán los roles que son
+dependencias de forma automática.
 
 ## Variables
 
-Si bien el role ya define los defaults, podemos modificar algunas cuestiones de
-personalización. Como este role no es únicamente para el desktop de nuestros
-talentos, sino además para VMs que serán bastión, a veces no necesitamos todas
-las herramientas requeridas para el día a día. Es por ello, que proveemos las
-siguientes variables que pueden modificarse:
+Las variables se han separado en archivos según la siguiente clasificación:
 
-* **`mw_workstation_local_install_directory`:** directorio donde se instalarán
-    las herramientas de Mikroways. No se espera un directorio del sistema, sino
-    un directorio relativo al usuario que lo vaya a usar. Por default el valor
-    es `"{{ ansible_env.HOME }}/.mikroways/bin`.
-* **`mw_workstation_local_packages_only`:**  lista de qué local packages
-  instalar únicamente. Como se menciona arriba, esta variable puede usarse para
-  sólo instalar paquetes usados desde un bastión y no todas las herramientas. Por
-  defecto el valor es `[]` indicando que se instale todo.
-* **`mw_workstation_local_packages:`** lista de paquetes a descargar e
-  indicaciones de cómo instalarlo. Puede verse el archivo `default/main.yml`
-  para comprender el formato.
+### Docker
 
-Los paquetes del sistema se cargan desde el directorio `vars/` dependiendo del
-OS en custión. Los paquetes pueden verse ingresando a tal directorio
+Estas variables son un wrapper de aquellas usadas por el [role del que
+dependemos](https://github.com/geerlingguy/ansible-role-docker):
 
-## Ejemplo
+| Nombre                               | Default              | Descripción                          |
+| ------------------------------------ | -------------------- | ------------------------------------ |
+| `workstation_docker_enabled`         | `true`               | Instalar el engine docker            |
+| `workstation_docker_install_compose` | `true`               | Instalar docker compose              |
+| `workstation_docker_compose_version` | `2.6.1`              | Versión de compose a instalar        |
+| `workstation_docker_users`           | `{{ ansible_user }}` | Usuarios para interactuar con docker |
 
-Crear un archivo de requerimientos de galaxy `requirements.yml` con el siguiente
-contenido:
+### Locales
 
-```yaml
-# from GitLab or other git-based scm
-- name: mikroways.mw_workstation_packages
-  src: git@gitlab.com:mikroways/ansible/mw-workstation-packages.git
-  scm: git
-  version: "1.0.0" 
-```
+Qué locales instalar en la máquina
 
-Luego, en un playbook es posible invocar el role usando:
 
-```yaml
-- name: Some useful playbook
-  hosts: all
-  gather_facts: true
-  tasks:
-    - import_role:
-        name: mikroways.mw_workstation_packages
-```
+| Nombre                               | Default                           | Descripción |
+| ------------------------------------ | --------------------------------- | ----------- |
+| `workstation_locales`         | `[ es_ES.UTF-8, es_AR.UTF8, en_US.UTF8]` | Locales     |
 
-## Nota sobre Pop!_OS
+### Proxy
 
-Si se desea utilizar en una distribución basada en este sistema operativo,
-entonces debe setearse `ansible_distribution` a Ubuntu:
 
-```
-ansible-playbook ... -e ansible_distribution=Ubuntu
-```
+Estas variables son un wrapper de aquellas usadas por el [role del que
+dependemos](https://github.com/ruzickap/ansible-role-proxy_settings/)
 
-## Nota sobre configuracion de Proxy HTTP/HTTPS
+| Nombre                           | Default | Descripción               |
+| ----------------------------     | ------- | ------------------------- |
+| `workstation_proxy_enabled`      | `false` | Habilitar el uso de proxy |
+| `workstation_proxy_http`         |         | Datos del proxy http      |
+| `workstation_proxy_https`        |         | Datos del proxy https     |
+| `workstation_proxy_no_proxy`     |         | Direcciones de no proxy   |
+| `workstation_proxy_ftp`          |         | Datos del proxy ftp       |
+| `workstation_proxy_yum`          |         | Habilitar yum proxy       |
+| `workstation_proxy_yum_username` |         | Yum proxy username        |
+| `workstation_proxy_yum_password` |         | Yum proxy password        |
 
-En el caso de que la estacion de trabajo este detras de un proxy HTTP/HTTPS se
-deberan agregar las siguientes variables de entorno de la siguiente forma.
+### Tools
 
-```yaml
-- name: Some useful playbook
-  hosts: all
-  gather_facts: true
-  tasks:
-    - import_role:
-        name: mikroways.mw_workstation_packages
-  vars:
-    mw_proxy_enabled: true
-    mw_proxy_settings_http_proxy: 'http://myuser:mypassword@px01.example.com:3128'
-    mw_proxy_settings_https_proxy: 'http://px01.example.com:3128'
-    mw_proxy_settings_no_proxy: 'example.com,192.168.122.1'
-    mw_proxy_settings_ftp_proxy: 'http://proxy.example.com:8080'
-```
+Binarios a ser descargados e instalados en el HOME del usuario que corre el
+playbook.
 
-## Probando con molecule
+| Nombre                                | Default                                 | Descripción                            |
+| ------------------------------------- | --------------------------------------- | -------------------------------------- |
+| `workstation_tools_install_directory` | `{{ ansible_env.HOME }}/.mikroways/bin` | Directorio donde descargar utilitarios |
+| `workstation_tools_only`              | `[]`                                    | Qué utilitatios instalar de todos      |
+| `workstation_tools`                   | arreglo de utilitarios (ver abajo)      |                                        |}
 
-Este playbook se integra con CI/CD de gitlab. Corre molecule con docker. Sin
-embargo, si queremos verificar que los roles que instalan docker y podman
-funcionan de forma adecuada, localmente podemos usar:
+La variable `workstation_tools` se compone como un arreglo de arreglos separado
+en diferentes archivos que nos simplifica la gestión de las herramientas según:
 
-```
-pip install molecule-vagrant python-vagrant
-```
+* `workstation_aws_tools`: herramientas prara trabajar con aws como por ejemplo:
+  aws-cli, aws-iam-authenticator, eksctl.
+* `workstation_kubernetes_tools`: herramientas para interactuar con kubernetes:
+  kubectl, kustomize, kind, helm, helmfile, cluster-api, sonobuoy, telepresence,
+  oc, velero.
+* `workstation_hashicorp_tools`: herramientas de hashicorp, o para
+  gestionarlas: tgswitch, terraform-switch, packer, tflint, terraform-docs.
+* `workstation_other_tools`: otras herramientas: jq, yq, direnv, certinfo,
+  promtool, amtool, mc, hugo, age, sops, govc, navi
 
-Luego, podemos correr:
+### Helm plugins
 
-```
-molecule test -s vagrant
-```
+Lista de plugins de helm:
 
-> O converge de la siguiente forma:
+| Nombre                     | Default | Descripción                  |
+| -------------------------- | ------- | ---------------------------- |
+| `workstation_helm_plugins` | `[...]` | Plugins usados por Mikroways |
 
-```
-# Para crear las instancias y correr el playbook
-molecule converge -s vagrant
-# Al finalizar
-molecule destroy -s vagrant
-```
+> Se instalan sólo si helm fue seleccionado como tool
+
+### Krew plugins
+
+Lista de plugins de kubectl instalados con krew:
+
+| Nombre                     | Default | Descripción                  |
+| -------------------------- | ------------------------------- | ------------------------------- |
+| `workstation_krew_path` | `{{ ansible_env.HOME }}/.krew/bin` | Directorio donde se instala kew |
+| `workstation_krew_plugins` | `[...]`                         | Plugins usados por Mikroways    |
+
+> Se instalan sólo si krew fue seleccionado como tool

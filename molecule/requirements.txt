@@ -1,5 +1,0 @@
-ansible>=4.10
-ansible-lint
-molecule
-molecule-docker
-molecule-vagrant

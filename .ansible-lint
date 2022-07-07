@@ -1,0 +1,10 @@
+---
+exclude_paths:
+  - molecule/
+  - .tox/
+  - .cache/
+  - .direnv/
+  - .pre-commit-config.yaml
+  - .github/
+  - .gitlab-ci.yml
+offline: true

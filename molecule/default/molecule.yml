@@ -6,45 +6,35 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: mw-workstation-packages-ubuntu-20.04
-    image: ubuntu:20.04
+  - name: arch
+    image: 'archlinux:base'
     groups:
-      - all_local_packages
-  - name: mw-workstation-packages-ubuntu-21.10
-    image: ubuntu:21.10
+      - system_packages
+  - name: ubuntu-2004
+    image: 'ubuntu:20.04'
     groups:
-      - all_local_packages
-  - name: mw-workstation-packages-debian-10
-    image: debian:10
-    env:
-      SUDO_GROUP: sudo
+      - system_packages
+  - name: ubuntu-2204
+    image: 'ubuntu:22.04'
     groups:
-      - all_local_packages
-  - name: mw-workstation-packages-debian-11
-    image: debian:11
-    env:
-      SUDO_GROUP: sudo
+      - system_packages
+  - name: debian-11
+    image: 'debian:11'
     groups:
-      - all_local_packages
-  - name: mw-workstation-local-packages
-    image: ubuntu:20.04
-    groups:
-      - only_local_packages
+      - system_packages
+      - tools
+lint: |
+  set -ex
+  yamllint .
+  ansible-lint .
 provisioner:
   name: ansible
   inventory:
     group_vars:
       all:
         ansible_user: ansible
-        mw_docker_enabled: false
-        mw_podman_enabled: false
-      only_local_packages:
-        mw_workstation_local_packages_only:
-          - kubectl
-          - helm
+    host_vars:
+      arch:
+        workstation_locales: []
 verifier:
   name: ansible
-lint: |
-  set -e
-  yamllint .
-  ansible-lint .

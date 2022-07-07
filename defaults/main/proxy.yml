@@ -1,0 +1,9 @@
+---
+workstation_proxy_enabled: false
+workstation_proxy_http: null
+workstation_proxy_https: null
+workstation_proxy_no_proxy: null
+workstation_proxy_ftp: null
+workstation_proxy_yum: null
+workstation_proxy_yum_username: null
+workstation_proxy_yum_password: null

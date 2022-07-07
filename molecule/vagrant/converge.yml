@@ -1,7 +1,0 @@
----
-- name: Converge
-  hosts: all
-  tasks:
-    - name: "Include mw-workstation-packages"
-      include_role:
-        name: "mw-workstation-packages"

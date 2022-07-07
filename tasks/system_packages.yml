@@ -1,6 +1,6 @@
 ---
 -
-  name: include release specific variables
+  name: Include release specific variables
   include_vars: "{{ _loop_var }}"
   loop: "{{ query('first_found', _params) }}"
   loop_control:
@@ -19,14 +19,23 @@
       skip: true
 -
   name: Prepare system to install
-  include: system_packages_{{ ansible_os_family | lower }}.yml
+  include_tasks:
+    file: "{{ system_package_file }}"
+  with_first_found:
+    - files:
+        - system_packages_{{ ansible_os_family | lower }}.yml
+      skip: True
+  loop_control:
+    loop_var: system_package_file
 -
   name: Install common packages using standard package manager
   package:
-    name: "{{ mw_workstation_packages }}"
+    name: "{{ workstation_packages }}"
     state: present
   become: true
-- 
+  retries: 3
+  delay: 10
+-
   name: Setup configured locale
   locale_gen:
     name: "{{ item }}"
@@ -34,24 +43,4 @@
   become: true
   tags:
     - locales
-  with_items: "{{ mw_locales }}"
--
-  name: Install docker
-  import_role:
-    name: geerlingguy.docker
-  become: true
-  vars:
-    docker_users: "{{ mw_docker_users }}"
-    docker_install_compose: "{{ mw_docker_compose_enabled }}"
-    docker_compose_version: "{{ mw_docker_compose_version }}"
-  when: mw_docker_enabled
-  tags:
-    - docker
--
-  name: Install podman
-  import_role:
-    name: alvistack.podman
-  become: true
-  when: mw_podman_enabled
-  tags:
-    - podman
+  with_items: "{{ workstation_locales }}"

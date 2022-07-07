@@ -1,0 +1,47 @@
+---
+-
+  name: Change user shell
+  become: true
+  user:
+    shell: /bin/zsh
+    name: "{{ ansible_user }}"
+-
+  name: Create antigen directory
+  file:
+    path: "{{ workstation_antigen_directory }}"
+    state: directory
+    mode: "0755"
+-
+  name: Download antigen
+  get_url:
+    url: "{{ workstation_antigen_url }}"
+    dest: "{{ workstation_antigen_directory }}/antigen.zsh"
+-
+  name: Create dotfiles directory
+  file:
+    path: "{{ workstation_dotfiles_directory }}"
+    state: directory
+    mode: "0755"
+-
+  name: Download dotfiles
+  git:
+    repo: "{{ workstation_dotfiles_repository }}"
+    dest: "{{ workstation_dotfiles_directory }}"
+    version: "{{ workstation_dotfiles_version | d('master') }}"
+-
+  name: Install dotfiles
+  changed_when: false
+  command: "{{ workstation_dotfiles_install_script }}"
+-
+  name: Download dotfiles fonts
+  block:
+    - name: Create local fonts directory
+      file:
+        path: "{{ workstation_dotfiles_fonts_directory }}"
+        state: directory
+        mode: "0755"
+    - name: Install required fonts
+      get_url:
+        url: "{{ item }}"
+        dest: "{{ workstation_dotfiles_fonts_directory }}/{{ item | basename }}"
+      loop: "{{ workstation_dotfiles_fonts }}"

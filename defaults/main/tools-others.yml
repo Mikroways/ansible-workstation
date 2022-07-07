@@ -1,0 +1,102 @@
+---
+workstation_other_tools:
+  -
+    name: navi
+    url: >-
+      https://github.com/denisidoro/navi/releases/download/v%version%/navi-v%version%-x86_64-unknown-{{ ansible_system | lower }}-musl.tar.gz
+    version: 2.16.0
+    install_command: "tar xfz %downloaded% -C %install_directory% navi"
+    version_command: "navi -V"
+  -
+    name: yq
+    url: >-
+      https://github.com/mikefarah/yq/releases/download/v%version%/yq_{{ansible_system | lower}}_amd64
+    version: 4.13.3
+    install_command: >-
+      mv %downloaded% %install_directory%/yq &&
+      chmod +x %install_directory%/yq
+    version_command: "yq --version"
+  -
+    name: govc
+    url: >-
+      https://github.com/vmware/govmomi/releases/download/v%version%/govc_{{ansible_system}}_x86_64.tar.gz
+    version: 0.26.0
+    install_command: "tar xfz %downloaded% -C %install_directory% govc"
+    version_command: "govc version"
+  -
+    name: direnv
+    url: >-
+      https://github.com/direnv/direnv/releases/download/v%version%/direnv.{{ansible_system | lower}}-amd64
+    version: 2.28.0
+    install_command: >-
+      mv %downloaded% %install_directory%/direnv &&
+      chmod +x %install_directory%/direnv
+    version_command: "direnv version"
+  -
+    name: restic
+    url: >-
+      https://github.com/restic/restic/releases/download/v%version%/restic_%version%_{{ansible_system | lower}}_amd64.bz2
+    version: 0.12.0
+    install_command: >-
+      cat %downloaded% | bzip2 -d > %install_directory%/restic &&
+      chmod +x %install_directory%/restic
+    version_command: "restic version"
+  -
+    name: sops
+    url: >-
+      https://github.com/mozilla/sops/releases/download/v%version%/sops-v%version%.{{ ansible_system | lower}}
+    version: 3.7.1
+    install_command: >-
+      mv %downloaded% %install_directory%/sops &&
+      chmod +x %install_directory%/sops
+    version_command: "sops -v"
+  -
+    name: age
+    url: >-
+      https://github.com/FiloSottile/age/releases/download/v%version%/age-v%version%-{{ ansible_system | lower}}-amd64.tar.gz
+    version: 1.0.0
+    install_command: >-
+      tar fxz %downloaded% -C /tmp &&
+      mv /tmp/age/age* %install_directory% &&
+      chmod +x %install_directory%/age*
+    version_command: "age --version"
+  -
+    name: hugo
+    url: >-
+      https://github.com/gohugoio/hugo/releases/download/v%version%/hugo_extended_%version%_{{ ansible_system }}-64bit.tar.gz
+    version: 0.85.0
+    install_command: >-
+      tar xfz %downloaded% -C %install_directory% hugo
+    version_command: "hugo version"
+  -
+    name: mc
+    url: https://dl.min.io/client/mc/release/{{ ansible_system | lower }}-amd64/archive/mc.RELEASE.2022-06-10T22-29-12Z
+    version: RELEASE.2022-06-10
+    install_command: >-
+      chmod +x %downloaded% &&
+      mv %downloaded% %install_directory%/mc
+    version_command: "mc -v"
+  -
+    name: amtool
+    url: >-
+      https://github.com/prometheus/alertmanager/releases/download/v%version%/alertmanager-%version%.{{ ansible_system | lower }}-amd64.tar.gz
+    version: 0.24.0
+    install_command: >-
+      tar xfz %downloaded% -C %install_directory% alertmanager-%version%.{{ ansible_system | lower }}-amd64/amtool --strip-components=1
+    version_command: "amtool --version"
+  -
+    name: promtool
+    url: >-
+      https://github.com/prometheus/prometheus/releases/download/v%version%/prometheus-%version%.{{ ansible_system | lower }}-amd64.tar.gz
+    version: 2.34.0
+    install_command: >-
+      tar xfz %downloaded% -C %install_directory% prometheus-%version%.{{ ansible_system | lower }}-amd64/promtool --strip-components=1
+    version_command: "promtool --version"
+  -
+    name: certinfo
+    url: >-
+      https://github.com/pete911/certinfo/releases/download/v%version%/certinfo_%version%_{{ ansible_system | lower }}_amd64.tar.gz
+    version: 1.0.6
+    install_command: >-
+      tar xfz %downloaded% -C %install_directory% certinfo
+    version_command: "certinfo --version"

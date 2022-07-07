@@ -1,0 +1,17 @@
+---
+workstation_krew_path: "{{ ansible_env.HOME }}/.krew/bin"
+workstation_krew_plugins:
+  - ctx
+  - ns
+  - get-all
+  - kubesec-scan
+  - popeye
+  - resource-capacity
+  - score
+  - sniff
+  - tail
+  - access-matrix
+  - df-pv
+  - modify-secret
+  - np-viewer
+  - view-secret

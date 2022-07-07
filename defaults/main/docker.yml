@@ -1,0 +1,6 @@
+---
+workstation_docker_enabled: true
+workstation_docker_install_compose: true
+workstation_docker_compose_version: "v2.6.1"
+workstation_docker_users:
+  - "{{ ansible_user }}"
