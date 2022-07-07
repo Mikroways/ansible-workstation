@@ -3,3 +3,5 @@
   become: true
   pacman:
     update_cache: yes
+  tags:
+    - molecule-idempotence-notest
