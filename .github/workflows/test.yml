@@ -1,0 +1,41 @@
+---
+name: Tests
+on:
+  push:
+    paths:
+      - defaults/**
+      - handlers/**
+      - meta/**
+      - molecule/**
+      - tasks/**
+      - templates/**
+      - vars/**
+      - .github/**
+      - tox.ini
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: Tox ansible test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        py:
+          - "3.10"
+          - "3.9"
+    steps:
+      - name: Setup python for test ${{ matrix.py }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.py }}
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Install tox-gh
+        run: python -m pip install tox-gh
+      - name: Setup test suite
+        run: tox r -vv --notest
+      - name: Run tests
+        run: tox r -vv
