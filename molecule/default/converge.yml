@@ -4,7 +4,7 @@
   roles:
     - role: mikroways.workstation
   vars:
-    workstation_docker_enabled: false
+    docker_service_manage: false
     workstation_tools_only: [kubectl, helm, krew]
 
 - name: Converge tools
