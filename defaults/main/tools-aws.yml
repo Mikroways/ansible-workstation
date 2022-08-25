@@ -2,7 +2,7 @@
 workstation_aws_tools:
   -
     name: aws-cli
-    version: '2.2.1'
+    version: '2.7.26'
     url: https://awscli.amazonaws.com/awscli-exe-{{ ansible_system | lower }}-x86_64-%version%.zip
     install_command: >-
       unzip -o %downloaded% -d /tmp &&
@@ -11,16 +11,16 @@ workstation_aws_tools:
   -
     name: aws-iam-authenticator
     url: >-
-      https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/{{ansible_system | lower }}/amd64/aws-iam-authenticator
-    version: '0.5.0'
+      https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v%version%/aws-iam-authenticator_%version%_{{ ansible_system | lower}}_amd64
+    version: '0.5.9'
     install_command: >-
       mv %downloaded% %install_directory%/aws-iam-authenticator &&
       chmod +x %install_directory%/aws-iam-authenticator
-    version_command: "aws-iam-authenticator version"
+    version_command: "aws-iam-authenticator version -s"
   -
     name: eksctl
     url: >-
-      https://github.com/weaveworks/eksctl/releases/download/%version%/eksctl_{{ansible_system}}_amd64.tar.gz
-    version: '0.47.0'
+      https://github.com/weaveworks/eksctl/releases/download/v%version%/eksctl_{{ansible_system}}_amd64.tar.gz
+    version: '0.109.0'
     install_command: "tar xfz %downloaded% -C %install_directory%"
     version_command: "eksctl version"
