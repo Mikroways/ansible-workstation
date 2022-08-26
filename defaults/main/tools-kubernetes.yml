@@ -90,8 +90,8 @@ workstation_kubernetes_tools:
   -
     name: telepresence
     url: >-
-      https://app.getambassador.io/download/tel2/{{ ansible_system | lower }}/amd64/2.5.8/telepresence
-    version: '2.7.1'
+      https://app.getambassador.io/download/tel2/{{ ansible_system | lower }}/amd64/%version%/telepresence
+    version: '2.7.2'
     install_command: >-
       chmod +x %downloaded% && mv %downloaded% %install_directory%/telepresence
     version_command: "telepresence version"
@@ -110,4 +110,4 @@ workstation_kubernetes_tools:
     version: '2.4.11'
     install_command: >-
       chmod +x %downloaded% && mv %downloaded% %install_directory%/argocd
-    version_command: "oc version --client"
+    version_command: "version --client --short"
