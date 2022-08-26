@@ -110,4 +110,4 @@ workstation_kubernetes_tools:
     version: '2.4.11'
     install_command: >-
       chmod +x %downloaded% && mv %downloaded% %install_directory%/argocd
-    version_command: "version --client --short"
+    version_command: "argocd version --client --short"
