@@ -27,6 +27,9 @@ Dependemos de los roles especificados en [`meta/requirements.yml`](meta/requirem
 Por ello, cuando se instale este role, se instalarán los roles que son
 dependencias de forma automática.
 
+**ES MUY IMPORTANTE LEERLOS**, porque simplifica mucho el trabajo. Considerar
+que ya soporta un role que configura proxy, docker, etc.
+
 ## Variables
 
 Las variables se han separado en archivos según la siguiente clasificación:
