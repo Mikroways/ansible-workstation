@@ -107,5 +107,5 @@ workstation_other_tools:
     version: '15.3.0'
     install_command: >-
       chmod +x %downloaded% &&
-      mv %downloaded% -C %install_directory%/gitlab-runner
+      mv %downloaded% %install_directory%/gitlab-runner
     version_command: "gitlab-runner --version"

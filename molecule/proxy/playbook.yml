@@ -1,0 +1,17 @@
+---
+- name: Converge proxy
+  hosts: all
+  vars:
+    workstation_proxy_enabled: true
+    workstation_proxy_http: http://user:pass@proxy.example.net:3128
+    workstation_proxy_https: http://user:pass@proxy.example.net:8080
+    workstation_proxy_no_proxy: example.com,192.168.122.1
+    workstation_proxy_ftp: http://proxy.example.com:9090
+    workstation_proxy_yum: http://proxysrv:8080
+    workstation_proxy_yum_username: myuser
+    workstation_proxy_yum_password: mypass
+  tasks:
+    - name: "Import only proxy task from role"
+      ansible.builtin.import_role:
+        name: mikroways.workstation
+        tasks_from: proxy.yml
