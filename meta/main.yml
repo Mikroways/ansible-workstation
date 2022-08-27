@@ -21,6 +21,8 @@ galaxy_info:
       versions:
         - 11
     - name: ArchLinux
+      versions:
+        - all
 
   galaxy_tags:
     - devops
