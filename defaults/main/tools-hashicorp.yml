@@ -39,4 +39,4 @@ workstation_hashicorp_tools:
     version: '1.8.3'
     install_command: >-
       unzip -o %downloaded% -d %install_directory%
-    version_command: "packer version"
+    version_command: "packer version | grep '^Packer'"

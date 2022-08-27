@@ -5,13 +5,15 @@
   when: name is not defined
 
 - name: "Check whether {{ name }} is installed"
-  command: "{{ version_command }}"
+  shell: "{{ version_command }}"
   register: need_install
   ignore_errors: true
   changed_when: false
 
   environment:
     PATH: "{{ install_directory }}:{{ ansible_env.PATH }}"
+  tags:
+    - skip_ansible_lint
 
 - name: "Install package {{ name }} when needed"
   block:
