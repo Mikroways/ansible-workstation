@@ -30,6 +30,17 @@ dependencias de forma automática.
 **ES MUY IMPORTANTE LEERLOS**, porque simplifica mucho el trabajo. Considerar
 que ya soporta un role que configura proxy, docker, etc.
 
+## Uso
+
+Simplemente agregás en `requirements.yml` las siguientes lineas:
+
+```yaml
+- name: mikroways.workstation
+  version: 2.0.0
+```
+
+> ¡Verificar si no hay una nueva version!
+
 ## Variables
 
 Las variables se han separado en archivos según la siguiente clasificación:
@@ -116,3 +127,14 @@ Lista de plugins de kubectl instalados con krew:
 | `workstation_krew_plugins` | `[...]`                         | Plugins usados por Mikroways    |
 
 > Se instalan sólo si krew fue seleccionado como tool
+
+
+## Tags ansible soportados
+
+* system_packages
+* docker
+* tools
+* language-managers
+* dotfiles
+* locales
+* proxy
