@@ -2,7 +2,7 @@
 workstation_aws_tools:
   -
     name: aws-cli
-    version: '2.7.26'
+    version: '2.8.8'
     url: https://awscli.amazonaws.com/awscli-exe-{{ ansible_system | lower }}-x86_64-%version%.zip
     install_command: >-
       unzip -o %downloaded% -d /tmp &&
@@ -21,6 +21,6 @@ workstation_aws_tools:
     name: eksctl
     url: >-
       https://github.com/weaveworks/eksctl/releases/download/v%version%/eksctl_{{ansible_system}}_amd64.tar.gz
-    version: '0.109.0'
+    version: '0.116.0'
     install_command: "tar xfz %downloaded% -C %install_directory%"
     version_command: "eksctl version"
