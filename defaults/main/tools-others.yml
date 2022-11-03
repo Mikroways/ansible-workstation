@@ -4,14 +4,14 @@ workstation_other_tools:
     name: navi
     url: >-
       https://github.com/denisidoro/navi/releases/download/v%version%/navi-v%version%-x86_64-unknown-{{ ansible_system | lower }}-musl.tar.gz
-    version: '2.16.0'
+    version: '2.20.1'
     install_command: "tar xfz %downloaded% -C %install_directory% navi"
     version_command: "navi -V"
   -
     name: yq
     url: >-
       https://github.com/mikefarah/yq/releases/download/v%version%/yq_{{ansible_system | lower}}_amd64
-    version: '4.27.2'
+    version: '4.29.2'
     install_command: >-
       mv %downloaded% %install_directory%/yq &&
       chmod +x %install_directory%/yq
@@ -64,14 +64,14 @@ workstation_other_tools:
     name: hugo
     url: >-
       https://github.com/gohugoio/hugo/releases/download/v%version%/hugo_extended_%version%_{{ ansible_system }}-64bit.tar.gz
-    version: '0.85.0'
+    version: '0.105.0'
     install_command: >-
       tar xfz %downloaded% -C %install_directory% hugo
     version_command: "hugo version"
   -
     name: mc
-    url: https://dl.min.io/client/mc/release/{{ ansible_system | lower }}-amd64/archive/mc.RELEASE.2022-06-10T22-29-12Z
-    version: 'RELEASE.2022-06-10'
+    url: https://dl.min.io/client/mc/release/{{ ansible_system | lower }}-amd64/archive/mc.RELEASE.%version%
+    version: '2022-10-29T10-09-23Z'
     install_command: >-
       chmod +x %downloaded% &&
       mv %downloaded% %install_directory%/mc
@@ -88,7 +88,7 @@ workstation_other_tools:
     name: promtool
     url: >-
       https://github.com/prometheus/prometheus/releases/download/v%version%/prometheus-%version%.{{ ansible_system | lower }}-amd64.tar.gz
-    version: '2.34.0'
+    version: '2.39.1'
     install_command: >-
       tar xfz %downloaded% -C %install_directory% prometheus-%version%.{{ ansible_system | lower }}-amd64/promtool --strip-components=1
     version_command: "promtool --version"
@@ -104,8 +104,16 @@ workstation_other_tools:
     name: gitlab-runner
     url: >-
       https://gitlab-runner-downloads.s3.amazonaws.com/v%version%/binaries/gitlab-runner-{{ ansible_system | lower }}-amd64
-    version: '15.3.0'
+    version: '15.5.0'
     install_command: >-
       chmod +x %downloaded% &&
       mv %downloaded% %install_directory%/gitlab-runner
     version_command: "gitlab-runner --version"
+  -
+    name: trivy
+    url: >-
+      https://github.com/aquasecurity/trivy/releases/download/v%version%/trivy_%version%_{{ ansible_system }}-64bit.tar.gz
+    version: '0.34.0'
+    install_command: >-
+      tar xfz %downloaded% -C %install_directory% trivy
+    version_command: "trivy --version"
