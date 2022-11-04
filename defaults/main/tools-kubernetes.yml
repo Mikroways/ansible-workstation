@@ -11,7 +11,7 @@ workstation_kubernetes_tools:
     version_command: "kubectl version --client --short"
   -
     name: helm
-    version: 'v3.9.4'
+    version: 'v3.10.1'
     url: >-
       https://get.helm.sh/helm-%version%-{{ ansible_system | lower }}-amd64.tar.gz
     install_command: >-
@@ -22,7 +22,7 @@ workstation_kubernetes_tools:
     name: helmfile
     url: >-
       https://github.com/helmfile/helmfile/releases/download/v%version%/helmfile_%version%_{{ansible_system | lower}}_amd64.tar.gz
-    version: '0.145.4'
+    version: '0.147.0'
     install_command: >-
       tar xfz %downloaded% -C %install_directory% helmfile
     version_command: "helmfile version"
@@ -30,7 +30,7 @@ workstation_kubernetes_tools:
     name: kind
     url: >-
       https://github.com/kubernetes-sigs/kind/releases/download/v%version%/kind-{{ansible_system | lower}}-amd64
-    version: '0.14.0'
+    version: '0.17.0'
     install_command: >-
       mv %downloaded% %install_directory%/kind &&
       chmod +x %install_directory%/kind
@@ -46,7 +46,7 @@ workstation_kubernetes_tools:
     name: velero
     url: >-
       https://github.com/vmware-tanzu/velero/releases/download/v%version%/velero-v%version%-{{ ansible_system | lower }}-amd64.tar.gz
-    version: '1.9.1'
+    version: '1.9.2'
     install_command: >-
       tar fxz %downloaded% -C /tmp && mv /tmp/velero-*/velero %install_directory%
     version_command: "velero version --client-only"
@@ -74,7 +74,7 @@ workstation_kubernetes_tools:
     name: clusterapi
     url: >-
       https://github.com/kubernetes-sigs/cluster-api/releases/download/v%version%/clusterctl-{{ ansible_system | lower}}-amd64
-    version: '1.1.5'
+    version: '1.2.4'
     install_command: >-
       mv %downloaded% %install_directory%/clusterctl &&
       chmod +x %install_directory%/clusterctl
@@ -83,7 +83,7 @@ workstation_kubernetes_tools:
     name: sonobuoy
     url: >-
       https://github.com/vmware-tanzu/sonobuoy/releases/download/v%version%/sonobuoy_%version%_{{ ansible_system | lower }}_amd64.tar.gz
-    version: '0.56.10'
+    version: '0.56.11'
     install_command: >-
       tar xfz %downloaded% -C %install_directory% sonobuoy
     version_command: "sonobuoy version --short"
@@ -91,7 +91,7 @@ workstation_kubernetes_tools:
     name: telepresence
     url: >-
       https://app.getambassador.io/download/tel2/{{ ansible_system | lower }}/amd64/%version%/telepresence
-    version: '2.7.2'
+    version: '2.8.5'
     install_command: >-
       chmod +x %downloaded% && mv %downloaded% %install_directory%/telepresence
     version_command: "telepresence version"
@@ -107,7 +107,7 @@ workstation_kubernetes_tools:
     name: argocd
     url: >-
       https://github.com/argoproj/argo-cd/releases/download/v%version%/argocd-{{ ansible_system | lower }}-amd64
-    version: '2.4.11'
+    version: '2.5.1'
     install_command: >-
       chmod +x %downloaded% && mv %downloaded% %install_directory%/argocd
     version_command: "argocd version --client --short"
