@@ -1,6 +1,6 @@
 ---
 - name: geerlingguy.docker
-  version: '5.1.0'
+  version: '6.0.2'
 - name: ruzickap.proxy_settings
   src: https://github.com/ruzickap/ansible-role-proxy_settings
   version: 'v0.1.4'

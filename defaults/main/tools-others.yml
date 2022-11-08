@@ -56,8 +56,7 @@ workstation_other_tools:
       https://github.com/FiloSottile/age/releases/download/v%version%/age-v%version%-{{ ansible_system | lower}}-amd64.tar.gz
     version: '1.0.0'
     install_command: >-
-      tar fxz %downloaded% age/age --strip-components=1 -C %install_directory% &&
-      tar fxz %downloaded% age/age-keygen --strip-components=1 -C %install_directory% &&
+      tar fxz %downloaded% -C %install_directory% age/age age/age-keygen --strip-components=1  &&
       chmod +x %install_directory%/age*
     version_command: "age --version"
   -
