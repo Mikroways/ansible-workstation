@@ -32,6 +32,8 @@ workstation_packages:
   - swaks
   - podman
   - zsh
+  - xsel
+  - xclip
 
 workstation_apt_keys:
   - https://apt.releases.hashicorp.com/gpg
