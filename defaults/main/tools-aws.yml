@@ -6,7 +6,8 @@ workstation_aws_tools:
     url: https://awscli.amazonaws.com/awscli-exe-{{ ansible_system | lower }}-x86_64-%version%.zip
     install_command: >-
       unzip -o %downloaded% -d /tmp &&
-      /tmp/aws/install -i ~/.aws-cli -b %install_directory%/ -u
+      /tmp/aws/install -i ~/.aws-cli -b %install_directory%/ -u &&
+      rm -rf /tmp/aws/
     version_command: "aws --version"
   -
     name: aws-iam-authenticator

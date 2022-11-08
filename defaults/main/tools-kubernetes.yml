@@ -15,8 +15,7 @@ workstation_kubernetes_tools:
     url: >-
       https://get.helm.sh/helm-%version%-{{ ansible_system | lower }}-amd64.tar.gz
     install_command: >-
-     tar xfz %downloaded% -C /tmp &&
-     mv /tmp/{{ ansible_system | lower }}-amd64/helm %install_directory%
+     tar xfz %downloaded% {{ ansible_system | lower }}-amd64/helm --strip-components=1 -C %install_directory%
     version_command: "helm version --short"
   -
     name: helmfile
@@ -48,7 +47,7 @@ workstation_kubernetes_tools:
       https://github.com/vmware-tanzu/velero/releases/download/v%version%/velero-v%version%-{{ ansible_system | lower }}-amd64.tar.gz
     version: '1.9.2'
     install_command: >-
-      tar fxz %downloaded% -C /tmp && mv /tmp/velero-*/velero %install_directory%
+      tar fxz %downloaded% velero-v%version%-{{ ansible_system | lower }}-amd64/velero --strip-components=1 -C %install_directory%
     version_command: "velero version --client-only"
   -
     name: krew
@@ -60,7 +59,8 @@ workstation_kubernetes_tools:
     install_command: >-
       tar xfz  %downloaded% -C /tmp &&
       cd /tmp && ./krew-{{ ansible_system | lower }}_amd64 install krew &&
-      ./krew-{{ ansible_system | lower }}_amd64 upgrade krew || true
+      ./krew-{{ ansible_system | lower }}_amd64 upgrade krew || true &&
+      rm ./krew-{{ ansible_system | lower }}_amd64
   -
     name: clusterapi-0.3.22
     url: >-
