@@ -28,3 +28,5 @@ workstation_packages:
   - swaks
   - podman
   - zsh
+  - xsel
+  - xclip

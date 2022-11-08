@@ -21,8 +21,7 @@ workstation_hashicorp_tools:
       https://github.com/terraform-linters/tflint/releases/download/v%version%/tflint_{{ ansible_system | lower }}_amd64.zip
     version: '0.42.2'
     install_command: >-
-      unzip -o %downloaded% -d /tmp &&
-      mv /tmp/tflint %install_directory%/tflint
+      unzip -o %downloaded% -d %install_directory%
     version_command: "tflint --version"
   -
     name: terraform-docs

@@ -56,8 +56,7 @@ workstation_other_tools:
       https://github.com/FiloSottile/age/releases/download/v%version%/age-v%version%-{{ ansible_system | lower}}-amd64.tar.gz
     version: '1.0.0'
     install_command: >-
-      tar fxz %downloaded% -C /tmp &&
-      mv /tmp/age/age* %install_directory% &&
+      tar fxz %downloaded% -C %install_directory% age/age age/age-keygen --strip-components=1  &&
       chmod +x %install_directory%/age*
     version_command: "age --version"
   -
@@ -117,3 +116,12 @@ workstation_other_tools:
     install_command: >-
       tar xfz %downloaded% -C %install_directory% trivy
     version_command: "trivy --version"
+  -
+    name: bw
+    url: >-
+      https://github.com/bitwarden/clients/releases/download/cli-v%version%/bw-{{ ansible_system | lower }}-%version%.zip
+    version: '2022.10.0'
+    install_command: >-
+      unzip -o %downloaded% -d %install_directory% &&
+      chmod +x %install_directory%/bw
+    version_command: "bw --version"
