@@ -10,10 +10,6 @@ platforms:
     image: 'archlinux:base'
     groups:
       - system_packages
-  - name: ubuntu-2004
-    image: 'ubuntu:20.04'
-    groups:
-      - system_packages
   - name: ubuntu-2204
     image: 'ubuntu:22.04'
     groups:

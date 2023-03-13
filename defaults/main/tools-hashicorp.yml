@@ -4,7 +4,7 @@ workstation_hashicorp_tools:
     name: terraform-switch
     url: >-
       https://github.com/warrensbox/terraform-switcher/releases/download/%version%/terraform-switcher_%version%_{{ansible_system | lower}}_amd64.tar.gz
-    version: '0.13.1300'
+    version: '0.13.1308'
     install_command: "tar xfz %downloaded% -C %install_directory% tfswitch"
     version_command: "tfswitch -v"
   -
@@ -19,7 +19,7 @@ workstation_hashicorp_tools:
     name: tflint
     url: >-
       https://github.com/terraform-linters/tflint/releases/download/v%version%/tflint_{{ ansible_system | lower }}_amd64.zip
-    version: '0.42.2'
+    version: '0.45.0'
     install_command: >-
       unzip -o %downloaded% -d %install_directory%
     version_command: "tflint --version"
@@ -35,7 +35,7 @@ workstation_hashicorp_tools:
     name: packer
     url: >-
       https://releases.hashicorp.com/packer/%version%/packer_%version%_{{ ansible_system | lower }}_amd64.zip
-    version: '1.8.4'
+    version: '1.8.6'
     install_command: >-
       unzip -o %downloaded% -d %install_directory%
     version_command: "packer version | grep '^Packer'"
