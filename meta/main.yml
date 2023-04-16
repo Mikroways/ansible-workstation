@@ -14,12 +14,13 @@ galaxy_info:
   platforms:
     - name: Ubuntu
       versions:
-        - 22.04
-        - 21.10
-        - 20.04
+        - bionic
+        - focal
+        - jammy
+        - kinetic
     - name: Debian
       versions:
-        - 11
+        - bullseye
     - name: ArchLinux
       versions:
         - all
