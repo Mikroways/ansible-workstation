@@ -36,7 +36,7 @@ Simplemente agregás en `requirements.yml` las siguientes lineas:
 
 ```yaml
 - name: mikroways.workstation
-  version: 2.0.0
+  version: 2.1.2
 ```
 
 > ¡Verificar si no hay una nueva version!

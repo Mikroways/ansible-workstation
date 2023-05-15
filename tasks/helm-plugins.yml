@@ -11,7 +11,7 @@
   when: helm_check.rc == 0
   block:
     - name: Install helm plugins
-      community.kubernetes.helm_plugin:
+      kubernetes.core.helm_plugin:
         binary_path: "{{ workstation_tools_install_directory }}/helm"
         plugin_path: "{{ item.repo }}"
         state: present
