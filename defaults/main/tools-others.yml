@@ -5,7 +5,7 @@ workstation_other_tools:
     url: >-
       https://github.com/denisidoro/navi/releases/download/v%version%/navi-v%version%-x86_64-unknown-{{ ansible_system | lower }}-musl.tar.gz
     version: '2.22.1'
-    install_command: "tar xfz %downloaded% -C %install_directory% navi"
+    install_command: "tar xfz %downloaded% -C %install_directory% ./navi"
     version_command: "navi -V"
   -
     name: yq
@@ -20,7 +20,7 @@ workstation_other_tools:
     name: govc
     url: >-
       https://github.com/vmware/govmomi/releases/download/v%version%/govc_{{ansible_system}}_x86_64.tar.gz
-    version: '0.29.0'
+    version: '0.30.4'
     install_command: "tar xfz %downloaded% -C %install_directory% govc"
     version_command: "govc version"
   -
