@@ -1,10 +1,6 @@
 ---
-roles:
-  - name: geerlingguy.docker
-    version: '6.1.0'
-  - name: ruzickap.proxy_settings
-    src: https://github.com/ruzickap/ansible-role-proxy_settings
-    version: 'v0.1.4'
-collections:
-  - name: kubernetes.core
-    version: '2.4.0'
+- name: geerlingguy.docker
+  version: '6.1.0'
+- name: ruzickap.proxy_settings
+  src: https://github.com/ruzickap/ansible-role-proxy_settings
+  version: 'v0.1.4'
