@@ -16,6 +16,7 @@
   get_url:
     url: "{{ workstation_antigen_url }}"
     dest: "{{ workstation_antigen_directory }}/antigen.zsh"
+  retries: 5
 -
   name: Create dotfiles directory
   file:
