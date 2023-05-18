@@ -28,6 +28,7 @@
     repo: "{{ workstation_dotfiles_repository }}"
     dest: "{{ workstation_dotfiles_directory }}"
     version: "{{ workstation_dotfiles_version | d('master') }}"
+  retries: 5
 -
   name: Install dotfiles
   changed_when: false
