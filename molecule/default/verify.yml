@@ -7,14 +7,14 @@
   tasks:
     - name: "Check kubectl is installed"
       stat:
-        path: "/home/ansible/.mikroways/bin/kubectl"
+        path: "/home/ansible/.asdf/shims/kubectl"
       register: tool
     - name: "Assert kubectl exists"
       assert:
         that:
           - tool.stat.exists == True
-        success_msg: "jq exists"
-        fail_msg: "jq doesn't exist"
+        success_msg: "kubectl exists"
+        fail_msg: "kubectl doesn't exist"
     - name: "Check if user shell is zsh"
       shell: "getent passwd {{ ansible_user }} | cut -d: -f7"
       register: which_shell
