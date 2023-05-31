@@ -40,6 +40,7 @@
   changed_when: false
   retries: 4
   delay: 3
+  until: asdf_output.rc == 0
   when: item.value != False
   environment:
     PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_env.PATH }}"
