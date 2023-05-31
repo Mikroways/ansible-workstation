@@ -17,8 +17,7 @@ platforms:
   - name: debian-11
     image: 'debian:11'
     groups:
-      - system_packages
-      - tools
+      - complete
 lint: |
   set -ex
   yamllint .

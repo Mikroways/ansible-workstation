@@ -5,12 +5,13 @@
     - role: mikroways.workstation
   vars:
     docker_service_manage: false
-    workstation_tools_only: [kubectl, helm, krew]
+    workstation_tools_only: [certinfo, navi]
+    workstation_asdf_tools:
+      direnv: 2.32.3
 
 - name: Converge tools
-  hosts: tools
-  tasks:
-    - name: "Import only tools task from role"
-      ansible.builtin.import_role:
-        name: mikroways.workstation
-        tasks_from: tools.yml
+  hosts: complete
+  roles:
+    - role: mikroways.workstation
+  vars:
+    docker_service_manage: false

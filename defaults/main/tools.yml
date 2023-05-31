@@ -5,15 +5,12 @@ workstation_tools_install_directory: "{{ ansible_env.HOME }}/.mikroways/bin"
 workstation_tools_only: []
 
 # workstation_tools is split into:
-#   - workstation_aws_tools
 #   - workstation_kubernetes_tool
 #   - workstation_hashicorp_tools
 #   - workstation_other_tools
 
 workstation_tools: >-
     {{
-      workstation_aws_tools +
       workstation_kubernetes_tools +
-      workstation_hashicorp_tools +
       workstation_other_tools
     }}

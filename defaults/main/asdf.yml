@@ -1,0 +1,38 @@
+---
+workstation_asdf_repo: https://github.com/asdf-vm/asdf.git
+workstation_asdf_dest: "{{ ansible_env.HOME }}/.asdf"
+workstation_asdf_version: master
+workstation_asdf_tools:
+  age: false
+  argocd: false
+  awscli: false
+  aws-iam-authenticator: false
+  bitwarden: false
+  clusterctl: false
+  direnv: 2.32.3
+  eksctl: false
+  helm: 3.12.0
+  helm-docs: false
+  helmfile: false
+  gohugo: false
+  jq: false
+  kind: false
+  krew: 0.4.3
+  kubectl: 1.25.10
+  kustomize: false
+  mc: false
+  oc: false
+  packer: false
+  python: false
+  restic: false
+  ruby: false
+  sops: false
+  telepresence: false
+  terraform: false
+  terraform-docs: false
+  terragrunt: false
+  tflint: false
+  tfswitch: false
+  trivy: false
+  velero: false
+  yq: false
