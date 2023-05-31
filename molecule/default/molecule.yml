@@ -9,7 +9,7 @@ platforms:
   - name: arch
     image: 'archlinux:base'
     groups:
-      - system_packages
+      - complete
   - name: ubuntu-2204
     image: 'ubuntu:22.04'
     groups:
