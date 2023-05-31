@@ -2,19 +2,19 @@
 # This is an example playbook to execute Ansible tests.
 
 - name: Verify
-  hosts: system_packages
+  hosts: complete
   gather_facts: false
   tasks:
     - name: "Check kubectl is installed"
       stat:
-        path: "/home/ansible/.mikroways/bin/kubectl"
+        path: "/home/ansible/.asdf/shims/kubectl"
       register: tool
     - name: "Assert kubectl exists"
       assert:
         that:
           - tool.stat.exists == True
-        success_msg: "jq exists"
-        fail_msg: "jq doesn't exist"
+        success_msg: "kubectl exists"
+        fail_msg: "kubectl doesn't exist"
     - name: "Check if user shell is zsh"
       shell: "getent passwd {{ ansible_user }} | cut -d: -f7"
       register: which_shell
@@ -26,7 +26,7 @@
         success_msg: "zsh is current shell"
         fail_msg: "zsh is not users shell"
     - name: "Check if helm plugin is installed"
-      shell: "/home/ansible/.mikroways/bin/helm plugin list | grep secrets"
+      shell: "/home/ansible/.asdf/shims/helm plugin list | grep secrets"
       register: helm_plugins
     - name: "Assert helm plugin installed"
       assert:
@@ -35,7 +35,7 @@
         success_msg: "helm plugin is present"
         fail_msg: "helm plugin is not present"
     - name: "Check if krew plugin is installed"
-      shell: "/home/ansible/.krew/bin/kubectl-krew list | grep popeye"
+      shell: "/home/ansible/.asdf/shims/kubectl-krew list | grep popeye"
       register: krew_plugins
     - name: "Assert krew plugin installed"
       assert:

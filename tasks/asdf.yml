@@ -1,0 +1,61 @@
+---
+- name: Install asdf
+  git:
+    repo: "{{ workstation_asdf_repo }}"
+    dest: "{{ workstation_asdf_dest }}"
+    version: "{{ workstation_asdf_version | d('master') }}"
+
+- name: "asdf check installed plugins"
+  command: "asdf plugin list"
+  register: asdf_plugin_list_output
+  failed_when: asdf_plugin_list_output.rc not in [0 , 1]
+  changed_when: false
+  environment:
+    PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_env.PATH }}"
+
+- name: "asdf add plugins"
+  command: "asdf plugin add {{ item.key }}"
+  register: asdf_output
+  failed_when: asdf_output.rc != 0
+  changed_when: false
+  environment:
+    PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_env.PATH }}"
+  when: item.key not in asdf_plugin_list_output.stdout_lines
+  loop: "{{ workstation_asdf_tools | dict2items }}"
+  loop_control:
+    label: "Adding asdf plugin {{ item.key }}"
+
+- name: "asdf update all plugins"
+  command: "asdf plugin update --all"
+  register: asdf_output
+  failed_when: asdf_output.rc != 0
+  changed_when: false
+  environment:
+    PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_env.PATH }}"
+
+- name: "Install asdf version tools"
+  command: "asdf install {{ item.key }} {{ item.value }}"
+  register: asdf_output
+  failed_when: asdf_output.rc != 0
+  changed_when: false
+  retries: 4
+  delay: 3
+  until: asdf_output.rc == 0
+  when: item.value != False
+  environment:
+    PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_env.PATH }}"
+  loop: "{{ workstation_asdf_tools | dict2items }}"
+  loop_control:
+    label: "Installing asdf {{ item.key }}@{{ item.value }}"
+
+- name: "Install asdf set global tools"
+  command: "asdf global {{ item.key }} {{ item.value }}"
+  register: asdf_output
+  failed_when: asdf_output.rc != 0
+  changed_when: false
+  when: item.value != False
+  environment:
+    PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_env.PATH }}"
+  loop: "{{ workstation_asdf_tools | dict2items }}"
+  loop_control:
+    label: "Set asdf global for {{ item.key }}@{{ item.value }}"

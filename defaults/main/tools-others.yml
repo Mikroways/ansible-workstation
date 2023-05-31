@@ -8,73 +8,12 @@ workstation_other_tools:
     install_command: "tar xfz %downloaded% -C %install_directory% ./navi"
     version_command: "navi -V"
   -
-    name: yq
-    url: >-
-      https://github.com/mikefarah/yq/releases/download/v%version%/yq_{{ansible_system | lower}}_amd64
-    version: '4.29.2'
-    install_command: >-
-      mv %downloaded% %install_directory%/yq &&
-      chmod +x %install_directory%/yq
-    version_command: "yq --version"
-  -
     name: govc
     url: >-
       https://github.com/vmware/govmomi/releases/download/v%version%/govc_{{ansible_system}}_x86_64.tar.gz
     version: '0.30.4'
     install_command: "tar xfz %downloaded% -C %install_directory% govc"
     version_command: "govc version"
-  -
-    name: direnv
-    url: >-
-      https://github.com/direnv/direnv/releases/download/v%version%/direnv.{{ansible_system | lower}}-amd64
-    version: '2.32.1'
-    install_command: >-
-      mv %downloaded% %install_directory%/direnv &&
-      chmod +x %install_directory%/direnv
-    version_command: "direnv version"
-  -
-    name: restic
-    url: >-
-      https://github.com/restic/restic/releases/download/v%version%/restic_%version%_{{ansible_system | lower}}_amd64.bz2
-    version: '0.14.0'
-    install_command: >-
-      cat %downloaded% | bzip2 -d > %install_directory%/restic &&
-      chmod +x %install_directory%/restic
-    version_command: "restic version"
-  -
-    name: sops
-    url: >-
-      https://github.com/mozilla/sops/releases/download/v%version%/sops-v%version%.{{ ansible_system | lower}}
-    version: '3.7.3'
-    install_command: >-
-      mv %downloaded% %install_directory%/sops &&
-      chmod +x %install_directory%/sops
-    version_command: "sops -v"
-  -
-    name: age
-    url: >-
-      https://github.com/FiloSottile/age/releases/download/v%version%/age-v%version%-{{ ansible_system | lower}}-amd64.tar.gz
-    version: '1.0.0'
-    install_command: >-
-      tar fxz %downloaded% -C %install_directory% age/age age/age-keygen --strip-components=1  &&
-      chmod +x %install_directory%/age*
-    version_command: "age --version"
-  -
-    name: hugo
-    url: >-
-      https://github.com/gohugoio/hugo/releases/download/v%version%/hugo_extended_%version%_{{ ansible_system }}-64bit.tar.gz
-    version: '0.105.0'
-    install_command: >-
-      tar xfz %downloaded% -C %install_directory% hugo
-    version_command: "hugo version"
-  -
-    name: mc
-    url: https://dl.min.io/client/mc/release/{{ ansible_system | lower }}-amd64/archive/mc.RELEASE.%version%
-    version: '2022-10-29T10-09-23Z'
-    install_command: >-
-      chmod +x %downloaded% &&
-      mv %downloaded% %install_directory%/mc
-    version_command: "mc -v"
   -
     name: amtool
     url: >-
@@ -103,25 +42,8 @@ workstation_other_tools:
     name: gitlab-runner
     url: >-
       https://gitlab-runner-downloads.s3.amazonaws.com/v%version%/binaries/gitlab-runner-{{ ansible_system | lower }}-amd64
-    version: '15.5.0'
+    version: '15.11.1'
     install_command: >-
       chmod +x %downloaded% &&
       mv %downloaded% %install_directory%/gitlab-runner
     version_command: "gitlab-runner --version"
-  -
-    name: trivy
-    url: >-
-      https://github.com/aquasecurity/trivy/releases/download/v%version%/trivy_%version%_{{ ansible_system }}-64bit.tar.gz
-    version: '0.34.0'
-    install_command: >-
-      tar xfz %downloaded% -C %install_directory% trivy
-    version_command: "trivy --version"
-  -
-    name: bw
-    url: >-
-      https://github.com/bitwarden/clients/releases/download/cli-v%version%/bw-{{ ansible_system | lower }}-%version%.zip
-    version: '2022.10.0'
-    install_command: >-
-      unzip -o %downloaded% -d %install_directory% &&
-      chmod +x %install_directory%/bw
-    version_command: "bw --version"

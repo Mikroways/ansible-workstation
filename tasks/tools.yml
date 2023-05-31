@@ -1,5 +1,8 @@
 ---
 -
+  name: Install asdf
+  import_tasks: asdf.yml
+-
   name: Create binary dir for Mikroways tools
   file:
     path: "{{ workstation_tools_install_directory }}"

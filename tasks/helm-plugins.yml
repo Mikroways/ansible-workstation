@@ -5,14 +5,15 @@
   changed_when: false
   ignore_errors: yes
   environment:
-    PATH: "{{ workstation_tools_install_directory }}:{{ ansible_env.PATH }}"
+    PATH: "{{ workstation_asdf_dest }}/bin:{{ workstation_asdf_dest }}/shims:{{ workstation_tools_install_directory }}:{{ ansible_env.PATH }}"
 -
   name: Do install and upgrade helm plugins when installed
   when: helm_check.rc == 0
   block:
     - name: Install helm plugins
       kubernetes.core.helm_plugin:
-        binary_path: "{{ workstation_tools_install_directory }}/helm"
         plugin_path: "{{ item.repo }}"
         state: present
       loop: "{{ workstation_helm_plugins }}"
+      environment:
+        PATH: "{{ workstation_asdf_dest }}/bin:{{ workstation_asdf_dest }}/shims:{{ workstation_tools_install_directory }}:{{ ansible_env.PATH }}"

@@ -8,7 +8,6 @@ workstation_packages:
   - wget
   - curl
   - nmap
-  - jq
   - unzip
   - yamllint
   - git

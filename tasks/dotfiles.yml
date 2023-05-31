@@ -13,10 +13,13 @@
     mode: "0755"
 -
   name: Download antigen
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ workstation_antigen_url }}"
     dest: "{{ workstation_antigen_directory }}/antigen.zsh"
+  register: uri_output
+  until: uri_output.status_code == 200
   retries: 5
+  delay: 2
 -
   name: Create dotfiles directory
   file:
