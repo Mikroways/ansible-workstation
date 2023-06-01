@@ -33,6 +33,7 @@ workstation_packages:
   - zsh
   - xsel
   - xclip
+  - libssl-dev
 
 workstation_apt_keys:
   - url: https://apt.releases.hashicorp.com/gpg

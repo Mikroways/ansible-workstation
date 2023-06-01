@@ -23,7 +23,8 @@ workstation_asdf_tools:
   mc: false
   oc: false
   packer: false
-  python: false
+  pre-commit: 3.3.2
+  python: 3.10.9
   restic: false
   ruby: false
   sops: false

@@ -26,8 +26,10 @@
         success_msg: "zsh is current shell"
         fail_msg: "zsh is not users shell"
     - name: "Check if helm plugin is installed"
-      shell: "/home/ansible/.asdf/shims/helm plugin list | grep secrets"
+      shell: "helm plugin list | grep secrets"
       register: helm_plugins
+      environment:
+        PATH: "/home/ansible/.asdf/bin:/home/ansible/.asdf/shims:/usr/sbin:/usr/bin:/sbin:/bin"
     - name: "Assert helm plugin installed"
       assert:
         that:
@@ -35,11 +37,13 @@
         success_msg: "helm plugin is present"
         fail_msg: "helm plugin is not present"
     - name: "Check if krew plugin is installed"
-      shell: "/home/ansible/.asdf/shims/kubectl-krew list | grep popeye"
+      shell: "kubectl-krew list | grep popeye"
       register: krew_plugins
+      environment:
+        PATH: "/home/ansible/.asdf/bin:/home/ansible/.asdf/shims:/usr/sbin:/usr/bin:/sbin:/bin"
     - name: "Assert krew plugin installed"
       assert:
         that:
-          - krew_plugins.rc == 0
+          - helm_plugins.rc == 0
         success_msg: "krew plugin is present"
         fail_msg: "krew plugin is not present"
