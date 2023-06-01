@@ -10,20 +10,24 @@ workstation_asdf_tools:
   bitwarden: false
   clusterctl: false
   direnv: 2.32.3
+  dotnet: false
   eksctl: false
   helm: 3.12.0
   helm-docs: false
   helmfile: false
   gohugo: false
+  java: false
   jq: false
   kind: false
   krew: 0.4.3
   kubectl: 1.25.10
   kustomize: false
   mc: false
+  nodejs: false
   oc: false
   packer: false
   pre-commit: 3.3.2
+  php: false
   python: 3.10.9
   restic: false
   ruby: false
