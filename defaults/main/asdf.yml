@@ -37,7 +37,7 @@ workstation_asdf_tools:
   terraform-docs: false
   terragrunt: false
   tflint: false
-  tfswitch: false
+  tfswitch: 0.13.1308
   trivy: false
   velero: false
   yq: false
