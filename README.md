@@ -85,8 +85,16 @@ dependemos](https://github.com/ruzickap/ansible-role-proxy_settings/)
 
 ### Tools
 
-Binarios a ser descargados e instalados en el HOME del usuario que corre el
-playbook.
+Las herramientas se instalan con diferentes productos:
+
+* asdf
+* Descarga de binarios en el HOME del usuario que corre el playbook.
+
+Las tools que se instalarán con asdf son especificadas con el diccionario
+`workstation_asdf_tools:`. Los valores del diccionario son el nombre del plugin
+asdf y la versión del paquete a instalar por defecto y configurar como global
+para el usuario.
+
 
 | Nombre                                | Default                                 | Descripción                            |
 | ------------------------------------- | --------------------------------------- | -------------------------------------- |
@@ -97,15 +105,9 @@ playbook.
 La variable `workstation_tools` se compone como un arreglo de arreglos separado
 en diferentes archivos que nos simplifica la gestión de las herramientas según:
 
-* `workstation_aws_tools`: herramientas prara trabajar con aws como por ejemplo:
-  aws-cli, aws-iam-authenticator, eksctl.
-* `workstation_kubernetes_tools`: herramientas para interactuar con kubernetes:
-  kubectl, kustomize, kind, helm, helmfile, cluster-api, sonobuoy, telepresence,
-  oc, velero.
-* `workstation_hashicorp_tools`: herramientas de hashicorp, o para
-  gestionarlas: tgswitch, terraform-switch, packer, tflint, terraform-docs.
-* `workstation_other_tools`: otras herramientas: jq, yq, direnv, certinfo,
-  promtool, amtool, mc, hugo, age, sops, govc, navi
+* `workstation_kubernetes_tools`: herramientas para interactuar con kubernetes
+  no soportadas por asdf.
+* `workstation_other_tools`: otras herramientas que no se contemplan por asdf.
 
 ### Helm plugins
 
