@@ -32,6 +32,7 @@ workstation_asdf_tools:
   restic: false
   ruby: false
   sops: false
+  sshuttle: 1.1.1
   telepresence: false
   terraform: false
   terraform-docs: false
