@@ -8,13 +8,9 @@
         update_cache: yes
         name:
           - python3-pip
+          - python3-apt
           - dirmngr
           - gpg
-        state: present
-    -
-      name: Install python apt
-      pip:
-        name: python-apt
         state: present
     -
       name: Add Apt keys
