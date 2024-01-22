@@ -1,5 +1,5 @@
 ---
-workstation_language_managers_enabled: true
+workstation_language_managers_enabled: false
 workstation_language_managers:
   -
     name: rbenv
