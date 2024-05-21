@@ -78,3 +78,160 @@
           echo
         fi
       }
+-
+  name: "Setup direnv use_sops"
+  ansible.builtin.copy:
+    dest: "{{ direnv_config_dir }}/use_sops.sh"
+    content: |
+      ################################################################################
+      # Retrieve age key files from Bitwarden
+      #
+      # Globals:
+      #   USE_SOPS_DISABLE
+      # Arguments:
+      #   Client name 
+      #   Format for the Vaultwarden item, default to '${client} - Age - Private Key'
+      ################################################################################
+      use_sops() {
+        local client
+        local format
+
+        local red
+        local yellow
+        local no_color
+
+        local key_name
+
+        # Rename arguments
+        client=$1
+        export client
+        format=${2:-${client} - Age - Private Key}
+
+        # Define colors
+        red="\033[31m"
+        yellow="\033[33m"
+        no_color="\033[0m"
+
+        # Define variables
+        key_name=$(echo $format | envsubst)
+
+        # The SOPS file already exists
+        if [ -f "$SOPS_AGE_KEY_FILE" ]; then
+          return
+        fi
+
+        if [ -n "${USE_SOPS_DISABLE:-}" ]; then
+          echo -e "${yellow}Disabled use_sops 'USE_SOPS_DISABLE'${no_color}"
+          return
+        fi
+
+        if [ -z "$client" ]; then
+          echo -e "${red}Missing client${no_color}" 
+          return
+        fi
+
+        if [ -z "$SOPS_AGE_KEY_FILE" ]; then
+          echo -e "${red}Missing SOPS_AGE_KEY_FILE variable${no_color}" 
+          return
+        fi
+
+        # Get Bitwarden session token
+        if [ -z "$BW_SESSION" ]; then
+          BW_SESSION=$(bw unlock --raw)
+
+          # Error in the login
+          if [ $? -ne 0 ]; then
+            return
+          fi
+
+          # Export for bw cli
+          export BW_SESSION
+        fi
+
+        echo "# created: $(date +%Y-%m-%dT%T%:z)" >> "$SOPS_AGE_KEY_FILE"
+        username=$(bw get username "$key_name" 2> /dev/null)
+        if [ $? -eq 0 ]; then
+          echo "# public key: $username" >> "$SOPS_AGE_KEY_FILE"
+        else
+          echo -e "${yellow}Public key not found as username at '${key_name}'${no_color}"
+        fi
+
+        password=$(bw get password "$key_name" 2> /dev/null)
+        if [ $? -eq 0 ]; then
+          echo "$password" >> "$SOPS_AGE_KEY_FILE"
+        else
+          echo -e "${red}Private key not found as password at '${key_name}'${no_color}"
+          rm "$SOPS_AGE_KEY_FILE"
+        fi
+      }
+-
+  name: "Setup direnv use_aws_sso_login"
+  ansible.builtin.copy:
+    dest: "{{ direnv_config_dir }}/use_aws_sso_login.sh"
+    content: |
+      ####################################################################
+      # Execute, if is needed, the aws sso login command for every profile
+      #
+      # Globals:
+      #   USE_AWS_SSO_LOGIN_DISABLE
+      #   USE_AWS_SSO_LOGIN_DRY_RUN
+      # Arguments:
+      #   Custom ttl in minutes for the sso session, default to 60
+      ####################################################################
+      use_aws_sso_login() {
+        local sso_ttl
+        local profiles
+
+        local red
+        local yellow
+        local green
+        local no_color
+
+
+        sso_ttl=${1:-60}
+        profiles=""
+
+        # Define colors
+        red="\033[31m"
+        yellow="\033[33m"
+        green="\033[32m"
+        no_color="\033[0m"
+
+        if [ -n "${USE_AWS_SSO_LOGIN_DISABLE:-}" ]; then
+          echo -e "${yellow}Disabled auto login by variable 'USE_AWS_SSO_LOGIN_DISABLE'${no_color}"
+          return
+        fi
+
+        # Retrieve the expiration timestamp
+        [ -f "$PWD/.sso-login-expire" ] && sso_login_expire=$(cat "$PWD/.sso-login-expire")
+
+        # Check if the session is expired
+        if [ ! "${sso_login_expire:-0}" -lt "$(date +%s)" ]; then
+          echo -e "${green}AWS SSO session until $(date -d @"${sso_login_expire}" +%H:%M:%S)${no_color}"
+          return
+        fi
+
+        # Retrieve all the profiles that match two rules
+        profiles=$(env | { grep PROFILE || test $? = 1; } | { grep mw_ || test $? = 1; } | cut -d"=" -f 2 | sort | uniq)
+
+        if [ -z "${profiles}" ]; then
+          echo -e "${yellow}No profiles found${no_color}"
+          return
+        fi
+
+        echo -e "${red}Expired AWS SSO session${no_color}"
+
+        for profile in $profiles; do
+          if [ -n "${USE_AWS_SSO_LOGIN_DRY_RUN:-}" ]; then
+            echo aws sso login --profile "${profile}"
+          else
+            aws sso login --profile "${profile}"
+          fi
+        done
+
+        if [ -n "${USE_AWS_SSO_LOGIN_DRY_RUN:-}" ]; then
+          echo "date +%s --date='+${sso_ttl} minutes' > $PWD/.sso-login-expire"
+        else
+          date +%s --date="+${sso_ttl} minutes" > "$PWD/.sso-login-expire"
+        fi
+      }
