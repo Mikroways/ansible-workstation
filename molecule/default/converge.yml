@@ -6,8 +6,6 @@
   vars:
     docker_service_manage: false
     workstation_tools_only: [certinfo, navi]
-    workstation_asdf_tools:
-      direnv: 2.32.3
 
 - name: Converge tools
   hosts: complete

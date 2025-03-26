@@ -10,18 +10,14 @@ platforms:
     image: 'archlinux:base'
     groups:
       - complete
-  - name: ubuntu-2204
-    image: 'ubuntu:22.04'
+  - name: ubuntu-2404
+    image: 'ubuntu:24.04'
     groups:
       - system_packages
-  - name: debian-11
-    image: 'debian:11'
+  - name: debian-12
+    image: 'debian:12'
     groups:
       - complete
-lint: |
-  set -ex
-  yamllint .
-  ansible-lint .
 provisioner:
   name: ansible
   inventory:
