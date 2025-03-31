@@ -25,11 +25,6 @@
   import_tasks: tools.yml
   tags: tools
 -
-  name: Install language managers
-  import_tasks: language-managers.yml
-  when: workstation_language_managers_enabled
-  tags: language-managers
--
   name: Install dotfiles
   import_tasks: dotfiles.yml
   when: workstation_dotfiles_enabled

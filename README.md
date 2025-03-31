@@ -136,7 +136,6 @@ Lista de plugins de kubectl instalados con krew:
 * system_packages
 * docker
 * tools
-* language-managers
 * dotfiles
 * locales
 * proxy

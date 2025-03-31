@@ -1,9 +1,0 @@
----
-- name: Install programming language managers
-  git:
-    repo: "{{ item.repo }}"
-    dest: "{{ item.dest }}"
-    version: "{{ item.version | d('master') }}"
-  loop: "{{ workstation_language_managers }}"
-  loop_control:
-    label: "{{ item.name }}"
