@@ -1,6 +1,6 @@
 ---
 - name: Check if helm is installed
-  command: helm version
+  ansible.builtin.command: helm version
   register: helm_check
   changed_when: false
   ignore_errors: yes

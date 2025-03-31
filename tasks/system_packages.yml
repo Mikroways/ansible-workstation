@@ -1,7 +1,7 @@
 ---
 -
   name: Include release specific variables
-  include_vars: "{{ _loop_var }}"
+  ansible.builtin.include_vars: "{{ _loop_var }}"
   loop: "{{ query('first_found', _params) }}"
   loop_control:
     loop_var: _loop_var
@@ -19,7 +19,7 @@
       skip: true
 -
   name: Prepare system to install
-  include_tasks:
+  ansible.builtin.include_tasks:
     file: "{{ system_package_file }}"
   with_first_found:
     - files:
@@ -29,7 +29,7 @@
     loop_var: system_package_file
 -
   name: Install common packages using standard package manager
-  package:
+  ansible.builtin.package:
     name: "{{ workstation_packages }}"
     state: present
   register: package_res
@@ -39,7 +39,7 @@
   delay: 10
 -
   name: Setup configured locale
-  locale_gen:
+  community.general.locale_gen:
     name: "{{ item }}"
     state: present
   become: true
