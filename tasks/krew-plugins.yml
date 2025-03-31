@@ -1,6 +1,6 @@
 ---
 - name: Check if krew is installed
-  command: kubectl-krew version
+  ansible.builtin.command: kubectl-krew version
   register: krew_check
   changed_when: false
   ignore_errors: yes
@@ -12,7 +12,7 @@
   block:
     -
       name: Install krew plugins
-      command: "kubectl-krew install {{ item }}"
+      ansible.builtin.command: "kubectl-krew install {{ item }}"
       register: krew_install
       changed_when: krew_install.rc == 0 and 'installed' in krew_install.stdout
       loop: "{{ workstation_krew_plugins }}"
@@ -20,7 +20,7 @@
         PATH: "{{ workstation_asdf_dest }}/bin:{{ workstation_asdf_dest }}/shims:{{ workstation_tools_install_directory }}:{{ ansible_env.PATH }}"
     -
       name: Upgrade krew plugins
-      command: "kubectl-krew upgrade"
+      ansible.builtin.command: "kubectl-krew upgrade"
       changed_when: false
       environment:
         PATH: "{{ workstation_asdf_dest }}/bin:{{ workstation_asdf_dest }}/shims:{{ workstation_tools_install_directory }}:{{ ansible_env.PATH }}"

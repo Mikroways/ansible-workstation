@@ -1,7 +1,7 @@
 ---
 - name: Update pacman cache
   become: true
-  pacman:
+  community.general.pacman:
     update_cache: yes
   tags:
     - molecule-idempotence-notest

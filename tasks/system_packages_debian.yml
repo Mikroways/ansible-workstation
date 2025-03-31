@@ -4,7 +4,7 @@
   block:
     -
       name: Install essential packages
-      apt:
+      ansible.builtin.apt:
         update_cache: yes
         name:
           - python3-pip
@@ -14,17 +14,20 @@
         state: present
     -
       name: Add Apt keys
-      apt_key:
+      ansible.builtin.apt_key:
         url: "{{ item.url }}"
         id: "{{ item.id }}"
         state: present
       loop: "{{ workstation_apt_keys }}"
     -
       name: Update apt-get repo and cache
-      apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+      ansible.builtin.apt:
+        update_cache: yes
+        force_apt_get: yes
+        cache_valid_time: 3600
     -
       name: Add repositories
-      apt_repository:
+      ansible.builtin.apt_repository:
         repo: "{{ item.repo }}"
         codename: "{{ item.codename | d() }}"
       loop: "{{ workstation_repositories }}"

@@ -1,20 +1,21 @@
 ---
 -
   name: Install asdf
-  import_tasks: asdf.yml
+  ansible.builtin.import_tasks: asdf.yml
 -
   name: Create binary dir for Mikroways tools
-  file:
+  ansible.builtin.file:
     path: "{{ workstation_tools_install_directory }}"
     state: directory
     mode: '0755'
 -
-  name: "Installing {{ item.name }} ({{ item.version }})"
-  include_tasks: _download.yml
+  name: "Installing {{ '%name: %version'
+    | replace('%name', item.name) | replace('%version', item.version) }}"
+  ansible.builtin.include_tasks: _download.yml
   vars:
     _item: "{{ item }}"
-    name: "{{ item.name }}"
-    url: "{{item.url | replace('%version%', item.version) }}"
+    _name: "{{ item.name }}"
+    url: "{{ item.url | replace('%version%', item.version) }}"
     version: "{{ item.version }}"
     install_directory: "{{ workstation_tools_install_directory }}"
     install_command: >-
@@ -33,7 +34,7 @@
   loop: "{{ workstation_tools }}"
 -
   name: "Install krew plugins"
-  include_tasks: krew-plugins.yml
+  ansible.builtin.include_tasks: krew-plugins.yml
 -
   name: "Install helm plugins"
-  include_tasks: helm-plugins.yml
+  ansible.builtin.include_tasks: helm-plugins.yml

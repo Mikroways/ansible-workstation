@@ -1,15 +1,15 @@
 ---
 -
   name: Configure proxy
-  import_tasks: proxy_configure.yml
+  ansible.builtin.import_tasks: proxy_configure.yml
   tags: proxy_configure
 -
   name: Install system packages
-  import_tasks: system_packages.yml
+  ansible.builtin.import_tasks: system_packages.yml
   tags: system_packages
 -
   name: Install docker
-  import_role:
+  ansible.builtin.import_role:
     name: geerlingguy.docker
   become: true
   vars:
@@ -22,10 +22,10 @@
     - docker
 -
   name: Install tools
-  import_tasks: tools.yml
+  ansible.builtin.import_tasks: tools.yml
   tags: tools
 -
   name: Install dotfiles
-  import_tasks: dotfiles.yml
+  ansible.builtin.import_tasks: dotfiles.yml
   when: workstation_dotfiles_enabled
   tags: dotfiles

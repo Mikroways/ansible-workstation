@@ -1,41 +1,35 @@
 ---
 workstation_packages:
-  - locales
+  - asciinema
   - bzip2
-  - python3
-  - python3-venv
-  - openssh-server
-  - wget
   - curl
-  - nmap
-  - unzip
-  - yamllint
+  - dnsutils
   - git
   - git-extras
-  - git-flow
   - git-lfs
-  - vim
-  - tmux
-  - openfortivpn
-  - openconnect
-  - shellcheck
-  - dnsutils
-  - ppp
-  - nextcloud-desktop-cmd
   - haveged
-  - asciinema
+  - libssl-dev
+  - locales
+  - nmap
+  - openconnect
+  - openfortivpn
+  - openssh-server
+  - podman
+  - ppp
+  - python3
+  - python3-venv
+  - shellcheck
+  - swaks
+  - tmux
   - tree
   - uidmap
-  - vagrant
-  - swaks
-  - podman
-  - zsh
-  - xsel
+  - unzip
+  - vim
+  - wget
   - xclip
-  - libssl-dev
+  - xsel
+  - yamllint
+  - zsh
 
-workstation_apt_keys:
-  - url: https://apt.releases.hashicorp.com/gpg
-    id: 798AEC654E5C15428C8E42EEAA16FCBCA621E701
-workstation_repositories:
-  - repo: deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
+workstation_apt_keys: []
+workstation_repositories: []

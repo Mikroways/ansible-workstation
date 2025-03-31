@@ -1,10 +1,10 @@
 ---
 - name: "Package name is defined?"
-  fail:
-    msg: "Name not defined for {{ _item }}"
-  when: name is not defined
+  ansible.builtin.fail:
+    msg: "Name (_name var) not defined for {{ _item }}"
+  when: _name is not defined
 
-- name: "Check whether {{ name }} is installed"
+- name: "Check whether installed: {{ _name }}"
   shell: "{{ version_command }}"
   register: need_install
   ignore_errors: true
@@ -15,21 +15,24 @@
   tags:
     - skip_ansible_lint
 
-- name: "Install package {{ name }} when needed"
+- name: "Install package when needed: {{ _name }}"
+  when: need_install.rc != 0 or
+      ( need_install.rc == 0 and version not in need_install.stdout )
   block:
     - name: Generate temporary filename
-      tempfile:
+      ansible.builtin.tempfile:
         state: file
       register: tempfile
 
-    - name: "Download {{ name }}"
-      get_url:
+    - name: "Download: {{ _name }}"
+      ansible.builtin.get_url:
         url: "{{ url }}"
         dest: "{{ tempfile.path }}"
+        mode: '0600'
         force: true
 
-    - name: "Install {{ name }}"
-      shell: >-
+    - name: "Install {{ _name }}"
+      ansible.builtin.shell: >-
         set -eo pipefail &&
         {{ install_command | replace('%downloaded%', tempfile.path) }}
       changed_when: false
@@ -37,18 +40,15 @@
         executable: /bin/bash
 
     - name: Delete temporary data
-      file:
+      ansible.builtin.file:
         path: "{{ tempfile.path }}"
         state: absent
 
-    - name: "Check {{ name }} installed"
-      command: "{{ version_command }}"
+    - name: "Check installed: {{ _name }}"
+      ansible.builtin.command: "{{ version_command }}"
       register: just_installed
       failed_when: just_installed.rc != 0 or
           ( just_installed.rc == 0 and version not in just_installed.stdout )
       changed_when: false
       environment:
         PATH: "{{ install_directory }}:{{ ansible_env.PATH }}"
-
-  when: need_install.rc != 0 or
-      ( need_install.rc == 0 and version not in need_install.stdout )

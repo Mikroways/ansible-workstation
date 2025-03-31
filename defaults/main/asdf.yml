@@ -1,44 +1,47 @@
 ---
-workstation_asdf_repo: https://github.com/asdf-vm/asdf.git
-workstation_asdf_dest: "{{ ansible_env.HOME }}/.asdf"
-workstation_asdf_version: master
+workstation_asdf_download_url: "https://github.com/asdf-vm/asdf/releases/download/{{ workstation_asdf_version }}/asdf-{{ workstation_asdf_version }}-{{ ansible_system | lower }}-amd64.tar.gz"
+workstation_asdf_dest: '{{ ansible_env.HOME }}/.asdf'
+workstation_asdf_version: v0.16.7
 workstation_asdf_tools:
-  age: false
-  argocd: false
-  awscli: false
-  aws-iam-authenticator: false
-  bitwarden: false
-  clusterctl: false
-  direnv: 2.32.3
-  dotnet: false
-  eksctl: false
-  helm: 3.12.0
-  helm-docs: false
-  helmfile: false
-  gohugo: false
-  java: false
-  jq: false
-  kind: false
-  krew: 0.4.3
-  kubectl: 1.25.10
-  kustomize: false
-  mc: false
-  nodejs: false
-  oc: false
-  packer: false
-  pre-commit: 3.3.2
-  php: false
-  python: 3.10.9
-  restic: false
-  ruby: false
-  sops: false
-  sshuttle: 1.1.1
-  telepresence: false
-  terraform: false
-  terraform-docs: false
-  terragrunt: false
-  tflint: false
-  tfswitch: 0.13.1308
-  trivy: false
-  velero: false
-  yq: false
+  age: [ latest ]
+  argocd: []
+  awscli: [ latest ]
+  aws-iam-authenticator: [ latest ]
+  bitwarden: [ latest ]
+  clusterctl: []
+  direnv: [ latest ]
+  dotnet: []
+  eksctl: []
+  gohugo: []
+  helm: [ latest ]
+  helm-docs: []
+  helmfile: []
+  java: []
+  jq: [ latest ]
+  kind: []
+  krew: [ latest ]
+  kubectl: [ latest ]
+  kustomize: []
+  mc: []
+  nodejs: []
+  oc: []
+  packer: []
+  php: []
+  pre-commit: [ ]
+  python: [3.10.16, 3.11.11]
+  restic: []
+  ruby: []
+  sops: []
+  sshuttle: [ latest ]
+  telepresence: []
+  terraform: [ latest ]
+  terraform-docs: []
+  terragrunt: [ latest ]
+  tflint: [ latest ]
+  trivy: []
+  velero: []
+  yq: [ latest ]
+# List of plugins not published in central repo:
+# https://github.com/asdf-vm/asdf-plugins
+workstation_asdf_external_sources_plugins:
+  direnv: https://github.com/richtong/asdf-direnv
