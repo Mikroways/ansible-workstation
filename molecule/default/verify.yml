@@ -37,7 +37,7 @@
         success_msg: "helm plugin is present"
         fail_msg: "helm plugin is not present"
     - name: "Check if krew plugin is installed"
-      shell: "kubectl-krew list | grep popeye"
+      shell: "krew list | grep popeye"
       register: krew_plugins
       environment:
         PATH: "/home/ansible/.asdf/bin:/home/ansible/.asdf/shims:/usr/sbin:/usr/bin:/sbin:/bin"
