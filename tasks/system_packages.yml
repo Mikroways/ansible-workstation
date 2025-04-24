@@ -38,6 +38,37 @@
   retries: 3
   delay: 10
 -
+  name: Install Vagrant and Swaks using yay
+  when: ansible_os_family | lower == "archlinux"
+  block:
+    - name: Check if yay is already installed
+      ansible.builtin.command: yay --version
+      register: yay_check
+      changed_when: false
+      ignore_errors: true
+    -
+      name: Install yay
+      when: yay_check.rc != 0
+      block:
+        - 
+          name: Clone yay repository
+          ansible.builtin.git:
+            repo: "https://aur.archlinux.org/yay.git"
+            dest: /tmp/yay
+        -
+          name: Compile yay
+          ansible.builtin.shell: |
+            cd /tmp/yay
+            makepkg -si --noconfirm
+          changed_when: false
+    -
+      name: Install Vagrant and Swaks
+      ansible.builtin.shell: |
+        export PATH=/usr/bin/core_perl:$PATH
+        yay -S --noconfirm vagrant swaks
+      changed_when: false
+
+-
   name: Setup configured locale
   community.general.locale_gen:
     name: "{{ item }}"
