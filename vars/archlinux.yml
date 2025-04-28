@@ -23,10 +23,11 @@ workstation_packages:
   - haveged
   - asciinema
   - tree
-  - vagrant
-  - swaks
   - podman
   - zsh
   - xsel
   - xclip
   - openssl
+
+workstation_yay_packages:
+  - swaks

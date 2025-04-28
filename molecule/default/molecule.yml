@@ -26,6 +26,9 @@ provisioner:
         ansible_user: ansible
         workstation_asdf_tools:
           direnv: [ latest ]
+          helm: [ latest ]
+          kubectl: [ latest ]
+          krew: [ latest ]
     host_vars:
       arch:
         workstation_locales: []
