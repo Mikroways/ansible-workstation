@@ -28,3 +28,6 @@ workstation_packages:
   - xsel
   - xclip
   - openssl
+
+workstation_yay_packages:
+  - swaks
