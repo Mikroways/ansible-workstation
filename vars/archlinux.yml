@@ -23,8 +23,6 @@ workstation_packages:
   - haveged
   - asciinema
   - tree
-  - vagrant
-  - swaks
   - podman
   - zsh
   - xsel
