@@ -50,8 +50,10 @@ workstation_other_tools:
   -
     name: fzf
     url: >-
-      https://github.com/junegunn/fzf/releases/download/v%version%/fzf-%version%-{{ ansible_system | lower }}_amd64.tar.gz
+      https://github.com/junegunn/fzf/archive/refs/tags/v%version%.tar.gz
     version: '0.64.0'
     install_command: >-
-      mkdir -p {{ ansible_env.HOME }}/.fzf && tar xfz %downloaded% -C {{ ansible_env.HOME }}/.fzf
+      tar xfz %downloaded% --one-top-level={{ ansible_env.HOME }}/.fzf --strip-components 1 &&
+      {{ansible_env.HOME}}/.fzf/install --all && 
+      mv {{ ansible_env.HOME }}/.fzf/bin/fzf %install_directory%
     version_command: "fzf --version"

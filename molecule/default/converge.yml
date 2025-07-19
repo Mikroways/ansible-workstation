@@ -5,7 +5,7 @@
     - role: mikroways.workstation
   vars:
     docker_service_manage: false
-    workstation_tools_only: [certinfo, navi]
+    workstation_tools_only: [certinfo, navi, fzf]
 
 - name: Converge tools
   hosts: complete
