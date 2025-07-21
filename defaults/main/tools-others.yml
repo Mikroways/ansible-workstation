@@ -54,6 +54,5 @@ workstation_other_tools:
     version: '0.64.0'
     install_command: >-
       tar xfz %downloaded% --one-top-level={{ ansible_env.HOME }}/.fzf --strip-components 1 &&
-      {{ansible_env.HOME}}/.fzf/install --all && 
-      mv {{ ansible_env.HOME }}/.fzf/bin/fzf %install_directory%
-    version_command: "fzf --version"
+      {{ ansible_env.HOME }}/.fzf/install --all
+    version_command: "{{ ansible_env.HOME }}/.fzf/bin/fzf --version"
