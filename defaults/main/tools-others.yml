@@ -47,3 +47,12 @@ workstation_other_tools:
       chmod +x %downloaded% &&
       mv %downloaded% %install_directory%/gitlab-runner
     version_command: "gitlab-runner --version"
+  -
+    name: fzf
+    url: >-
+      https://github.com/junegunn/fzf/archive/refs/tags/v%version%.tar.gz
+    version: '0.64.0'
+    install_command: >-
+      tar xfz %downloaded% --one-top-level={{ ansible_env.HOME }}/.fzf --strip-components 1 &&
+      {{ ansible_env.HOME }}/.fzf/install --all
+    version_command: "{{ ansible_env.HOME }}/.fzf/bin/fzf --version"
