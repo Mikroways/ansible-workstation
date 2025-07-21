@@ -3,7 +3,7 @@ workstation_dotfiles_enabled: true
 workstation_antigen_directory: "{{ ansible_env.HOME }}/.antigen.zsh"
 workstation_antigen_url: "https://git.io/antigen"
 workstation_dotfiles_directory: "{{ ansible_env.HOME }}/.mikroways/dotfiles"
-workstation_dotfiles_repository: "https://github.com/mortzkeblar/mw-dotfiles.git"
+workstation_dotfiles_repository: "https://github.com/Mikroways/dotfiles.git"
 workstation_dotfiles_version: "master"
 workstation_dotfiles_install_script: "{{ workstation_dotfiles_directory }}/script/install"
 workstation_dotfiles_fonts_directory: "{{ ansible_env.HOME }}/.local/share/fonts"
