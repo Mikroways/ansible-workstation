@@ -11,7 +11,7 @@ workstation_other_tools:
     name: govc
     url: >-
       https://github.com/vmware/govmomi/releases/download/v%version%/govc_{{ ansible_system }}_x86_64.tar.gz
-    version: '0.30.4'
+    version: '0.51.0'
     install_command: "tar xfz %downloaded% -C %install_directory% govc"
     version_command: "govc version"
   -
