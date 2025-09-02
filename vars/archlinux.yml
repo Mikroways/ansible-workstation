@@ -28,6 +28,7 @@ workstation_packages:
   - xsel
   - xclip
   - openssl
+  - sqlite
 
 workstation_yay_packages:
   - swaks

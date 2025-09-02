@@ -30,6 +30,8 @@ workstation_packages:
   - xsel
   - yamllint
   - zsh
+  - libsqlite3-dev
+  - sqlite3
 
 workstation_apt_keys: []
 workstation_repositories: []
