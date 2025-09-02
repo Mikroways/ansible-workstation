@@ -27,7 +27,6 @@ workstation_asdf_tools:
   oc: []
   packer: []
   php: []
-  pre-commit: [ ]
   python: [3.10.16, 3.11.11]
   restic: []
   ruby: []

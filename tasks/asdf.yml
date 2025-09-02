@@ -18,6 +18,12 @@
           {{ "tar xfz %downloaded% -C %install_directory% asdf" | replace('%install_directory%', workstation_asdf_dest + '/bin') }}
         version_command: "asdf version"
 
+- name: "Create default python packages"
+  ansible.builtin.copy:
+    content: |
+      pre-commit
+    dest: "{{ ansible_env.HOME }}/.default-python-packages"   
+
 - name: "Check asdf installed plugins"
   ansible.builtin.command: "asdf plugin list"
   register: asdf_plugin_list_output

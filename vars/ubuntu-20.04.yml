@@ -32,6 +32,8 @@ workstation_packages:
   - xsel
   - xclip
   - libssl-dev
+  - libsqlite3-dev
+  - sqlite3
 
 workstation_apt_keys:
   - url: https://apt.releases.hashicorp.com/gpg

@@ -26,6 +26,7 @@ workstation_packages:
   - python-pip
   - rust
   - shellcheck
+  - sqlite
   - tk
   - tmux
   - tree
