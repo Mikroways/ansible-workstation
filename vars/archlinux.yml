@@ -8,6 +8,7 @@ workstation_packages:
   - gcc
   - git
   - git-lfs
+  - gvim
   - haveged
   - jq
   - libffi
@@ -29,7 +30,6 @@ workstation_packages:
   - tmux
   - tree
   - unzip
-  - vim
   - wget
   - xclip
   - xsel
