@@ -1,33 +1,43 @@
 ---
 workstation_packages:
+  - asciinema
   - base-devel
   - bzip2
-  - python
-  - openssh
-  - wget
   - curl
-  - nmap
-  - jq
-  - unzip
-  - yamllint
+  - dnsutils
+  - gcc
   - git
   - git-lfs
-  - vim
-  - tmux
-  - openfortivpn
-  - openconnect
-  - shellcheck
-  - dnsutils
-  - ppp
-  - nextcloud-client
+  - gvim
   - haveged
-  - asciinema
-  - tree
-  - podman
-  - zsh
-  - xsel
-  - xclip
+  - jq
+  - libffi
+  - libyaml
+  - make
+  - nextcloud-client
+  - nmap
+  - openconnect
+  - openfortivpn
+  - openssh
   - openssl
+  - podman
+  - ppp
+  - python
+  - python-pip
+  - rust
+  - shellcheck
+  - tk
+  - tmux
+  - tree
+  - unzip
+  - wget
+  - xclip
+  - xsel
+  - xz
+  - yamllint
+  - zlib
+  - zsh
+  - zstd
 
 workstation_yay_packages:
   - swaks
