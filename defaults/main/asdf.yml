@@ -33,6 +33,7 @@ workstation_asdf_tools:
   ruby: []
   sops: []
   sshuttle: [ latest ]
+  teleport-ent: [ latest ]
   telepresence: []
   terraform: [ latest ]
   terraform-docs: []
