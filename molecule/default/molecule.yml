@@ -18,8 +18,8 @@ platforms:
     image: 'debian:12'
     groups:
       - complete
-  - name: redhat-9
-    image: 'registry.access.redhat.com/ubi9/ubi:latest'
+  - name: rocky-9
+    image: 'rockylinux:9'
     groups:
       - complete
 provisioner:
