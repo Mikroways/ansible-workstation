@@ -16,3 +16,4 @@ workstation_krew_plugins:
   - np-viewer
   - view-secret
   - oidc-login
+  - neat
