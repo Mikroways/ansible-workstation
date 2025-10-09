@@ -1,6 +1,16 @@
 ---
--
-  name: Include release specific variables
+- name: Debug detected distribution facts
+  ansible.builtin.debug:
+    msg: |
+      ansible_distribution: {{ ansible_distribution | default('undefined') }}
+      ansible_distribution_version: {{ ansible_distribution_version | default('undefined') }}
+      ansible_distribution_major_version: {{ ansible_distribution_major_version | default('undefined') }}
+      ansible_os_family: {{ ansible_os_family | default('undefined') }}
+      ansible_pkg_mgr: {{ ansible_pkg_mgr | default('undefined') }}
+  tags:
+    - debug
+
+- name: Include release specific variables
   ansible.builtin.include_vars: "{{ _loop_var }}"
   loop: "{{ query('first_found', _params) }}"
   loop_control:
@@ -70,10 +80,13 @@
       changed_when: false
 -
   name: Setup configured locale
-  community.general.locale_gen:
-    name: "{{ item }}"
-    state: present
-  become: true
-  tags:
-    - locales
-  with_items: "{{ workstation_locales }}"
+  when: ansible_os_family | lower in ['debian', 'debianlike', 'ubuntu'] or (ansible_distribution | lower).startswith('ubuntu')
+  block:
+    - name: Setup configured locale
+      community.general.locale_gen:
+        name: "{{ item }}"
+        state: present
+      become: true
+      tags:
+        - locales
+      with_items: "{{ workstation_locales }}"

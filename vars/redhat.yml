@@ -1,0 +1,47 @@
+---
+# RHEL / RedHat-family variables
+workstation_packages:
+  - asciinema
+  - bzip2
+  - curl
+  - dnsutils
+  - git
+  - git-extras
+  - git-lfs
+  - haveged
+  - openssl-devel
+  - glibc-langpack-en
+  - glibc-langpack-es
+  - nmap
+  - openconnect
+  - openfortivpn
+  - openssh-server
+  - podman
+  - ppp
+  - python3
+  - shellcheck
+  - swaks
+  - tmux
+  - tree
+  - shadow-utils
+  - unzip
+  - vim
+  - wget
+  - xclip
+  - xsel
+  - yamllint
+  - zsh
+  - gcc
+  - gcc-c++
+  - make
+  - openssl-devel
+  - bzip2-devel
+  - libffi-devel
+  - zlib-devel
+  - xz-devel
+  - readline-devel
+  - sqlite-devel
+  - tk-devel
+  - ncurses-devel
+
+workstation_enable_epel: true
