@@ -1,0 +1,49 @@
+---
+- name: Ensure dnf-plugins-core present (for repos)
+  ansible.builtin.package:
+    name: dnf-plugins-core
+    state: present
+  become: true
+
+- name: Enable EPEL repository when requested
+  when: workstation_enable_epel | default(false)
+  become: true
+  block:
+    - name: Attempt to install epel-release via package manager
+      ansible.builtin.package:
+        name: epel-release
+        state: present
+      register: epel_install
+      ignore_errors: true
+
+    - name: Install epel-release RPM from Fedora if package not available
+      ansible.builtin.get_url:
+        url: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
+        dest: /tmp/epel-release.rpm
+        mode: "0644"
+      when: epel_install is failed or (epel_install is defined and epel_install.rc is defined and epel_install.rc != 0)
+
+    - name: Import EPEL GPG key from Fedora project
+      ansible.builtin.rpm_key:
+        key: "https://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}"
+        state: present
+      when: epel_install is failed or (epel_install is defined and epel_install.rc is defined and epel_install.rc != 0)
+
+    - name: Install epel rpm file
+      ansible.builtin.package:
+        name: /tmp/epel-release.rpm
+        state: present
+      when: epel_install is failed or (epel_install is defined and epel_install.rc is defined and epel_install.rc != 0)
+
+    - name: Remove temporary epel rpm
+      ansible.builtin.file:
+        path: /tmp/epel-release.rpm
+        state: absent
+      when: epel_install is failed or (epel_install is defined and epel_install.rc is defined and epel_install.rc != 0)
+
+- name: Update dnf/yum cache
+  ansible.builtin.package:
+    update_cache: yes
+  tags:
+    - molecule-idempotence-notest
+  become: true
