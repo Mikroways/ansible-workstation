@@ -6,20 +6,20 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: arch
-    image: 'archlinux:base'
-    groups:
-      - complete
-  - name: ubuntu-2404
-    image: 'ubuntu:24.04'
-    groups:
-      - system_packages
-  - name: debian-12
-    image: 'debian:12'
-    groups:
-      - complete
-  - name: rocky-9
-    image: 'rockylinux:9'
+  # - name: arch
+  #   image: 'archlinux:base'
+  #   groups:
+  #     - complete
+  # - name: ubuntu-2404
+  #   image: 'ubuntu:24.04'
+  #   groups:
+  #     - system_packages
+  # - name: debian-12
+  #   image: 'debian:12'
+  #   groups:
+  #     - complete
+  - name: alma-9
+    image: 'almalinux:9.6'
     groups:
       - complete
 provisioner:
