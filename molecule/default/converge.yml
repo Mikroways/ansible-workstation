@@ -13,3 +13,5 @@
     - role: mikroways.workstation
   vars:
     docker_service_manage: false
+    # TODO: eliminar cuando mw-skills sea público en GitLab
+    workstation_mw_skills_repository: "https://oauth2:{{ lookup('env', 'GITLAB_TOKEN') }}@gitlab.com/mikroways/tools/mw-skills.git"
