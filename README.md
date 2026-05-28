@@ -114,6 +114,21 @@ role. Toda configuración se rige por las siguientes variables:
 | `workstation_dotfiles_fonts` | `[]` | Lista de url de las fuentes necesarias en un desktop gráfico |
 
 
+## mw-skills
+
+[mw-skills](https://gitlab.com/mikroways/tools/mw-skills) es el repositorio de
+skills de Claude Code y gemini-cli de Mikroways. El rol lo clona y ejecuta su
+`install.sh`, que hace sparse clones de los repos de skills via SSH y crea los
+symlinks correspondientes.
+
+| Nombre                                  | Default | Descripción |
+| --------------------------------------- | ------- | ----------- |
+| `workstation_mw_skills_enabled`         | `true`  | Habilitar la instalación de mw-skills |
+| `workstation_mw_skills_repository`      | `https://gitlab.com/mikroways/tools/mw-skills.git` | Repositorio de mw-skills |
+| `workstation_mw_skills_directory`       | `{{ ansible_env.HOME }}/.mikroways/tools/mw-skills` | Directorio donde clonar mw-skills |
+| `workstation_mw_skills_run_install`     | `true`  | Ejecutar `install.sh` tras el clone. Requiere acceso SSH a GitLab. Desactivar en entornos sin SSH (ej: contenedores) |
+
+
 ## Herramientas
 
 Las herramientas se instalan con diferentes productos:
