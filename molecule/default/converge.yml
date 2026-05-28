@@ -6,6 +6,8 @@
   vars:
     docker_service_manage: false
     workstation_tools_only: [certinfo, navi, fzf]
+    # TODO: eliminar cuando mw-skills sea público en GitLab
+    workstation_mw_skills_repository: "https://oauth2:{{ lookup('env', 'GITLAB_TOKEN') }}@gitlab.com/mikroways/tools/mw-skills.git"
 
 - name: Converge tools
   hosts: complete
