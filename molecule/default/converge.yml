@@ -6,10 +6,6 @@
   vars:
     docker_service_manage: false
     workstation_tools_only: [certinfo, navi, fzf]
-    # TODO: eliminar cuando mw-skills sea público en GitLab
-    workstation_mw_skills_repository: "https://oauth2:{{ lookup('env', 'GITLAB_TOKEN') }}@gitlab.com/mikroways/tools/mw-skills.git"
-    # install.sh hace sparse clones vía SSH, que no está disponible en Docker
-    workstation_mw_skills_run_install: false
 
 - name: Converge tools
   hosts: complete
@@ -17,7 +13,3 @@
     - role: mikroways.workstation
   vars:
     docker_service_manage: false
-    # TODO: eliminar cuando mw-skills sea público en GitLab
-    workstation_mw_skills_repository: "https://oauth2:{{ lookup('env', 'GITLAB_TOKEN') }}@gitlab.com/mikroways/tools/mw-skills.git"
-    # install.sh hace sparse clones vía SSH, que no está disponible en Docker
-    workstation_mw_skills_run_install: false
