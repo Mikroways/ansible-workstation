@@ -3,8 +3,7 @@
 workstation_packages:
   - asciinema
   - bzip2
-  - curl
-  - dnsutils
+  - bind-utils
   - git
   - git-extras
   - git-lfs
@@ -34,7 +33,6 @@ workstation_packages:
   - gcc
   - gcc-c++
   - make
-  - openssl-devel
   - bzip2-devel
   - libffi-devel
   - zlib-devel
