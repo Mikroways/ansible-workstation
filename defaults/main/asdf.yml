@@ -41,6 +41,9 @@ workstation_asdf_tools:
   trivy: []
   velero: []
   yq: [ latest ]
+workstation_default_python_packages:
+  - pre-commit
+
 # List of plugins not published in central repo:
 # https://github.com/asdf-vm/asdf-plugins
 workstation_asdf_external_sources_plugins:

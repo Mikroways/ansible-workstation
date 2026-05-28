@@ -20,9 +20,8 @@
 
 - name: "Create default python packages"
   ansible.builtin.copy:
-    content: |
-      pre-commit
-    dest: "{{ ansible_env.HOME }}/.default-python-packages"   
+    content: "{{ workstation_default_python_packages | join('\n') }}\n"
+    dest: "{{ ansible_env.HOME }}/.default-python-packages"
 
 - name: "Check asdf installed plugins"
   ansible.builtin.command: "asdf plugin list"
