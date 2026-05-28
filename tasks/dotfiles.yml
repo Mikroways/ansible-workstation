@@ -38,6 +38,19 @@
   changed_when: false
   ansible.builtin.command: "{{ workstation_dotfiles_install_script }}"
 -
+  name: Clone mw-skills
+  when: workstation_mw_skills_enabled
+  ansible.builtin.git:
+    repo: "{{ workstation_mw_skills_repository }}"
+    dest: "{{ workstation_mw_skills_directory }}"
+    version: main
+    accept_hostkey: true
+-
+  name: Install mw-skills
+  when: workstation_mw_skills_enabled
+  changed_when: false
+  ansible.builtin.command: "{{ workstation_mw_skills_directory }}/install.sh"
+-
   name: Download dotfiles fonts
   block:
     - name: Create local fonts directory
