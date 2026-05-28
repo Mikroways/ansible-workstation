@@ -14,5 +14,6 @@ workstation_dotfiles_fonts:
   - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
 
 workstation_mw_skills_enabled: true
+workstation_mw_skills_run_install: true
 workstation_mw_skills_repository: "https://gitlab.com/mikroways/tools/mw-skills.git"
 workstation_mw_skills_directory: "{{ ansible_env.HOME }}/.mikroways/tools/mw-skills"

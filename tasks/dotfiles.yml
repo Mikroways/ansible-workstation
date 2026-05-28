@@ -47,7 +47,7 @@
     accept_hostkey: true
 -
   name: Install mw-skills
-  when: workstation_mw_skills_enabled
+  when: workstation_mw_skills_enabled and workstation_mw_skills_run_install
   changed_when: false
   ansible.builtin.command: "{{ workstation_mw_skills_directory }}/install.sh"
 -
