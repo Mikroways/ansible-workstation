@@ -10,10 +10,16 @@
   name: Do install and upgrade helm plugins when installed
   when: helm_check.rc == 0
   block:
+    - name: Check installed helm plugins
+      ansible.builtin.command: helm plugin list
+      register: helm_plugins_installed
+      changed_when: false
+      environment:
+        PATH: "{{ workstation_asdf_dest }}/bin:{{ workstation_asdf_dest }}/shims:{{ workstation_tools_install_directory }}:{{ ansible_env.PATH }}"
     - name: Install helm plugins
-      kubernetes.core.helm_plugin:
-        plugin_path: "{{ item.repo }}"
-        state: present
+      ansible.builtin.command: "helm plugin install {{ item.repo }} --verify=false"
       loop: "{{ workstation_helm_plugins }}"
+      when: item.name not in helm_plugins_installed.stdout
+      changed_when: true
       environment:
         PATH: "{{ workstation_asdf_dest }}/bin:{{ workstation_asdf_dest }}/shims:{{ workstation_tools_install_directory }}:{{ ansible_env.PATH }}"
