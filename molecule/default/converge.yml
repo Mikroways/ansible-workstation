@@ -1,13 +1,5 @@
 ---
-- name: Converge system packages
-  hosts: system_packages
-  roles:
-    - role: mikroways.workstation
-  vars:
-    docker_service_manage: false
-    workstation_tools_only: [certinfo, navi, fzf]
-
-- name: Converge tools
+- name: Converge
   hosts: complete
   roles:
     - role: mikroways.workstation
