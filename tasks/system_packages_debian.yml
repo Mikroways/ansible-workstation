@@ -31,3 +31,9 @@
         repo: "{{ item.repo }}"
         codename: "{{ item.codename | d() }}"
       loop: "{{ workstation_repositories }}"
+    -
+      name: Install systemd-resolved (Debian only — not available as package in Ubuntu)
+      ansible.builtin.apt:
+        name: systemd-resolved
+        state: present
+      when: ansible_distribution | lower == 'debian'

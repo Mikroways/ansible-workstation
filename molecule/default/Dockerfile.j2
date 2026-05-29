@@ -19,7 +19,7 @@ RUN if [ $(command -v apt-get) ]; then export DEBIAN_FRONTEND=noninteractive && 
     elif [ $(command -v yum) ]; then yum makecache fast && yum install -y /usr/bin/python /usr/bin/python2-config sudo yum-plugin-ovl bash iproute && sed -i 's/plugins=0/plugins=1/g' /etc/yum.conf && yum clean all; \
     elif [ $(command -v zypper) ]; then zypper refresh && zypper install -y python3 sudo bash iproute2 && zypper clean -a; \
     elif [ $(command -v apk) ]; then apk update && apk add --no-cache python3 sudo bash ca-certificates; \
-    elif [ $(command -v pacman) ]; then  pacman -Sy --noconfirm && pacman -S pacman --noconfirm && pacman-db-upgrade && pacman -S --noconfirm python-pip sudo bash ca-certificates iproute2 && echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/wheels; \
+    elif [ $(command -v pacman) ]; then pacman -Syu --noconfirm && pacman -S --noconfirm python-pip sudo bash ca-certificates iproute2 && echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/wheels; \
     elif [ $(command -v xbps-install) ]; then xbps-install -Syu && xbps-install -y python3 sudo bash ca-certificates iproute2 && xbps-remove -O; fi
 
 ENV ANSIBLE_USER=ansible DEPLOY_GROUP=deployer
