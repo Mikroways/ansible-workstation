@@ -42,7 +42,6 @@ workstation_packages:
   - rustc
   - shellcheck
   - swaks
-  - systemd-resolved
   - tk-dev
   - tmux
   - tree
