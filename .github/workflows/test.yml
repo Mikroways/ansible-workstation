@@ -13,7 +13,6 @@ jobs:
       fail-fast: false
       matrix:
         py:
-          - "3.10"
           - "3.11"
     steps:
       - name: Setup python for test ${{ matrix.py }}
