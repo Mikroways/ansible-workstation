@@ -21,7 +21,7 @@ platforms:
   - name: debian-12
     image: 'debian:12'
     groups:
-      - complete
+      - system_packages
   # AlmaLinux deshabilitado por defecto para agilizar CI; habilitar si se
   # necesita validar soporte RedHat.
   # - name: alma-9
