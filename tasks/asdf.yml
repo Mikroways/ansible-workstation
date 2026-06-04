@@ -51,19 +51,39 @@
   environment:
     PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_env.PATH }}"
 
+- name: "Check asdf version tools installed"
+  ansible.builtin.shell: |
+    if [ "{{ item.1 }}" = "latest" ]; then
+      latest=$(asdf latest {{ item.0.key }} 2>/dev/null)
+      asdf list {{ item.0.key }} 2>/dev/null | grep -qF "$latest"
+    else
+      asdf list {{ item.0.key }} 2>/dev/null | grep -qF '{{ item.1 }}'
+    fi
+  register: asdf_version_installed
+  failed_when: false
+  changed_when: false
+  environment:
+    PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_env.PATH }}"
+  loop: "{{ workstation_asdf_tools | dict2items | subelements('value') }}"
+  loop_control:
+    label: "Checking asdf {{ item.0.key }}@{{ item.1 }}"
+    index_var: asdf_tool_idx
+
 - name: "Install asdf version tools"
   ansible.builtin.command: "asdf install {{ item.0.key }} {{ item.1 }}"
   register: asdf_output
   failed_when: asdf_output.rc != 0
-  changed_when: false
+  changed_when: true
   retries: 4
   delay: 3
   until: asdf_output.rc == 0
+  when: asdf_version_installed.results[asdf_tool_idx].rc != 0
   environment:
     PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_env.PATH }}"
   loop: "{{ workstation_asdf_tools | dict2items | subelements('value') }}"
   loop_control:
     label: "Installing asdf {{ item.0.key }}@{{ item.1 }}"
+    index_var: asdf_tool_idx
 
 - name: "Install asdf set global tools"
   ansible.builtin.command: "asdf set --home {{ item.key }} {{ item.value | last }}"
