@@ -39,6 +39,7 @@ workstation_asdf_tools:
   terragrunt: [ latest ]
   tflint: [ latest ]
   trivy: []
+  uv: [ latest ]
   velero: []
   yq: [ latest ]
 workstation_default_python_packages:
