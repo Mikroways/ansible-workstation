@@ -41,7 +41,7 @@ workstation_other_tools:
   -
     name: gitlab-runner
     url: >-
-      https://gitlab-runner-downloads.s3.amazonaws.com/v%version%/binaries/gitlab-runner-{{ ansible_system | lower }}-amd64
+      https://s3.dualstack.us-east-1.amazonaws.com/gitlab-runner-downloads/v%version%/binaries/gitlab-runner-{{ ansible_system | lower }}-amd64
     version: '15.11.1'
     install_command: >-
       chmod +x %downloaded% &&
