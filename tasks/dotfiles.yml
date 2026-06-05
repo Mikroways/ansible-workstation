@@ -17,6 +17,7 @@
     url: "{{ workstation_antigen_url }}"
     dest: "{{ workstation_antigen_directory }}/antigen.zsh"
     mode: "0755"
+    headers: "{{ {'Authorization': 'token ' + workstation_github_api_token} if (workstation_github_api_token and 'github.com' in workstation_antigen_url) else {} }}"
   register: uri_output
   until: uri_output.status_code == 200
   retries: 5
@@ -50,6 +51,7 @@
         url: "{{ item }}"
         mode: "0644"
         dest: "{{ workstation_dotfiles_fonts_directory }}/{{ item | basename }}"
+        headers: "{{ {'Authorization': 'token ' + workstation_github_api_token} if (workstation_github_api_token and 'github.com' in item) else {} }}"
       loop: "{{ workstation_dotfiles_fonts }}"
 -
   name: "Set direnv configuration directory"

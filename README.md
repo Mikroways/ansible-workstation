@@ -1,6 +1,6 @@
 # Role mikroways.workstation
 
-Este role instala las herramientas que usamos a dirario en Mikroways. Es una
+Este role instala las herramientas que usamos a diario en Mikroways. Es una
 forma de mantener el workstation de nuestros talentos con las versiones de
 aquellas herramientas usadas, como así simplificar la generación de bastiones
 que nos entregan nuestros clientes y nos permiten trabajar cómodamente.
@@ -27,7 +27,6 @@ En resumen, este role realiza las siguientes tareas:
   Mikroways](https://github.com/Mikroways/dotfiles).
 * Además, se instalan plugins de helm y krew que más usamos en Mikroways.
 
-
 De esta forma, corriendo este role, disponemos de un desktop listo para empezar
 a trabajar.
 
@@ -52,11 +51,11 @@ Simplemente agregás en `requirements.yml` las siguientes lineas:
 
 > ¡Verificar si no hay una nueva version!
 
-# Variables
+## Variables
 
 Las variables se han separado en archivos según la siguiente clasificación:
 
-## Docker
+### Docker
 
 Estas variables son un wrapper de aquellas usadas por el [role del que
 dependemos](https://github.com/geerlingguy/ansible-role-docker):
@@ -69,17 +68,52 @@ dependemos](https://github.com/geerlingguy/ansible-role-docker):
 | `workstation_docker_compose_version` | `2.16.0`              | Versión de compose a instalar        |
 | `workstation_docker_users`           | `{{ ansible_user }}` | Usuarios para interactuar con docker |
 
-## Locales
+### Locales
 
 Qué locales instalar en la máquina
-
 
 | Nombre                               | Default                           | Descripción |
 | ------------------------------------ | --------------------------------- | ----------- |
 | `workstation_locales`         | `[ es_ES.UTF-8, es_AR.UTF8, en_US.UTF8]` | Locales     |
 
-## Proxy
+### GitHub
 
+La instalación inicial clona muchos plugins de asdf y descarga binarios desde GitHub, lo que puede
+provocar errores HTTP 403 por rate limiting (60 requests/hora sin autenticación).
+
+Para evitarlo, configurar un token de GitHub sin scopes (alcanza con acceso público):
+
+| Nombre | Default | Descripción |
+| ------ | ------- | ----------- |
+| `workstation_github_api_token` | valor de `$GITHUB_API_TOKEN` | Token de GitHub para evitar rate limiting |
+
+La forma más práctica es usando el `.envrc.private` (ver `.envrc.private.sample`):
+
+```bash
+cp .envrc.private.sample .envrc.private
+# editar .envrc.private y completar GITHUB_API_TOKEN
+direnv allow
+```
+
+El token puede ser **Classic** o **Fine-grained**. Para este uso no se necesita
+ningún scope ni permiso — solo autenticación.
+
+> **Nota**: La organización Mikroways bloquea fine-grained tokens con lifetime
+> mayor a 366 días. Si usás fine-grained, configurá máximo 365 días de expiración.
+
+* **Classic**: [github.com/settings/tokens/new](https://github.com/settings/tokens/new)
+  * _Note_: `mw-asdf-rate-limit`
+  * _Expiration_: No expiration
+  * Sin seleccionar ningún scope
+
+* **Fine-grained**: [github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new)
+  * _Token name_: `mw-asdf-rate-limit`
+  * _Description_: `Token para evitar rate limiting de GitHub al instalar plugins de asdf`
+  * _Expiration_: 365 days
+  * _Repository access_: Public repositories
+  * Sin permisos adicionales
+
+### Proxy
 
 Estas variables son un wrapper de aquellas usadas por el [role del que
 dependemos](https://github.com/ruzickap/ansible-role-proxy_settings/)
@@ -95,7 +129,7 @@ dependemos](https://github.com/ruzickap/ansible-role-proxy_settings/)
 | `workstation_proxy_yum_username` | `null` | Yum proxy username        |
 | `workstation_proxy_yum_password` | `null` | Yum proxy password        |
 
-## Dotfiles
+### Dotfiles
 
 Mikroways tiene sus propios [dotfiles](https://github.com/Mikroways/dotfiles).
 Su instalación es fundamental para tener una experiencia diferencial usando este
@@ -113,27 +147,26 @@ role. Toda configuración se rige por las siguientes variables:
 | `workstation_dotfiles_fonts_directory` | `{{ ansible_env.HOME }}/.local/share/fonts` | En consolas gráficas se usan fuentes que deben existir en el sistema. Para estos casos, se indica el directorio local de fuentes |
 | `workstation_dotfiles_fonts` | `[]` | Lista de url de las fuentes necesarias en un desktop gráfico |
 
-
-## Herramientas
+### Herramientas
 
 Las herramientas se instalan con diferentes productos:
 
 * asdf
 * Descarga de binarios en el HOME del usuario que corre el playbook.
 
-### Herramientas instaladas con asdf
+#### Herramientas instaladas con asdf
 
 Todo lo referente a asdf se configura con las siguientes variables:
 
 | Nombre                           | Default | Descripción               |
 | ----------------------------     | ------- | ------------------------- |
 | `workstation_asdf_download_url`      | `https://github.com/asdf-vm/asdf/releases/download/...` | URL de descarga de GH releases |
-| `workstation_asdf_dest` | `{{ ansible_env.HOME }}/.asdf` | Directorio donde se instalrá asdf |
+| `workstation_asdf_dest` | `{{ ansible_env.HOME }}/.asdf` | Directorio donde se instalará asdf |
 | `workstation_asdf_version` | `v0.16.7` | Version de asd |
 | `workstation_asdf_tools` | `{ plugin_name_1: [latest], plugin_name2: [] }`| Listado de versiones de diferentes herramientas a instalar. _A continuación explicamos el formato_ |
-| `workstation_asdf_external_sources_plugins` | `{plugin_1: url, plugin2: url} ` | Listado de urls desde donde instalar plugins. _A continuación explicaremos el formato_  |
+| `workstation_asdf_external_sources_plugins` | `{plugin_1: url, plugin2: url}` | Listado de urls desde donde instalar plugins. _A continuación explicaremos el formato_  |
 
-#### Formato de `workstation_asdf_tools`
+##### Formato de `workstation_asdf_tools`
 
 Es un diccionario donde se mantiene como clave, el nombre del plugin y como
 valor un listado de versiones a instalar. Si el listado de versiones es vacío,
@@ -144,15 +177,13 @@ la lista **será la configurada como versión por defecto**.
 
 Para ver un ejemplo, puede verse [`default/main/asdf.yml`](defaults/main/asdf.yml).
 
-### Herramientas instaladas con el rol y sin asdf
-
-
+#### Herramientas instaladas con el rol y sin asdf
 
 | Nombre                                | Default                                 | Descripción                            |
 | ------------------------------------- | --------------------------------------- | -------------------------------------- |
 | `workstation_tools_install_directory` | `{{ ansible_env.HOME }}/.mikroways/bin` | Directorio donde descargar utilitarios |
-| `workstation_tools_only`              | `[]`                                    | Qué utilitatios instalar de todos      |
-| `workstation_tools`                   | arreglo de utilitarios (ver abajo)      |                                        |}
+| `workstation_tools_only`              | `[]`                                    | Qué utilitarios instalar de todos      |
+| `workstation_tools`                   | arreglo de utilitarios (ver abajo)      |                                        |
 
 La variable `workstation_tools` se compone como un arreglo de arreglos separado
 en diferentes archivos que nos simplifica la gestión de las herramientas según:
@@ -161,7 +192,7 @@ en diferentes archivos que nos simplifica la gestión de las herramientas según
   no soportadas por asdf.
 * `workstation_other_tools`: otras herramientas que no se contemplan por asdf.
 
-### Helm plugins
+#### Helm plugins
 
 Lista de plugins de helm:
 
@@ -171,7 +202,7 @@ Lista de plugins de helm:
 
 > Se instalan sólo si helm fue seleccionado como tool
 
-### Krew plugins
+#### Krew plugins
 
 Lista de plugins de kubectl instalados con krew:
 
@@ -182,8 +213,7 @@ Lista de plugins de kubectl instalados con krew:
 
 > Se instalan sólo si krew fue seleccionado como tool
 
-
-# Tags ansible soportados
+## Tags ansible soportados
 
 * system_packages
 * docker
@@ -192,17 +222,17 @@ Lista de plugins de kubectl instalados con krew:
 * locales
 * proxy
 
-# Desarrollo
+## Desarrollo
 
 Para trabajar en el desarrollo del presente role, se recomienda instalar python.
 El propio repositorio mantiene variables de ambiente usando direnv dentro del
 `.envrc` y propone usar [**tox**](https://tox.wiki/) como librería para el
-desarrollo e intergración con CI/CD.
+desarrollo e integración con CI/CD.
 
 > Si ya tenés un desktop de Mikroways instalado por este role, entonces todo va
 > a ser más simple.
 
-## Instalando los requerimientos
+### Instalando los requerimientos
 
 Instalar las versiones de python con las que probar. Dado que las versiones de
 python soportadas por [ansible dependen de ansible-core](https://docs.ansible.com/ansible/latest/reference_appendices/release_and_maintenance.html#ansible-community-changelogs),
@@ -217,12 +247,13 @@ asdf reshim python
 pip3.10 install -r requirements.txt
 pip3.11 install -r requirements.txt
 ```
-## Uso de tox
+
+### Uso de tox
 
 Tox tiene una serie de comandos, pero lo más importante es comprender los
 ambientes configurados en `tox.ini`. Los ambientes pueden verse con:
 
-```
+```shell
 tox list
 ```
 
@@ -230,7 +261,7 @@ Al correr simplemente `tox` se ejecuta `tox run`. Pero nosotros podemos
 manipular `tox run` con las opciones que se ven con `--help`. Lo más importante
 a mencionar es:
 
-```
+```shell
 tox r -e py310-ansible-10 -- -vvv converge
 ```
 
@@ -241,10 +272,10 @@ tox r -e py310-ansible-10 -- -vvv converge
 Otro comando útil con tox, es ejecutar otro comando, por ejemplo ansible-lint.
 ¿Cómo es posible hacer eso?:
 
-```
+```shell
 tox exec -e py310-ansible-10 -- ansible-lint .
 ```
 
-# TODO
+## TODO
 
 * [ ] Analizar si funcionan los tags mencionados

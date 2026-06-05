@@ -38,6 +38,7 @@
   changed_when: false
   environment:
     PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_env.PATH }}"
+    GITHUB_API_TOKEN: "{{ workstation_github_api_token }}"
   when: item.key not in asdf_plugin_list_output.stdout_lines
   loop: "{{ workstation_asdf_tools | dict2items }}"
   loop_control:
@@ -50,6 +51,7 @@
   changed_when: false
   environment:
     PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_env.PATH }}"
+    GITHUB_API_TOKEN: "{{ workstation_github_api_token }}"
 
 - name: "Check asdf version tools installed"
   ansible.builtin.shell: |
@@ -80,6 +82,7 @@
   when: asdf_version_installed.results[asdf_tool_idx].rc != 0
   environment:
     PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_env.PATH }}"
+    GITHUB_API_TOKEN: "{{ workstation_github_api_token }}"
   loop: "{{ workstation_asdf_tools | dict2items | subelements('value') }}"
   loop_control:
     label: "Installing asdf {{ item.0.key }}@{{ item.1 }}"

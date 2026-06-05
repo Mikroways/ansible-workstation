@@ -1,0 +1,5 @@
+---
+# GitHub API token to avoid rate limiting when downloading plugins and assets.
+# Create one at https://github.com/settings/tokens (no scopes needed for public repos).
+# Can also be set via environment variable GITHUB_API_TOKEN before running the playbook.
+workstation_github_api_token: "{{ lookup('env', 'GITHUB_API_TOKEN') }}"
