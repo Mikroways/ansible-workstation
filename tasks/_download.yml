@@ -30,6 +30,7 @@
         dest: "{{ tempfile.path }}"
         mode: '0600'
         force: true
+        headers: "{{ {'Authorization': 'token ' + workstation_github_api_token} if (workstation_github_api_token and 'github.com' in url) else {} }}"
 
     - name: "Install {{ _name }}"
       ansible.builtin.shell: >-
