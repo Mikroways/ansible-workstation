@@ -27,6 +27,7 @@ jobs:
       matrix:
         ansible:
           - ansible11
+          - ansible13
           - ansible14
     # ansible14 falla hoy por una incompatibilidad de molecule-plugins /
     # community.docker con el templating de ansible-core 2.21 (no del role:
