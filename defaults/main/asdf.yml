@@ -1,6 +1,6 @@
 ---
-workstation_asdf_download_url: "https://github.com/asdf-vm/asdf/releases/download/{{ workstation_asdf_version }}/asdf-{{ workstation_asdf_version }}-{{ ansible_system | lower }}-amd64.tar.gz"
-workstation_asdf_dest: '{{ ansible_env.HOME }}/.asdf'
+workstation_asdf_download_url: "https://github.com/asdf-vm/asdf/releases/download/{{ workstation_asdf_version }}/asdf-{{ workstation_asdf_version }}-{{ ansible_facts['system'] | lower }}-amd64.tar.gz"
+workstation_asdf_dest: '{{ ansible_facts["env"]["HOME"] }}/.asdf'
 workstation_asdf_version: v0.16.7
 workstation_asdf_tools:
   age: [ latest ]

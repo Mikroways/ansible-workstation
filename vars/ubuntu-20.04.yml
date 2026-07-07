@@ -39,4 +39,4 @@ workstation_apt_keys:
   - url: https://apt.releases.hashicorp.com/gpg
     id: 798AEC654E5C15428C8E42EEAA16FCBCA621E701
 workstation_repositories:
-  - repo: deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
+  - repo: deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_facts['distribution_release'] }} main

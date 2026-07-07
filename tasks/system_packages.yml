@@ -2,11 +2,11 @@
 - name: Debug detected distribution facts
   ansible.builtin.debug:
     msg: |
-      ansible_distribution: {{ ansible_distribution | default('undefined') }}
-      ansible_distribution_version: {{ ansible_distribution_version | default('undefined') }}
-      ansible_distribution_major_version: {{ ansible_distribution_major_version | default('undefined') }}
-      ansible_os_family: {{ ansible_os_family | default('undefined') }}
-      ansible_pkg_mgr: {{ ansible_pkg_mgr | default('undefined') }}
+      ansible_facts['distribution']: {{ ansible_facts['distribution'] | default('undefined') }}
+      ansible_facts['distribution_version']: {{ ansible_facts['distribution_version'] | default('undefined') }}
+      ansible_facts['distribution_major_version']: {{ ansible_facts['distribution_major_version'] | default('undefined') }}
+      ansible_facts['os_family']: {{ ansible_facts['os_family'] | default('undefined') }}
+      ansible_facts['pkg_mgr']: {{ ansible_facts['pkg_mgr'] | default('undefined') }}
   tags:
     - debug
 
@@ -18,12 +18,12 @@
   vars:
     _params:
       files:
-        - "{{ ansible_distribution | lower }}-{{ ansible_distribution_version | lower }}.yml"
-        - "{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version | lower }}.yml"
-        - "{{ ansible_distribution | lower }}.yml"
-        - "{{ ansible_os_family | lower }}-{{ ansible_distribution_version | lower }}.yml"
-        - "{{ ansible_os_family | lower }}-{{ ansible_distribution_major_version | lower }}.yml"
-        - "{{ ansible_os_family | lower }}.yml"
+        - "{{ ansible_facts['distribution'] | lower }}-{{ ansible_facts['distribution_version'] | lower }}.yml"
+        - "{{ ansible_facts['distribution'] | lower }}-{{ ansible_facts['distribution_major_version'] | lower }}.yml"
+        - "{{ ansible_facts['distribution'] | lower }}.yml"
+        - "{{ ansible_facts['os_family'] | lower }}-{{ ansible_facts['distribution_version'] | lower }}.yml"
+        - "{{ ansible_facts['os_family'] | lower }}-{{ ansible_facts['distribution_major_version'] | lower }}.yml"
+        - "{{ ansible_facts['os_family'] | lower }}.yml"
       paths:
         - "../vars"
       skip: true
@@ -33,7 +33,7 @@
     file: "{{ system_package_file }}"
   with_first_found:
     - files:
-        - system_packages_{{ ansible_os_family | lower }}.yml
+        - system_packages_{{ ansible_facts['os_family'] | lower }}.yml
       skip: True
   loop_control:
     loop_var: system_package_file
@@ -49,7 +49,7 @@
   delay: 10
 -
   name: Install Arch packages using yay
-  when: ansible_os_family | lower == "archlinux"
+  when: ansible_facts['os_family'] | lower == "archlinux"
   block:
     - name: Check if yay is already installed
       ansible.builtin.command: yay --version
@@ -81,7 +81,7 @@
       changed_when: false
 -
   name: Setup configured locale
-  when: ansible_os_family | lower in ['debian', 'debianlike', 'ubuntu'] or (ansible_distribution | lower).startswith('ubuntu')
+  when: ansible_facts['os_family'] | lower in ['debian', 'debianlike', 'ubuntu'] or (ansible_facts['distribution'] | lower).startswith('ubuntu')
   block:
     - name: Setup configured locale
       community.general.locale_gen:

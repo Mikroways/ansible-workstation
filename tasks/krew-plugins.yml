@@ -5,7 +5,7 @@
   changed_when: false
   ignore_errors: yes
   environment:
-    PATH: "{{ workstation_asdf_dest }}/bin:{{ workstation_asdf_dest }}/shims:{{ workstation_tools_install_directory }}:{{ ansible_env.PATH }}"
+    PATH: "{{ workstation_asdf_dest }}/bin:{{ workstation_asdf_dest }}/shims:{{ workstation_tools_install_directory }}:{{ ansible_facts['env']['PATH'] }}"
 -
   name: Do install and upgrade krew plugins when installed
   when: krew_check.rc == 0
@@ -17,10 +17,10 @@
       changed_when: krew_install.rc == 0 and 'installed' in krew_install.stdout
       loop: "{{ workstation_krew_plugins }}"
       environment:
-        PATH: "{{ workstation_asdf_dest }}/bin:{{ workstation_asdf_dest }}/shims:{{ workstation_tools_install_directory }}:{{ ansible_env.PATH }}"
+        PATH: "{{ workstation_asdf_dest }}/bin:{{ workstation_asdf_dest }}/shims:{{ workstation_tools_install_directory }}:{{ ansible_facts['env']['PATH'] }}"
     -
       name: Upgrade krew plugins
       ansible.builtin.command: "krew upgrade"
       changed_when: false
       environment:
-        PATH: "{{ workstation_asdf_dest }}/bin:{{ workstation_asdf_dest }}/shims:{{ workstation_tools_install_directory }}:{{ ansible_env.PATH }}"
+        PATH: "{{ workstation_asdf_dest }}/bin:{{ workstation_asdf_dest }}/shims:{{ workstation_tools_install_directory }}:{{ ansible_facts['env']['PATH'] }}"
