@@ -24,13 +24,20 @@
         state: file
       register: tempfile
 
+    # El token solo se envía a api.github.com: en descargas directas de
+    # github.com el header se reenvía al redirect (codeload) y GitHub
+    # responde 404 con fine-grained tokens.
     - name: "Download: {{ _name }}"
       ansible.builtin.get_url:
         url: "{{ url }}"
         dest: "{{ tempfile.path }}"
         mode: '0600'
         force: true
-        headers: "{{ {'Authorization': 'token ' + workstation_github_api_token} if (workstation_github_api_token and 'github.com' in url) else {} }}"
+        headers: "{{ {'Authorization': 'token ' + workstation_github_api_token} if (workstation_github_api_token and 'api.github.com' in url) else {} }}"
+      register: download_res
+      until: download_res is success
+      retries: 3
+      delay: 5
 
     - name: "Install {{ _name }}"
       ansible.builtin.shell: >-

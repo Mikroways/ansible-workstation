@@ -7,25 +7,32 @@ on:
 
 jobs:
   lint:
-    name: Tox ansible test
+    name: Lint
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v8.3.0
+      - name: yamllint
+        run: uv run yamllint .
+      - name: ansible-lint
+        run: uv run ansible-lint .
+
+  molecule:
+    name: Molecule (${{ matrix.ansible }})
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        py:
-          - "3.11"
+        ansible:
+          - ansible11
+          - ansible13
+          - ansible14
     steps:
-      - name: Setup python for test ${{ matrix.py }}
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.py }}
       - name: Checkout Code
-        uses: actions/checkout@v4
-      - name: Install tox-gh
-        run: python -m pip install tox-gh
-      - name: Setup test suite
-        run: tox r -vv --notest
-      - name: Run tests
-        run: tox r -vv
+        uses: actions/checkout@v7
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v8.3.0
+      - name: Run molecule
+        run: uv run --no-default-groups --group ${{ matrix.ansible }} molecule test

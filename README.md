@@ -224,57 +224,63 @@ Lista de plugins de kubectl instalados con krew:
 
 ## Desarrollo
 
-Para trabajar en el desarrollo del presente role, se recomienda instalar python.
-El propio repositorio mantiene variables de ambiente usando direnv dentro del
-`.envrc` y propone usar [**tox**](https://tox.wiki/) como librería para el
-desarrollo e integración con CI/CD.
+El repositorio usa [**uv**](https://docs.astral.sh/uv/) para gestionar el
+entorno de desarrollo y testing: `pyproject.toml` declara las dependencias
+(molecule, ansible-lint, etc.) y `uv.lock` fija las versiones exactas. No hace
+falta instalar python ni crear un venv a mano — uv resuelve todo, aislado del
+sistema.
 
-> Si ya tenés un desktop de Mikroways instalado por este role, entonces todo va
-> a ser más simple.
+> Si ya tenés un desktop de Mikroways instalado por este role, uv ya está
+> disponible via asdf (`asdf install`).
 
-### Instalando los requerimientos
+### Correr los tests
 
-Instalar las versiones de python con las que probar. Dado que las versiones de
-python soportadas por [ansible dependen de ansible-core](https://docs.ansible.com/ansible/latest/reference_appendices/release_and_maintenance.html#ansible-community-changelogs),
-se codifica contemplando las últimas versiones de ansible-core. Para ello, puede
-observarse que se confecciona una matriz de pruebas en `tox.ini` justamente con
-dos versiones de python y 2 de ansible. Para que esto funcione, explicaremos los
-pasos a seguir usando asdf:
+Los tests usan [molecule](https://ansible.readthedocs.io/projects/molecule/)
+con el driver de docker (requiere docker corriendo):
 
 ```bash
-asdf install
-asdf reshim python
-pip3.10 install -r requirements.txt
-pip3.11 install -r requirements.txt
+uv run molecule test
 ```
 
-### Uso de tox
+> **Ojo con los tiempos:** `molecule test` hace la instalación completa del
+> workstation en 4 plataformas (más la corrida de idempotencia, que repite
+> todo), descargando docker, kubectl, helm, etc. en cada una. En CI tarda
+> ~10 minutos; en una conexión hogareña puede superar los 40. Es el comando
+> para CI o validación final, no para el día a día.
 
-Tox tiene una serie de comandos, pero lo más importante es comprender los
-ambientes configurados en `tox.ini`. Los ambientes pueden verse con:
+Para iterar durante el desarrollo el loop recomendado es `converge`, que
+aplica el role de forma incremental sin destruir ni recrear los contenedores
+en cada corrida:
 
-```shell
-tox list
+```bash
+uv run molecule converge   # aplica el role sobre los contenedores
+uv run molecule verify     # corre las verificaciones
+uv run molecule destroy    # limpia al terminar
 ```
 
-Al correr simplemente `tox` se ejecuta `tox run`. Pero nosotros podemos
-manipular `tox run` con las opciones que se ven con `--help`. Lo más importante
-a mencionar es:
+Otras herramientas del entorno se corren igual:
 
-```shell
-tox r -e py310-ansible-10 -- -vvv converge
+```bash
+uv run ansible-lint .
 ```
 
-> Esto ejecuta únicamente el ambiente `py310-ansible-10` y al `command`
-> configurado en `tox.ini` le pasa los argumentos luego de `--`, es decir, con
-> la configuración actual, correrá `molecule -vvv converge`
+### Matriz de versiones de ansible
 
-Otro comando útil con tox, es ejecutar otro comando, por ejemplo ansible-lint.
-¿Cómo es posible hacer eso?:
+Dado que las versiones de python soportadas por
+[ansible dependen de ansible-core](https://docs.ansible.com/ansible/latest/reference_appendices/release_and_maintenance.html#ansible-community-changelogs),
+se prueba contra dos versiones de ansible definidas como dependency-groups en
+`pyproject.toml`:
 
-```shell
-tox exec -e py310-ansible-10 -- ansible-lint .
+* `ansible11`: la versión en uso por Mikroways (grupo por defecto).
+* `ansible14`: la última versión estable, para anticipar incompatibilidades.
+
+Por defecto los comandos usan `ansible11`. Para probar contra otra versión:
+
+```bash
+uv run --no-default-groups --group ansible14 molecule test
 ```
+
+CI corre la matriz completa (ambos grupos) en cada pull request.
 
 ## TODO
 

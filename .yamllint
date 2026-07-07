@@ -19,7 +19,7 @@ rules:
 
 ignore: |
   molecule/
-  .tox/
+  .venv/
   .cache/
   .direnv/
   .pre-commit-config.yaml
