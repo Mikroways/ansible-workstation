@@ -1,0 +1,31 @@
+[project]
+name = "ansible-workstation"
+version = "0.0.0"
+description = "Entorno de desarrollo y testing del role mikroways.workstation"
+requires-python = ">=3.12"
+
+[dependency-groups]
+test = [
+    "molecule~=26.4.0",
+    "molecule-plugins[docker]~=25.8.0",
+    "ansible-lint~=26.4.0",
+    "yamllint~=1.38.0",
+]
+ansible11 = [
+    "ansible~=11.0",
+    {include-group = "test"},
+]
+ansible14 = [
+    "ansible~=14.0",
+    {include-group = "test"},
+]
+
+[tool.uv]
+package = false
+default-groups = ["ansible11"]
+conflicts = [
+    [
+        {group = "ansible11"},
+        {group = "ansible14"},
+    ],
+]
