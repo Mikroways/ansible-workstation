@@ -32,9 +32,17 @@ a trabajar.
 
 ## Requerimientos
 
-Dependemos de los roles especificados en [`meta/requirements.yml`](meta/requirements.yml).
-Por ello, cuando se instale este role, se instalarán los roles que son
-dependencias de forma automática.
+Este role depende de `geerlingguy.docker` y `ruzickap.proxy_settings`. Al
+instalarlo con `ansible-galaxy role install`, las dependencias se instalan
+de forma automática: están declaradas en [`meta/main.yml`](meta/main.yml)
+con `when: false` — ansible-galaxy las resuelve en la instalación, pero no
+se ejecutan como meta-dependencias (aparecen como tareas salteadas al inicio
+de cada corrida); el role las importa con `import_role` en el orden correcto
+y según las variables `workstation_docker_enabled` / `workstation_proxy_enabled`.
+
+Las mismas dependencias están también en
+[`meta/requirements.yml`](meta/requirements.yml), que usan los tests de
+molecule. **Al actualizar una versión, actualizarla en ambos archivos.**
 
 **Es muy importante leer su documentación**, porque si bien este role, maneja
 algunos valores de estos roles, otros valores más específicos pueden setearse
