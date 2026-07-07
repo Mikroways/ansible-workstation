@@ -28,20 +28,11 @@ jobs:
         ansible:
           - ansible11
           - ansible13
-        command:
-          - test
-        # ansible14: el driver docker de molecule-plugins aún no soporta el
-        # templating de ansible-core 2.21 y el test completo falla en la
-        # fase create (no es un problema del role). Se corre solo el syntax
-        # check mientras tanto. Promover a test cuando se resuelva:
-        # https://github.com/ansible-community/molecule-plugins/issues/363
-        include:
-          - ansible: ansible14
-            command: syntax
+          - ansible14
     steps:
       - name: Checkout Code
         uses: actions/checkout@v7
       - name: Setup uv
         uses: astral-sh/setup-uv@v8.3.0
       - name: Run molecule
-        run: uv run --no-default-groups --group ${{ matrix.ansible }} molecule ${{ matrix.command }}
+        run: uv run --no-default-groups --group ${{ matrix.ansible }} molecule test
