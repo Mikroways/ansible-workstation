@@ -11,6 +11,8 @@ resolution-markers = [
 ]
 conflicts = [[
     { package = "ansible-workstation", group = "ansible11" },
+    { package = "ansible-workstation", group = "ansible12" },
+    { package = "ansible-workstation", group = "ansible13" },
     { package = "ansible-workstation", group = "ansible14" },
 ]]
 
@@ -32,6 +34,46 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/08/26/182bfd55a1d5a24148e52589decba98a0c6fe3c9b15db19df342a6b4f072/ansible-11.13.0.tar.gz", hash = "sha256:c15a046c851c22e8430783bdbcb8f6603c35f0d7c766992ca0a6a9ed975e4a9a", size = 53138771, upload-time = "2025-12-09T21:00:37.827Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/13/03/ccb0340249d5a3f2607b384e8fa11b5ce7ab7812da14bb4157b9e1a51be1/ansible-11.13.0-py3-none-any.whl", hash = "sha256:7f1c9c6a6026ff214d9240647e4d2b019b2a9d4c7a2bc733932bcf92af80ab04", size = 57605169, upload-time = "2025-12-09T21:00:29.948Z" },
+]
+
+[[package]]
+name = "ansible"
+version = "12.3.0"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.14' and sys_platform == 'linux2'",
+    "python_full_version >= '3.14' and sys_platform == 'linux'",
+    "python_full_version >= '3.14' and sys_platform != 'linux' and sys_platform != 'linux2'",
+    "python_full_version < '3.14' and sys_platform == 'linux2'",
+    "python_full_version < '3.14' and sys_platform == 'linux'",
+    "python_full_version < '3.14' and sys_platform != 'linux' and sys_platform != 'linux2'",
+]
+dependencies = [
+    { name = "ansible-core", version = "2.19.11", source = { registry = "https://pypi.org/simple" } },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/d4/df/60253bfc1f87e3d5b52a06723cc15270428dab113a878cd162ab3923db4e/ansible-12.3.0.tar.gz", hash = "sha256:02721f6fb432ddd47f1044ac49b04b5e9ae08890bd427def8df3db1607aeec51", size = 52065271, upload-time = "2025-12-09T21:04:42.344Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/dc/91/ed9ff629465050d4bdbc9da33d348156736b8778733f97a3627daae4f9ce/ansible-12.3.0-py3-none-any.whl", hash = "sha256:cd156f82fa87f7a899212b0efa9f7ca3a24d609212de9f78428a572eb01e5414", size = 54354494, upload-time = "2025-12-09T21:04:36.923Z" },
+]
+
+[[package]]
+name = "ansible"
+version = "13.8.0"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.14' and sys_platform == 'linux2'",
+    "python_full_version >= '3.14' and sys_platform == 'linux'",
+    "python_full_version >= '3.14' and sys_platform != 'linux' and sys_platform != 'linux2'",
+    "python_full_version < '3.14' and sys_platform == 'linux2'",
+    "python_full_version < '3.14' and sys_platform == 'linux'",
+    "python_full_version < '3.14' and sys_platform != 'linux' and sys_platform != 'linux2'",
+]
+dependencies = [
+    { name = "ansible-core", version = "2.20.7", source = { registry = "https://pypi.org/simple" } },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/79/ee/761b0a606522fe28fbc6e0f8b9fff56ff52d41c1d60be96c82e3ff1e5674/ansible-13.8.0.tar.gz", hash = "sha256:41793dcd0f1cb4891a80e196e1f1fb16947cb2554d52b25d812cf38548da603c", size = 53657377, upload-time = "2026-06-18T20:38:07.503Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b9/fd/5925d1c96a1bc39f8084a9e98351d03ccfb69fcd81543204331e1dc43ffc/ansible-13.8.0-py3-none-any.whl", hash = "sha256:daf9c9a2850bbc6c098ba3368aeba99d4ae37c90bca47f974dc19342c0571361", size = 55843285, upload-time = "2026-06-18T20:37:56.849Z" },
 ]
 
 [[package]]
@@ -59,8 +101,10 @@ name = "ansible-compat"
 version = "26.6.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "ansible-core", version = "2.18.18", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible11'" },
-    { name = "ansible-core", version = "2.21.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible14' or extra != 'group-19-ansible-workstation-ansible11'" },
+    { name = "ansible-core", version = "2.18.18", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible11' or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "ansible-core", version = "2.19.11", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible12' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "ansible-core", version = "2.20.7", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible13' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible11' and extra != 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "ansible-core", version = "2.21.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible14' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra != 'group-19-ansible-workstation-ansible11' and extra != 'group-19-ansible-workstation-ansible12' and extra != 'group-19-ansible-workstation-ansible13')" },
     { name = "jsonschema" },
     { name = "packaging" },
     { name = "pyyaml" },
@@ -84,15 +128,63 @@ resolution-markers = [
     "python_full_version < '3.14' and sys_platform != 'linux' and sys_platform != 'linux2'",
 ]
 dependencies = [
-    { name = "cryptography", marker = "extra == 'group-19-ansible-workstation-ansible11'" },
-    { name = "jinja2", marker = "extra == 'group-19-ansible-workstation-ansible11'" },
-    { name = "packaging", marker = "extra == 'group-19-ansible-workstation-ansible11'" },
-    { name = "pyyaml", marker = "extra == 'group-19-ansible-workstation-ansible11'" },
-    { name = "resolvelib", version = "1.0.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible11'" },
+    { name = "cryptography", marker = "extra == 'group-19-ansible-workstation-ansible11' or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "jinja2", marker = "extra == 'group-19-ansible-workstation-ansible11' or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "packaging", marker = "extra == 'group-19-ansible-workstation-ansible11' or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "pyyaml", marker = "extra == 'group-19-ansible-workstation-ansible11' or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "resolvelib", version = "1.0.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible11' or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/d5/69/09be86b5199333f254bdeeda685cfc9746bd9615b94fbfa164b70fd4f8d3/ansible_core-2.18.18.tar.gz", hash = "sha256:f339cc73d74382d3b9bc74326e0dd7938fd20023f4aede40fffc2eaa8ffe694c", size = 3103434, upload-time = "2026-06-18T19:38:52.632Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/66/89/8e2a18bd4491633aec517f1e3f623dd629aad2272c593a5ad247c51b2686/ansible_core-2.18.18-py3-none-any.whl", hash = "sha256:01012447a40dbcd429b76c0a2d9af46d21bb77b75d9261adbf6e0c8bdd32a5cb", size = 2226828, upload-time = "2026-06-18T19:38:51.03Z" },
+]
+
+[[package]]
+name = "ansible-core"
+version = "2.19.11"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.14' and sys_platform == 'linux2'",
+    "python_full_version >= '3.14' and sys_platform == 'linux'",
+    "python_full_version >= '3.14' and sys_platform != 'linux' and sys_platform != 'linux2'",
+    "python_full_version < '3.14' and sys_platform == 'linux2'",
+    "python_full_version < '3.14' and sys_platform == 'linux'",
+    "python_full_version < '3.14' and sys_platform != 'linux' and sys_platform != 'linux2'",
+]
+dependencies = [
+    { name = "cryptography", marker = "extra == 'group-19-ansible-workstation-ansible12' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "jinja2", marker = "extra == 'group-19-ansible-workstation-ansible12' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "packaging", marker = "extra == 'group-19-ansible-workstation-ansible12' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "pyyaml", marker = "extra == 'group-19-ansible-workstation-ansible12' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "resolvelib", version = "1.2.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible12' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/59/db/7d3c7be76df6fc3707db05a151b530a298bb37080fc9ecc669dbd7e82b28/ansible_core-2.19.11.tar.gz", hash = "sha256:e8d541720050fc0a7ddb568cde779cce25a9cf470aa489e63ee10d1c94df4248", size = 3430025, upload-time = "2026-06-18T19:37:36.721Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5d/ad/a1b84d6e52ec1573456a6126bc1a127d8d5418b8bc9ef32a4fbf8daaaa78/ansible_core-2.19.11-py3-none-any.whl", hash = "sha256:c39612b1f55a3321445a09eaee43f59ca6c849483792088a4767b97d8fe8580f", size = 2426194, upload-time = "2026-06-18T19:37:35.292Z" },
+]
+
+[[package]]
+name = "ansible-core"
+version = "2.20.7"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.14' and sys_platform == 'linux2'",
+    "python_full_version >= '3.14' and sys_platform == 'linux'",
+    "python_full_version >= '3.14' and sys_platform != 'linux' and sys_platform != 'linux2'",
+    "python_full_version < '3.14' and sys_platform == 'linux2'",
+    "python_full_version < '3.14' and sys_platform == 'linux'",
+    "python_full_version < '3.14' and sys_platform != 'linux' and sys_platform != 'linux2'",
+]
+dependencies = [
+    { name = "cryptography", marker = "extra == 'group-19-ansible-workstation-ansible13' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible11' and extra != 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "jinja2", marker = "extra == 'group-19-ansible-workstation-ansible13' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible11' and extra != 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "packaging", marker = "extra == 'group-19-ansible-workstation-ansible13' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible11' and extra != 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "pyyaml", marker = "extra == 'group-19-ansible-workstation-ansible13' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible11' and extra != 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "resolvelib", version = "1.2.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible13' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible11' and extra != 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/73/39/f41e3432e5cfbf039ee7c1288661d679cb4b25440f06712f9ee3fe4dd31b/ansible_core-2.20.7.tar.gz", hash = "sha256:84d4097a28e816e8bf8066307088f833837db9efdc9dc6716b43253de3b14106", size = 3338904, upload-time = "2026-06-18T19:36:23.66Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/fb/9e/07afc00c1789d6ab40eb5e38ca5b258ff5ecded657ccf100a874e22d3b12/ansible_core-2.20.7-py3-none-any.whl", hash = "sha256:f4be63a9a8b6bb5f4fc68d41f8582f5b289b1ee1db0600caab8b3a660b9d7ddc", size = 2427099, upload-time = "2026-06-18T19:36:22.129Z" },
 ]
 
 [[package]]
@@ -108,11 +200,11 @@ resolution-markers = [
     "python_full_version < '3.14' and sys_platform != 'linux' and sys_platform != 'linux2'",
 ]
 dependencies = [
-    { name = "cryptography", marker = "extra == 'group-19-ansible-workstation-ansible14' or extra != 'group-19-ansible-workstation-ansible11'" },
-    { name = "jinja2", marker = "extra == 'group-19-ansible-workstation-ansible14' or extra != 'group-19-ansible-workstation-ansible11'" },
-    { name = "packaging", marker = "extra == 'group-19-ansible-workstation-ansible14' or extra != 'group-19-ansible-workstation-ansible11'" },
-    { name = "pyyaml", marker = "extra == 'group-19-ansible-workstation-ansible14' or extra != 'group-19-ansible-workstation-ansible11'" },
-    { name = "resolvelib", version = "1.2.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible14' or extra != 'group-19-ansible-workstation-ansible11'" },
+    { name = "cryptography", marker = "extra == 'group-19-ansible-workstation-ansible14' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra != 'group-19-ansible-workstation-ansible11' and extra != 'group-19-ansible-workstation-ansible12' and extra != 'group-19-ansible-workstation-ansible13')" },
+    { name = "jinja2", marker = "extra == 'group-19-ansible-workstation-ansible14' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra != 'group-19-ansible-workstation-ansible11' and extra != 'group-19-ansible-workstation-ansible12' and extra != 'group-19-ansible-workstation-ansible13')" },
+    { name = "packaging", marker = "extra == 'group-19-ansible-workstation-ansible14' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra != 'group-19-ansible-workstation-ansible11' and extra != 'group-19-ansible-workstation-ansible12' and extra != 'group-19-ansible-workstation-ansible13')" },
+    { name = "pyyaml", marker = "extra == 'group-19-ansible-workstation-ansible14' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra != 'group-19-ansible-workstation-ansible11' and extra != 'group-19-ansible-workstation-ansible12' and extra != 'group-19-ansible-workstation-ansible13')" },
+    { name = "resolvelib", version = "1.2.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible14' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra != 'group-19-ansible-workstation-ansible11' and extra != 'group-19-ansible-workstation-ansible12' and extra != 'group-19-ansible-workstation-ansible13')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/26/6d/38d7eaea1df4a95c3b137e780f6ad2208d7886334a291cadde5d645f08a1/ansible_core-2.21.1.tar.gz", hash = "sha256:a5536ece95be84de15212b3644cdbbe9cbd9efd62e4e8a544cd6b0b27a083039", size = 3384534, upload-time = "2026-06-18T19:35:02.887Z" }
 wheels = [
@@ -125,8 +217,10 @@ version = "26.4.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "ansible-compat" },
-    { name = "ansible-core", version = "2.18.18", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible11'" },
-    { name = "ansible-core", version = "2.21.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible14' or extra != 'group-19-ansible-workstation-ansible11'" },
+    { name = "ansible-core", version = "2.18.18", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible11' or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "ansible-core", version = "2.19.11", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible12' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "ansible-core", version = "2.20.7", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible13' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible11' and extra != 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "ansible-core", version = "2.21.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible14' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra != 'group-19-ansible-workstation-ansible11' and extra != 'group-19-ansible-workstation-ansible12' and extra != 'group-19-ansible-workstation-ansible13')" },
     { name = "black" },
     { name = "cffi" },
     { name = "cryptography" },
@@ -138,7 +232,7 @@ dependencies = [
     { name = "pyyaml" },
     { name = "referencing" },
     { name = "ruamel-yaml" },
-    { name = "ruamel-yaml-clib", marker = "python_full_version < '3.14' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "ruamel-yaml-clib", marker = "python_full_version < '3.14' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
     { name = "subprocess-tee" },
     { name = "wcmatch" },
     { name = "yamllint" },
@@ -158,14 +252,28 @@ ansible11 = [
     { name = "ansible", version = "11.13.0", source = { registry = "https://pypi.org/simple" } },
     { name = "ansible-lint" },
     { name = "molecule" },
-    { name = "molecule-plugins", extra = ["docker"], marker = "extra == 'group-19-ansible-workstation-ansible11'" },
+    { name = "molecule-plugins", extra = ["docker"], marker = "extra == 'group-19-ansible-workstation-ansible11' or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "yamllint" },
+]
+ansible12 = [
+    { name = "ansible", version = "12.3.0", source = { registry = "https://pypi.org/simple" } },
+    { name = "ansible-lint" },
+    { name = "molecule" },
+    { name = "molecule-plugins", extra = ["docker"], marker = "extra == 'group-19-ansible-workstation-ansible12' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "yamllint" },
+]
+ansible13 = [
+    { name = "ansible", version = "13.8.0", source = { registry = "https://pypi.org/simple" } },
+    { name = "ansible-lint" },
+    { name = "molecule" },
+    { name = "molecule-plugins", extra = ["docker"], marker = "extra == 'group-19-ansible-workstation-ansible13' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible11' and extra != 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
     { name = "yamllint" },
 ]
 ansible14 = [
     { name = "ansible", version = "14.1.0", source = { registry = "https://pypi.org/simple" } },
     { name = "ansible-lint" },
     { name = "molecule" },
-    { name = "molecule-plugins", extra = ["docker"], marker = "extra == 'group-19-ansible-workstation-ansible14'" },
+    { name = "molecule-plugins", extra = ["docker"], marker = "(extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra != 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14') or (extra != 'group-19-ansible-workstation-ansible11' and extra != 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14')" },
     { name = "yamllint" },
 ]
 test = [
@@ -180,6 +288,20 @@ test = [
 [package.metadata.requires-dev]
 ansible11 = [
     { name = "ansible", specifier = "~=11.0" },
+    { name = "ansible-lint", specifier = "~=26.4.0" },
+    { name = "molecule", specifier = "~=26.4.0" },
+    { name = "molecule-plugins", extras = ["docker"], specifier = "~=25.8.0" },
+    { name = "yamllint", specifier = "~=1.38.0" },
+]
+ansible12 = [
+    { name = "ansible", specifier = "~=12.0" },
+    { name = "ansible-lint", specifier = "~=26.4.0" },
+    { name = "molecule", specifier = "~=26.4.0" },
+    { name = "molecule-plugins", extras = ["docker"], specifier = "~=25.8.0" },
+    { name = "yamllint", specifier = "~=1.38.0" },
+]
+ansible13 = [
+    { name = "ansible", specifier = "~=13.0" },
     { name = "ansible-lint", specifier = "~=26.4.0" },
     { name = "molecule", specifier = "~=26.4.0" },
     { name = "molecule-plugins", extras = ["docker"], specifier = "~=25.8.0" },
@@ -263,7 +385,7 @@ name = "cffi"
 version = "2.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "pycparser", marker = "implementation_name != 'PyPy' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "pycparser", marker = "implementation_name != 'PyPy' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/57/5f/ff100cae70ebe9d8df1c01a00e510e45d9adb5c1fdda84791b199141de97/cffi-2.1.0.tar.gz", hash = "sha256:efc1cdd798b1aaf39b4610bba7aad28c9bea9b910f25c784ccf9ec1fa719d1f9", size = 531036, upload-time = "2026-07-06T21:34:30.382Z" }
 wheels = [
@@ -409,7 +531,7 @@ name = "click"
 version = "8.4.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/76/d4/81420972a676e8ffea40450d8c8c92943e7218a78fe9b64359836cc9876b/click-8.4.2.tar.gz", hash = "sha256:9a6cea6e60b17ebe0a44c5cc636d94f09bd66142c1cd7d8b4cd731c4917a15f6", size = 338000, upload-time = "2026-06-24T17:45:15.148Z" }
 wheels = [
@@ -430,7 +552,7 @@ name = "cryptography"
 version = "49.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "cffi", marker = "platform_python_implementation != 'PyPy' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "cffi", marker = "platform_python_implementation != 'PyPy' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/1f/99/d1c90d6041656cc6ee229dc99cd67fd0cd5aec3c5f7d72fffc27cc750054/cryptography-49.0.0.tar.gz", hash = "sha256:f89660a348f4f78a92366240a61404e337586ef7f5909a2fef59ca88ef505493", size = 854345, upload-time = "2026-06-12T20:02:30.512Z" }
 wheels = [
@@ -489,7 +611,7 @@ name = "docker"
 version = "7.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "pywin32", marker = "sys_platform == 'win32' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "pywin32", marker = "sys_platform == 'win32' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
     { name = "requests" },
     { name = "urllib3" },
 ]
@@ -657,8 +779,10 @@ version = "26.4.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "ansible-compat" },
-    { name = "ansible-core", version = "2.18.18", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible11'" },
-    { name = "ansible-core", version = "2.21.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible14' or extra != 'group-19-ansible-workstation-ansible11'" },
+    { name = "ansible-core", version = "2.18.18", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible11' or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "ansible-core", version = "2.19.11", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible12' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "ansible-core", version = "2.20.7", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible13' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible11' and extra != 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "ansible-core", version = "2.21.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-ansible-workstation-ansible14' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra != 'group-19-ansible-workstation-ansible11' and extra != 'group-19-ansible-workstation-ansible12' and extra != 'group-19-ansible-workstation-ansible13')" },
     { name = "click" },
     { name = "enrich" },
     { name = "jinja2" },
@@ -690,7 +814,7 @@ wheels = [
 docker = [
     { name = "docker" },
     { name = "requests" },
-    { name = "selinux", marker = "sys_platform == 'linux' or sys_platform == 'linux2' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "selinux", marker = "sys_platform == 'linux' or sys_platform == 'linux2' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
 ]
 
 [[package]]
@@ -857,7 +981,7 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "attrs" },
     { name = "rpds-py" },
-    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/22/f5/df4e9027acead3ecc63e50fe1e36aca1523e1719559c499951bb4b53188f/referencing-0.37.0.tar.gz", hash = "sha256:44aefc3142c5b842538163acb373e24cce6632bd54bdb01b21ad5863489f50d8", size = 78036, upload-time = "2025-10-13T15:30:48.871Z" }
 wheels = [
@@ -1074,7 +1198,7 @@ name = "selinux"
 version = "0.3.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "distro", marker = "sys_platform == 'linux' or sys_platform == 'linux2' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14')" },
+    { name = "distro", marker = "sys_platform == 'linux' or sys_platform == 'linux2' or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible12') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible11' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible13') or (extra == 'group-19-ansible-workstation-ansible12' and extra == 'group-19-ansible-workstation-ansible14') or (extra == 'group-19-ansible-workstation-ansible13' and extra == 'group-19-ansible-workstation-ansible14')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/25/07/51acd62e1e15e1172d46f7e32faf138725b147f8c08dbf2d512159d7a310/selinux-0.3.0.tar.gz", hash = "sha256:2a88b337ac46ad0f06f557b2806c3df62421972f766673dd8bf26732fb75a9ea", size = 13479, upload-time = "2022-12-24T16:42:13.163Z" }
 wheels = [

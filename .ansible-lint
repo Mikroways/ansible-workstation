@@ -1,7 +1,7 @@
 ---
 exclude_paths:
   - molecule/
-  - .tox/
+  - .venv/
   - .cache/
   - .direnv/
   - .pre-commit-config.yaml

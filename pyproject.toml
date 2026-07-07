@@ -15,6 +15,14 @@ ansible11 = [
     "ansible~=11.0",
     {include-group = "test"},
 ]
+ansible12 = [
+    "ansible~=12.0",
+    {include-group = "test"},
+]
+ansible13 = [
+    "ansible~=13.0",
+    {include-group = "test"},
+]
 ansible14 = [
     "ansible~=14.0",
     {include-group = "test"},
@@ -26,6 +34,8 @@ default-groups = ["ansible11"]
 conflicts = [
     [
         {group = "ansible11"},
+        {group = "ansible12"},
+        {group = "ansible13"},
         {group = "ansible14"},
     ],
 ]

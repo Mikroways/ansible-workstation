@@ -6,6 +6,19 @@ on:
       - main
 
 jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v8
+      - name: yamllint
+        run: uv run yamllint .
+      - name: ansible-lint
+        run: uv run ansible-lint .
+
   molecule:
     name: Molecule (${{ matrix.ansible }})
     runs-on: ubuntu-latest

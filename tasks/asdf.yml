@@ -22,6 +22,7 @@
   ansible.builtin.copy:
     content: "{{ workstation_default_python_packages | join('\n') }}\n"
     dest: "{{ ansible_env.HOME }}/.default-python-packages"
+    mode: "0644"
 
 - name: "Check asdf installed plugins"
   ansible.builtin.command: "asdf plugin list"
@@ -55,12 +56,15 @@
 
 - name: "Check asdf version tools installed"
   ansible.builtin.shell: |
+    set -o pipefail
     if [ "{{ item.1 }}" = "latest" ]; then
       latest=$(asdf latest {{ item.0.key }} 2>/dev/null)
       asdf list {{ item.0.key }} 2>/dev/null | grep -qF "$latest"
     else
       asdf list {{ item.0.key }} 2>/dev/null | grep -qF '{{ item.1 }}'
     fi
+  args:
+    executable: /bin/bash
   register: asdf_version_installed
   failed_when: false
   changed_when: false

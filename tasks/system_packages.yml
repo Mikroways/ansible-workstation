@@ -60,11 +60,12 @@
       name: Install yay
       when: yay_check.rc != 0
       block:
-        - 
+        -
           name: Clone yay repository
           ansible.builtin.git:
             repo: "https://aur.archlinux.org/yay.git"
             dest: /tmp/yay
+            version: master
         -
           name: Compile yay
           ansible.builtin.shell: |
