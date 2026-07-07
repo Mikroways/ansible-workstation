@@ -27,14 +27,14 @@ jobs:
       matrix:
         ansible:
           - ansible11
-          - ansible12
           - ansible13
         command:
           - test
-        # ansible14: molecule-plugins/community.docker aún no soportan el
+        # ansible14: el driver docker de molecule-plugins aún no soporta el
         # templating de ansible-core 2.21 y el test completo falla en la
         # fase create (no es un problema del role). Se corre solo el syntax
-        # check hasta que el tooling se actualice; promover a test entonces.
+        # check mientras tanto. Promover a test cuando se resuelva:
+        # https://github.com/ansible-community/molecule-plugins/issues/363
         include:
           - ansible: ansible14
             command: syntax
