@@ -242,7 +242,15 @@ con el driver de docker (requiere docker corriendo):
 uv run molecule test
 ```
 
-Para iterar durante el desarrollo sin destruir los contenedores en cada corrida:
+> **Ojo con los tiempos:** `molecule test` hace la instalación completa del
+> workstation en 4 plataformas (más la corrida de idempotencia, que repite
+> todo), descargando docker, kubectl, helm, etc. en cada una. En CI tarda
+> ~10 minutos; en una conexión hogareña puede superar los 40. Es el comando
+> para CI o validación final, no para el día a día.
+
+Para iterar durante el desarrollo el loop recomendado es `converge`, que
+aplica el role de forma incremental sin destruir ni recrear los contenedores
+en cada corrida:
 
 ```bash
 uv run molecule converge   # aplica el role sobre los contenedores
