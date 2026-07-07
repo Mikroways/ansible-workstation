@@ -27,6 +27,7 @@ jobs:
       matrix:
         ansible:
           - ansible11
+          - ansible12
           - ansible13
           - ansible14
     # ansible14 falla hoy por una incompatibilidad de molecule-plugins /
