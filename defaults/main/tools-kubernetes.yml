@@ -3,7 +3,7 @@ workstation_kubernetes_tools:
   -
     name: sonobuoy
     url: >-
-      https://github.com/vmware-tanzu/sonobuoy/releases/download/v%version%/sonobuoy_%version%_{{ ansible_system | lower }}_amd64.tar.gz
+      https://github.com/vmware-tanzu/sonobuoy/releases/download/v%version%/sonobuoy_%version%_{{ ansible_facts['system'] | lower }}_amd64.tar.gz
     version: '0.56.16'
     install_command: >-
       tar xfz %downloaded% -C %install_directory% sonobuoy

@@ -1,5 +1,5 @@
 ---
-workstation_krew_path: "{{ ansible_env.HOME }}/.krew/bin"
+workstation_krew_path: "{{ ansible_facts['env']['HOME'] }}/.krew/bin"
 workstation_krew_plugins:
   - ctx
   - ns

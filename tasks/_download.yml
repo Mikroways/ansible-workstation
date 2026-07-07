@@ -11,7 +11,7 @@
   changed_when: false
 
   environment:
-    PATH: "{{ install_directory }}:{{ ansible_env.PATH }}"
+    PATH: "{{ install_directory }}:{{ ansible_facts['env']['PATH'] }}"
   tags:
     - skip_ansible_lint
 
@@ -59,4 +59,4 @@
           ( just_installed.rc == 0 and version not in just_installed.stdout )
       changed_when: false
       environment:
-        PATH: "{{ install_directory }}:{{ ansible_env.PATH }}"
+        PATH: "{{ install_directory }}:{{ ansible_facts['env']['PATH'] }}"

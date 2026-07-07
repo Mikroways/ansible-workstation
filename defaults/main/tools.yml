@@ -1,5 +1,5 @@
 ---
-workstation_tools_install_directory: "{{ ansible_env.HOME }}/.mikroways/bin"
+workstation_tools_install_directory: "{{ ansible_facts['env']['HOME'] }}/.mikroways/bin"
 
 # Install only these tools. If empty, all tools will be installed
 workstation_tools_only: []

@@ -17,7 +17,7 @@
     docker_install_compose: "{{ workstation_docker_install_compose }}"
     docker_compose_version: "{{ workstation_docker_compose_version }}"
     docker_install_compose_plugin: "{{ workstation_docker_install_compose_plugin }}"
-  when: workstation_docker_enabled and ansible_os_family | lower != "archlinux"
+  when: workstation_docker_enabled and ansible_facts['os_family'] | lower != "archlinux"
   tags:
     - docker
 -

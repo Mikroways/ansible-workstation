@@ -21,7 +21,7 @@
 - name: "Create default python packages"
   ansible.builtin.copy:
     content: "{{ workstation_default_python_packages | join('\n') }}\n"
-    dest: "{{ ansible_env.HOME }}/.default-python-packages"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.default-python-packages"
     mode: "0644"
 
 - name: "Check asdf installed plugins"
@@ -30,7 +30,7 @@
   failed_when: asdf_plugin_list_output.rc not in [0 , 1]
   changed_when: false
   environment:
-    PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_env.PATH }}"
+    PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_facts['env']['PATH'] }}"
 
 - name: "Add asdf plugins"
   ansible.builtin.command: "asdf plugin add {{ item.key }} {{ workstation_asdf_external_sources_plugins.get(item.key, '') }}"
@@ -38,7 +38,7 @@
   failed_when: asdf_output.rc != 0
   changed_when: false
   environment:
-    PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_env.PATH }}"
+    PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_facts['env']['PATH'] }}"
     GITHUB_API_TOKEN: "{{ workstation_github_api_token }}"
   when: item.key not in asdf_plugin_list_output.stdout_lines
   loop: "{{ workstation_asdf_tools | dict2items }}"
@@ -51,7 +51,7 @@
   failed_when: asdf_output.rc != 0
   changed_when: false
   environment:
-    PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_env.PATH }}"
+    PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_facts['env']['PATH'] }}"
     GITHUB_API_TOKEN: "{{ workstation_github_api_token }}"
 
 - name: "Check asdf version tools installed"
@@ -69,7 +69,7 @@
   failed_when: false
   changed_when: false
   environment:
-    PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_env.PATH }}"
+    PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_facts['env']['PATH'] }}"
   loop: "{{ workstation_asdf_tools | dict2items | subelements('value') }}"
   loop_control:
     label: "Checking asdf {{ item.0.key }}@{{ item.1 }}"
@@ -85,7 +85,7 @@
   until: asdf_output.rc == 0
   when: asdf_version_installed.results[asdf_tool_idx].rc != 0
   environment:
-    PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_env.PATH }}"
+    PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_facts['env']['PATH'] }}"
     GITHUB_API_TOKEN: "{{ workstation_github_api_token }}"
   loop: "{{ workstation_asdf_tools | dict2items | subelements('value') }}"
   loop_control:
@@ -99,7 +99,7 @@
   changed_when: false
   when: item.value | length > 0
   environment:
-    PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_env.PATH }}"
+    PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_facts['env']['PATH'] }}"
   loop: "{{ workstation_asdf_tools | dict2items }}"
   loop_control:
     label: >-
@@ -111,7 +111,7 @@
 
 - name: "Set asdf direnv configuration directory"
   ansible.builtin.set_fact:
-    asdf_direnv_plugin_config_dir: "{{ ansible_user_dir }}/.config/direnv/lib"
+    asdf_direnv_plugin_config_dir: "{{ ansible_facts['user_dir'] }}/.config/direnv/lib"
 
 - name: "Create asdf direnv configuration directory"
   ansible.builtin.file:

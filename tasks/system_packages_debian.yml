@@ -36,4 +36,4 @@
       ansible.builtin.apt:
         name: systemd-resolved
         state: present
-      when: ansible_distribution | lower == 'debian'
+      when: ansible_facts['distribution'] | lower == 'debian'

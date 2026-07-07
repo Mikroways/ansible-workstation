@@ -5,7 +5,7 @@
   changed_when: false
   ignore_errors: yes
   environment:
-    PATH: "{{ workstation_asdf_dest }}/bin:{{ workstation_asdf_dest }}/shims:{{ workstation_tools_install_directory }}:{{ ansible_env.PATH }}"
+    PATH: "{{ workstation_asdf_dest }}/bin:{{ workstation_asdf_dest }}/shims:{{ workstation_tools_install_directory }}:{{ ansible_facts['env']['PATH'] }}"
 -
   name: Do install and upgrade helm plugins when installed
   when: helm_check.rc == 0
@@ -15,11 +15,11 @@
       register: helm_plugins_installed
       changed_when: false
       environment:
-        PATH: "{{ workstation_asdf_dest }}/bin:{{ workstation_asdf_dest }}/shims:{{ workstation_tools_install_directory }}:{{ ansible_env.PATH }}"
+        PATH: "{{ workstation_asdf_dest }}/bin:{{ workstation_asdf_dest }}/shims:{{ workstation_tools_install_directory }}:{{ ansible_facts['env']['PATH'] }}"
     - name: Install helm plugins
       ansible.builtin.command: "helm plugin install {{ item.repo }} --verify=false"
       loop: "{{ workstation_helm_plugins }}"
       when: item.name not in helm_plugins_installed.stdout
       changed_when: true
       environment:
-        PATH: "{{ workstation_asdf_dest }}/bin:{{ workstation_asdf_dest }}/shims:{{ workstation_tools_install_directory }}:{{ ansible_env.PATH }}"
+        PATH: "{{ workstation_asdf_dest }}/bin:{{ workstation_asdf_dest }}/shims:{{ workstation_tools_install_directory }}:{{ ansible_facts['env']['PATH'] }}"
