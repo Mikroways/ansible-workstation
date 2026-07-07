@@ -29,15 +29,19 @@ jobs:
           - ansible11
           - ansible12
           - ansible13
-          - ansible14
-    # ansible14 falla hoy por una incompatibilidad de molecule-plugins /
-    # community.docker con el templating de ansible-core 2.21 (no del role:
-    # el syntax check pasa). No bloquea el PR hasta que el tooling se actualice.
-    continue-on-error: ${{ matrix.ansible == 'ansible14' }}
+        command:
+          - test
+        # ansible14: molecule-plugins/community.docker aún no soportan el
+        # templating de ansible-core 2.21 y el test completo falla en la
+        # fase create (no es un problema del role). Se corre solo el syntax
+        # check hasta que el tooling se actualice; promover a test entonces.
+        include:
+          - ansible: ansible14
+            command: syntax
     steps:
       - name: Checkout Code
         uses: actions/checkout@v7
       - name: Setup uv
         uses: astral-sh/setup-uv@v8.3.0
       - name: Run molecule
-        run: uv run --no-default-groups --group ${{ matrix.ansible }} molecule test
+        run: uv run --no-default-groups --group ${{ matrix.ansible }} molecule ${{ matrix.command }}
