@@ -28,17 +28,4 @@ galaxy_info:
   galaxy_tags:
     - devops
     - packages
-# Declaradas solo para que ansible-galaxy las instale automáticamente al
-# instalar este role. Nunca se ejecutan como meta-dependencias (when: false):
-# el role las importa con import_role en el orden correcto (system_packages
-# prepara apt antes de docker) y con sus condiciones (workstation_*_enabled).
-# Mantener versiones sincronizadas con meta/requirements.yml (usado por los
-# tests de molecule).
-dependencies:
-  - name: geerlingguy.docker
-    version: '8.0.0'
-    when: false
-  - name: ruzickap.proxy_settings
-    src: https://github.com/ruzickap/ansible-role-proxy_settings
-    version: 'v0.3.0'
-    when: false
+dependencies: []
