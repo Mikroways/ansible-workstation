@@ -44,6 +44,6 @@
     - name: "Assert krew plugin installed"
       assert:
         that:
-          - helm_plugins.rc == 0
+          - krew_plugins.rc == 0
         success_msg: "krew plugin is present"
         fail_msg: "krew plugin is not present"
