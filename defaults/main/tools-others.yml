@@ -53,6 +53,7 @@ workstation_other_tools:
       https://github.com/junegunn/fzf/archive/refs/tags/v%version%.tar.gz
     version: '0.64.0'
     install_command: >-
-      tar xfz %downloaded% --one-top-level={{ ansible_facts['env']['HOME'] }}/.fzf --strip-components 1 &&
+      mkdir -p {{ ansible_facts['env']['HOME'] }}/.fzf &&
+      tar xfz %downloaded% -C {{ ansible_facts['env']['HOME'] }}/.fzf --strip-components 1 &&
       {{ ansible_facts['env']['HOME'] }}/.fzf/install --all
     version_command: "{{ ansible_facts['env']['HOME'] }}/.fzf/bin/fzf --version"
