@@ -9,9 +9,10 @@
     state: directory
     mode: '0755'
 -
-  name: "Installing {{ '%name: %version'
-    | replace('%name', item.name) | replace('%version', item.version) }}"
+  name: "Installing tool"
   ansible.builtin.include_tasks: _download.yml
+  loop_control:
+    label: "{{ item.name }}: {{ item.version }}"
   vars:
     _item: "{{ item }}"
     _name: "{{ item.name }}"
