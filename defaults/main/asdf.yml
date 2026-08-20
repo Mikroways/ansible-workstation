@@ -41,7 +41,7 @@ workstation_asdf_tools:
   trivy: []
   uv: [ latest ]
   velero: []
-  yq: [ latest ]
+  yq: [4.53.4]
 workstation_default_python_packages:
   - pre-commit
 
