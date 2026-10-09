@@ -83,7 +83,18 @@
   name: Setup configured locale
   when: ansible_facts['os_family'] | lower in ['debian', 'debianlike', 'ubuntu'] or (ansible_facts['distribution'] | lower).startswith('ubuntu')
   block:
+    # locale_gen needs the "locales" package, installed above. In check mode on
+    # a host without it, it fails with "/etc/locale.gen are missing".
+    - name: Check whether locales is installed
+      ansible.builtin.command: test -e /etc/locale.gen -o -d /var/lib/locales/supported.d
+      register: workstation_locales_check
+      changed_when: false
+      failed_when: false
+      check_mode: false
+      tags:
+        - locales
     - name: Setup configured locale
+      when: not (ansible_check_mode and workstation_locales_check.rc != 0)
       community.general.locale_gen:
         name: "{{ item }}"
         state: present
