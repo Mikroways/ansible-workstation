@@ -4,20 +4,31 @@
     msg: "Name (_name var) not defined for {{ _item }}"
   when: _name is not defined
 
+# Read-only, so it also runs in check mode: otherwise it is skipped with rc 0
+# and empty stdout, and the role believes every tool needs installing.
 - name: "Check whether installed: {{ _name }}"
   shell: "{{ version_command }}"
   register: need_install
   ignore_errors: true
   changed_when: false
+  check_mode: false
 
   environment:
     PATH: "{{ install_directory }}:{{ ansible_facts['env']['PATH'] }}"
   tags:
     - skip_ansible_lint
 
+# In check mode nothing can be downloaded or installed (tempfile is skipped and
+# get_url has no destination), so report what would be installed instead.
+- name: "Would install: {{ _name }}"
+  ansible.builtin.debug:
+    msg: "{{ _name }} {{ version }} would be installed in {{ install_directory }}"
+  changed_when: true
+  when: ansible_check_mode and (need_install.rc != 0 or version not in need_install.stdout)
+
 - name: "Install package when needed: {{ _name }}"
-  when: need_install.rc != 0 or
-      ( need_install.rc == 0 and version not in need_install.stdout )
+  when: not ansible_check_mode and (need_install.rc != 0 or
+      ( need_install.rc == 0 and version not in need_install.stdout ))
   block:
     - name: Generate temporary filename
       ansible.builtin.tempfile:
