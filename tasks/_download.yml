@@ -20,7 +20,7 @@
 
 # In check mode nothing can be downloaded or installed (tempfile is skipped and
 # get_url has no destination), so report what would be installed instead.
-- name: "Would install: {{ _name }} {{ version }}"
+- name: "Would install: {{ _name }}"
   ansible.builtin.debug:
     msg: "{{ _name }} {{ version }} would be installed in {{ install_directory }}"
   changed_when: true

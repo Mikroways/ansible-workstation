@@ -37,7 +37,8 @@
 # executable git". Read-only check, so it runs in check mode too.
 -
   name: Check whether git is available
-  ansible.builtin.command: git --version
+  # Only checks that git exists; the git module would clone.
+  ansible.builtin.command: git --version  # noqa: command-instead-of-module
   register: workstation_git_check
   changed_when: false
   failed_when: false
