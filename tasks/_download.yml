@@ -9,7 +9,7 @@
 - name: "Check whether installed: {{ _name }}"
   shell: "{{ version_command }}"
   register: need_install
-  ignore_errors: true
+  failed_when: false
   changed_when: false
   check_mode: false
 
