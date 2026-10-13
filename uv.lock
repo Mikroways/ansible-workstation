@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.12"
 resolution-markers = [
     "python_full_version >= '3.14' and sys_platform == 'linux2'",
@@ -246,6 +246,7 @@ wheels = [
 name = "ansible-workstation"
 version = "0.0.0"
 source = { virtual = "." }
+default-groups = ["ansible11"]
 
 [package.dev-dependencies]
 ansible11 = [
@@ -290,34 +291,34 @@ ansible11 = [
     { name = "ansible", specifier = "~=11.0" },
     { name = "ansible-lint", specifier = "~=26.4.0" },
     { name = "molecule", specifier = "~=26.4.0" },
-    { name = "molecule-plugins", extras = ["docker"], specifier = "~=25.8.0" },
+    { name = "molecule-plugins", extras = ["docker"], specifier = "~=26.10.0" },
     { name = "yamllint", specifier = "~=1.38.0" },
 ]
 ansible12 = [
     { name = "ansible", specifier = "~=12.0" },
     { name = "ansible-lint", specifier = "~=26.4.0" },
     { name = "molecule", specifier = "~=26.4.0" },
-    { name = "molecule-plugins", extras = ["docker"], specifier = "~=25.8.0" },
+    { name = "molecule-plugins", extras = ["docker"], specifier = "~=26.10.0" },
     { name = "yamllint", specifier = "~=1.38.0" },
 ]
 ansible13 = [
     { name = "ansible", specifier = "~=13.0" },
     { name = "ansible-lint", specifier = "~=26.4.0" },
     { name = "molecule", specifier = "~=26.4.0" },
-    { name = "molecule-plugins", extras = ["docker"], specifier = "~=25.8.0" },
+    { name = "molecule-plugins", extras = ["docker"], specifier = "~=26.10.0" },
     { name = "yamllint", specifier = "~=1.38.0" },
 ]
 ansible14 = [
     { name = "ansible", specifier = "~=14.0" },
     { name = "ansible-lint", specifier = "~=26.4.0" },
     { name = "molecule", specifier = "~=26.4.0" },
-    { name = "molecule-plugins", extras = ["docker"], specifier = "~=25.8.0" },
+    { name = "molecule-plugins", extras = ["docker"], specifier = "~=26.10.0" },
     { name = "yamllint", specifier = "~=1.38.0" },
 ]
 test = [
     { name = "ansible-lint", specifier = "~=26.4.0" },
     { name = "molecule", specifier = "~=26.4.0" },
-    { name = "molecule-plugins", extras = ["docker"], specifier = "~=25.8.0" },
+    { name = "molecule-plugins", extras = ["docker"], specifier = "~=26.10.0" },
     { name = "yamllint", specifier = "~=1.38.0" },
 ]
 
@@ -800,14 +801,14 @@ wheels = [
 
 [[package]]
 name = "molecule-plugins"
-version = "25.8.12"
+version = "26.10.12"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "molecule" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/65/11/b7316c96c9ecca901f3a7fd5927f3dd757e17e11a428fb83cc5349e9b063/molecule_plugins-25.8.12.tar.gz", hash = "sha256:75f32763e90275bfc24bcc0d27b9bb22ac973658bf902b2e3e8af8e2a1c32083", size = 106414, upload-time = "2025-08-12T19:57:36.628Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/9d/a9/0e69e39a9e65a673b0d5f4fc1ea810a2f6fab671162b21b157a0cf124f71/molecule_plugins-26.10.12.tar.gz", hash = "sha256:03f79df9f7d6d6107ad9507f6c58724bbd18c21afb6f020fc532361b343ea333", size = 276741, upload-time = "2026-10-12T21:47:46.334Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/a2/ee/efdf33ffb32861d9b357a4e7cff018206729703440c028b92ed64fe834b1/molecule_plugins-25.8.12-py3-none-any.whl", hash = "sha256:c5b8ceb209a5ff87326631d60408f8d08b9431b2e339dad4c620130b50279ce0", size = 76357, upload-time = "2025-08-12T19:57:35.285Z" },
+    { url = "https://files.pythonhosted.org/packages/07/79/192c2de4e0d25472182d45ca84bbe4eb9c646396f212c616554c71aec51d/molecule_plugins-26.10.12-py3-none-any.whl", hash = "sha256:a618b60016eac397d8e279eeb5c494a9cee6d33103dbe5222891df81657759f1", size = 88940, upload-time = "2026-10-12T21:47:44.832Z" },
 ]
 
 [package.optional-dependencies]
