@@ -35,8 +35,8 @@ workstation_packages:
   - libsqlite3-dev
   - sqlite3
 
-workstation_apt_keys:
-  - url: https://apt.releases.hashicorp.com/gpg
-    id: 798AEC654E5C15428C8E42EEAA16FCBCA621E701
-workstation_repositories:
-  - repo: deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_facts['distribution_release'] }} main
+# HashiCorp's apt repository has no packages for focal (empty since 2025-06)
+# and its key was rotated, so it is not configured here. vagrant comes from
+# Ubuntu universe.
+workstation_apt_keys: []
+workstation_repositories: []

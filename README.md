@@ -258,6 +258,15 @@ uv run molecule verify     # corre las verificaciones
 uv run molecule destroy    # limpia al terminar
 ```
 
+El escenario `apt-repos` es chico (solo corre `system_packages.yml`) y prueba
+la configuración de repositorios apt, que el escenario `default` no ejercita
+porque las listas `workstation_apt_keys` y `workstation_repositories` están
+vacías en sus plataformas:
+
+```bash
+uv run molecule test -s apt-repos
+```
+
 Otras herramientas del entorno se corren igual:
 
 ```bash
@@ -281,6 +290,10 @@ uv run --no-default-groups --group ansible14 molecule test
 ```
 
 CI corre la matriz completa (ambos grupos) en cada pull request.
+
+> **Hosts con Ubuntu 20.04:** traen python 3.8 y ansible-core 2.20 en adelante
+> (ansible 13 y 14) exige python 3.9 en el host. Para gestionarlos hay que usar
+> ansible 11 o 12.
 
 ## TODO
 

@@ -1,0 +1,23 @@
+---
+- name: Converge
+  hosts: apt
+  pre_tasks:
+    # set_fact tiene mayor precedencia que el include_vars del role, que de
+    # otro modo pisaría estas listas con las vacías de vars/debian.yml.
+    - name: Define the HashiCorp apt repository
+      ansible.builtin.set_fact:
+        workstation_apt_keys:
+          - name: hashicorp
+            url: https://apt.releases.hashicorp.com/gpg
+        workstation_repositories:
+          - name: hashicorp
+            uri: https://apt.releases.hashicorp.com
+            suite: "{{ ansible_facts['distribution_release'] }}"
+            components: [main]
+            architectures: [amd64]
+            signed_by: /etc/apt/keyrings/hashicorp.asc
+  tasks:
+    - name: Run only the system packages tasks
+      ansible.builtin.include_role:
+        name: mikroways.workstation
+        tasks_from: system_packages.yml

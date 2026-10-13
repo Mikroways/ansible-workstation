@@ -55,7 +55,7 @@
       ansible.builtin.command: yay --version
       register: yay_check
       changed_when: false
-      ignore_errors: true
+      failed_when: false
     -
       name: Install yay
       when: yay_check.rc != 0

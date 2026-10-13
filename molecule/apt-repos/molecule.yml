@@ -1,0 +1,27 @@
+---
+# Prueba solo la configuración de repositorios apt (get_url + deb822_repository),
+# que el escenario default no ejercita: las listas workstation_apt_keys y
+# workstation_repositories solo tienen datos en vars/ubuntu-20.04.yml.
+dependency:
+  name: galaxy
+  options:
+    role-file: meta/requirements.yml
+driver:
+  name: docker
+platforms:
+  - name: ubuntu-2404
+    image: 'ubuntu:24.04'
+    groups:
+      - apt
+  - name: debian-12
+    image: 'debian:12'
+    groups:
+      - apt
+provisioner:
+  name: ansible
+  inventory:
+    group_vars:
+      all:
+        ansible_user: ansible
+verifier:
+  name: ansible
