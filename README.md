@@ -191,6 +191,14 @@ en diferentes archivos que nos simplifica la gestión de las herramientas según
 * `workstation_kubernetes_tools`: herramientas para interactuar con kubernetes
   no soportadas por asdf.
 * `workstation_other_tools`: otras herramientas que no se contemplan por asdf.
+* `workstation_extra_tools`: herramientas propias, vacía por defecto. Es la
+  forma de agregar una sin pisar las demás: definir `workstation_other_tools` o
+  `workstation_kubernetes_tools` reemplaza la lista de defaults completa.
+
+Cada herramienta lleva `name`, `url`, `version`, `install_command` y
+`version_command`. En esos campos se pueden usar `%version%`,
+`%install_directory%` y, solo en `install_command`, `%downloaded%` (el archivo
+descargado). Hay un ejemplo en `defaults/main/tools.yml`.
 
 #### Helm plugins
 

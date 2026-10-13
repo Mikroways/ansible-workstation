@@ -4,13 +4,31 @@ workstation_tools_install_directory: "{{ ansible_facts['env']['HOME'] }}/.mikrow
 # Install only these tools. If empty, all tools will be installed
 workstation_tools_only: []
 
+# Your own tools, added to the default ones. Defining workstation_other_tools
+# instead would replace the whole default list. Each tool needs:
+#   name, url, version, install_command and version_command
+# and these placeholders can be used in them:
+#   %version%            the version
+#   %install_directory%  workstation_tools_install_directory
+#   %downloaded%         the downloaded file (install_command only)
+#
+# workstation_extra_tools:
+#   - name: gitlab-runner
+#     url: >-
+#       https://s3.dualstack.us-east-1.amazonaws.com/gitlab-runner-downloads/v%version%/binaries/gitlab-runner-linux-amd64
+#     version: '15.11.1'
+#     install_command: "chmod +x %downloaded% && mv %downloaded% %install_directory%/gitlab-runner"
+#     version_command: "gitlab-runner --version"
+workstation_extra_tools: []
+
 # workstation_tools is split into:
-#   - workstation_kubernetes_tool
-#   - workstation_hashicorp_tools
+#   - workstation_kubernetes_tools
 #   - workstation_other_tools
+#   - workstation_extra_tools
 
 workstation_tools: >-
     {{
       workstation_kubernetes_tools +
-      workstation_other_tools
+      workstation_other_tools +
+      workstation_extra_tools
     }}
