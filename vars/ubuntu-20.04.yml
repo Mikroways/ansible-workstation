@@ -36,7 +36,12 @@ workstation_packages:
   - sqlite3
 
 workstation_apt_keys:
-  - url: https://apt.releases.hashicorp.com/gpg
-    id: 798AEC654E5C15428C8E42EEAA16FCBCA621E701
+  - name: hashicorp
+    url: https://apt.releases.hashicorp.com/gpg
 workstation_repositories:
-  - repo: deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_facts['distribution_release'] }} main
+  - name: hashicorp
+    uri: https://apt.releases.hashicorp.com
+    suite: "{{ ansible_facts['distribution_release'] }}"
+    components: [main]
+    architectures: [amd64]
+    signed_by: /etc/apt/keyrings/hashicorp.asc

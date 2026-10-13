@@ -13,12 +13,21 @@
           - gpg
         state: present
     -
+      name: Create apt keyrings directory
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: "0755"
+    -
       name: Add Apt keys
-      ansible.builtin.apt_key:
+      ansible.builtin.get_url:
         url: "{{ item.url }}"
-        id: "{{ item.id }}"
-        state: present
+        dest: "/etc/apt/keyrings/{{ item.name }}.asc"
+        checksum: "{{ item.checksum | d(omit) }}"
+        mode: "0644"
       loop: "{{ workstation_apt_keys }}"
+      loop_control:
+        label: "{{ item.name }}"
     -
       name: Update apt-get repo and cache
       ansible.builtin.apt:
@@ -27,10 +36,18 @@
         cache_valid_time: 3600
     -
       name: Add repositories
-      ansible.builtin.apt_repository:
-        repo: "{{ item.repo }}"
-        codename: "{{ item.codename | d() }}"
+      ansible.builtin.deb822_repository:
+        name: "{{ item.name }}"
+        types: deb
+        uris: "{{ item.uri }}"
+        suites: "{{ item.suite }}"
+        components: "{{ item.components | d(['main']) }}"
+        architectures: "{{ item.architectures | d(omit) }}"
+        signed_by: "{{ item.signed_by | d(omit) }}"
+        state: present
       loop: "{{ workstation_repositories }}"
+      loop_control:
+        label: "{{ item.name }}"
     -
       name: Install systemd-resolved (Debian only — not available as package in Ubuntu)
       ansible.builtin.apt:
