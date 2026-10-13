@@ -1,0 +1,24 @@
+---
+- name: Verify
+  hosts: apt
+  gather_facts: false
+  tasks:
+    - name: Check the key and the repository file exist
+      ansible.builtin.stat:
+        path: "{{ item }}"
+      loop:
+        - /etc/apt/keyrings/hashicorp.asc
+        - /etc/apt/sources.list.d/hashicorp.sources
+      register: files
+    - name: Assert key and repository file exist
+      ansible.builtin.assert:
+        that: files.results | map(attribute='stat.exists') | min
+    - name: Ask apt for a package from the repository
+      ansible.builtin.command: apt-cache policy terraform
+      register: policy
+      changed_when: false
+    - name: Assert terraform is offered by releases.hashicorp.com
+      ansible.builtin.assert:
+        that:
+          - "'Candidate: (none)' not in policy.stdout"
+          - "'apt.releases.hashicorp.com' in policy.stdout"
