@@ -15,22 +15,6 @@ workstation_other_tools:
     install_command: "tar xfz %downloaded% -C %install_directory% govc"
     version_command: "govc version"
   -
-    name: amtool
-    url: >-
-      https://github.com/prometheus/alertmanager/releases/download/v%version%/alertmanager-%version%.{{ ansible_facts['system'] | lower }}-amd64.tar.gz
-    version: '0.24.0'
-    install_command: >-
-      tar xfz %downloaded% -C %install_directory% alertmanager-%version%.{{ ansible_facts['system'] | lower }}-amd64/amtool --strip-components=1
-    version_command: "amtool --version"
-  -
-    name: promtool
-    url: >-
-      https://github.com/prometheus/prometheus/releases/download/v%version%/prometheus-%version%.{{ ansible_facts['system'] | lower }}-amd64.tar.gz
-    version: '2.39.1'
-    install_command: >-
-      tar xfz %downloaded% -C %install_directory% prometheus-%version%.{{ ansible_facts['system'] | lower }}-amd64/promtool --strip-components=1
-    version_command: "promtool --version"
-  -
     name: certinfo
     url: >-
       https://github.com/pete911/certinfo/releases/download/v%version%/certinfo_%version%_{{ ansible_facts['system'] | lower }}_amd64.tar.gz
@@ -38,15 +22,6 @@ workstation_other_tools:
     install_command: >-
       tar xfz %downloaded% -C %install_directory% certinfo
     version_command: "certinfo --version"
-  -
-    name: gitlab-runner
-    url: >-
-      https://s3.dualstack.us-east-1.amazonaws.com/gitlab-runner-downloads/v%version%/binaries/gitlab-runner-{{ ansible_facts['system'] | lower }}-amd64
-    version: '15.11.1'
-    install_command: >-
-      chmod +x %downloaded% &&
-      mv %downloaded% %install_directory%/gitlab-runner
-    version_command: "gitlab-runner --version"
   -
     name: fzf
     url: >-

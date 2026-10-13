@@ -1,10 +1,4 @@
 ---
-workstation_kubernetes_tools:
-  -
-    name: sonobuoy
-    url: >-
-      https://github.com/vmware-tanzu/sonobuoy/releases/download/v%version%/sonobuoy_%version%_{{ ansible_facts['system'] | lower }}_amd64.tar.gz
-    version: '0.56.16'
-    install_command: >-
-      tar xfz %downloaded% -C %install_directory% sonobuoy
-    version_command: "sonobuoy version --short"
+# No default tools: sonobuoy was removed because it is not used. Kept so
+# workstation_tools (and anything overriding this list) keeps working.
+workstation_kubernetes_tools: []
