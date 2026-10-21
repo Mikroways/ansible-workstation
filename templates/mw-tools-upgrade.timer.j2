@@ -1,0 +1,9 @@
+[Unit]
+Description=Periodically update Mikroways tools
+
+[Timer]
+OnCalendar={{ workstation_updates_timer_on_calendar }}
+Persistent=true
+
+[Install]
+WantedBy=timers.target
