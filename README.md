@@ -26,6 +26,7 @@ En resumen, este role realiza las siguientes tareas:
 * Instala en el usuario que corre el role los [dotfiles de
   Mikroways](https://github.com/Mikroways/dotfiles).
 * Además, se instalan plugins de helm y krew que más usamos en Mikroways.
+* Instala [kuttle](https://github.com/kayrus/kuttle) (junto con `sshuttle`).
 
 De esta forma, corriendo este role, disponemos de un desktop listo para empezar
 a trabajar.
@@ -199,6 +200,20 @@ Cada herramienta lleva `name`, `url`, `version`, `install_command` y
 `version_command`. En esos campos se pueden usar `%version%`,
 `%install_directory%` y, solo en `install_command`, `%downloaded%` (el archivo
 descargado). Hay un ejemplo en `defaults/main/tools.yml`.
+
+##### kuttle
+
+[kuttle](https://github.com/kayrus/kuttle) es un wrapper de `kubectl` para
+`sshuttle`. No se publica como release versionado: upstream solo distribuye un
+script pequeño desde la rama `master`, por lo que no pasa por el flujo genérico
+de `workstation_other_tools` (basado en versiones). Su dependencia `sshuttle` se
+instala como paquete del sistema.
+
+| Nombre                                | Default                                        | Descripción                          |
+| ------------------------------------- | ---------------------------------------------- | ------------------------------------ |
+| `workstation_kuttle_enabled`          | `true`                                         | Instalar kuttle                      |
+| `workstation_kuttle_url`              | `https://raw.githubusercontent.com/kayrus/kuttle/master/kuttle` | URL del script de kuttle |
+| `workstation_kuttle_install_directory`| `{{ workstation_tools_install_directory }}`    | Directorio donde instalar kuttle     |
 
 #### Helm plugins
 
