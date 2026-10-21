@@ -26,6 +26,8 @@ En resumen, este role realiza las siguientes tareas:
 * Instala en el usuario que corre el role los [dotfiles de
   Mikroways](https://github.com/Mikroways/dotfiles).
 * Además, se instalan plugins de helm y krew que más usamos en Mikroways.
+* Configura un timer de systemd de usuario para mantener actualizados los tools
+  de Mikroways.
 
 De esta forma, corriendo este role, disponemos de un desktop listo para empezar
 a trabajar.
@@ -147,6 +149,25 @@ role. Toda configuración se rige por las siguientes variables:
 | `workstation_dotfiles_fonts_directory` | `{{ ansible_env.HOME }}/.local/share/fonts` | En consolas gráficas se usan fuentes que deben existir en el sistema. Para estos casos, se indica el directorio local de fuentes |
 | `workstation_dotfiles_fonts` | `[]` | Lista de url de las fuentes necesarias en un desktop gráfico |
 
+#### Actualización periódica de los tools de Mikroways
+
+Los dotfiles definen la función `mw-tools-upgrade`, que revisa y actualiza los
+repositorios de herramientas de Mikroways. El role configura además un
+**timer de systemd de usuario** que corre esa misma lógica periódicamente, para
+avisar de actualizaciones incluso en días en que no se abre una terminal (el
+flujo de login ya lo hace en background al abrir el shell).
+
+| Nombre                                  | Default                                    | Descripción                                         |
+| --------------------------------------- | ------------------------------------------ | --------------------------------------------------- |
+| `workstation_updates_timer_enabled`     | `true`                                     | Habilitar el timer de actualización                 |
+| `workstation_updates_timer_on_calendar` | `daily`                                    | Expresión `OnCalendar` del timer                    |
+| `workstation_updates_timer_unit_dir`    | `{{ ansible_env.HOME }}/.config/systemd/user` | Directorio de unidades de systemd de usuario     |
+| `workstation_updates_timer_script`      | `{{ ansible_env.HOME }}/.mikroways/bin/mw-tools-upgrade` | Wrapper que invoca `mw-tools-upgrade` |
+
+> Requiere que los dotfiles estén instalados (`workstation_dotfiles_enabled`),
+> ya que de ahí proviene `mw-tools-upgrade`. En contenedores o chroots sin bus
+> de systemd de usuario, la unidad se instala pero no se habilita.
+
 ### Herramientas
 
 Las herramientas se instalan con diferentes productos:
@@ -227,6 +248,7 @@ Lista de plugins de kubectl instalados con krew:
 * docker
 * tools
 * dotfiles
+* updates_timer
 * locales
 * proxy
 
