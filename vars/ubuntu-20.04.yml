@@ -19,6 +19,7 @@ workstation_packages:
   - openfortivpn
   - openconnect
   - shellcheck
+  - sshuttle
   - dnsutils
   - ppp
   - nextcloud-desktop-cmd

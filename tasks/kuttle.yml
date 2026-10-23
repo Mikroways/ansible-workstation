@@ -1,0 +1,40 @@
+---
+# kuttle (https://github.com/kayrus/kuttle) is a kubectl wrapper for sshuttle.
+# It is not published as a versioned release: upstream only ships a small
+# /bin/sh wrapper that is fetched from the master branch, so it cannot go
+# through the generic version-based _download.yml flow.
+- name: "Check whether installed: kuttle"
+  ansible.builtin.stat:
+    path: "{{ workstation_kuttle_install_directory }}/kuttle"
+  register: workstation_kuttle_stat
+
+- name: "Download kuttle"
+  when: not workstation_kuttle_stat.stat.exists
+  block:
+    - name: Generate temporary filename
+      ansible.builtin.tempfile:
+        state: file
+      register: workstation_kuttle_tempfile
+
+    - name: "Download: kuttle"
+      ansible.builtin.get_url:
+        url: "{{ workstation_kuttle_url }}"
+        dest: "{{ workstation_kuttle_tempfile.path }}"
+        mode: '0755'
+        force: true
+      register: workstation_kuttle_download
+      until: workstation_kuttle_download is success
+      retries: 3
+      delay: 5
+
+    - name: "Install kuttle"
+      ansible.builtin.copy:
+        src: "{{ workstation_kuttle_tempfile.path }}"
+        dest: "{{ workstation_kuttle_install_directory }}/kuttle"
+        mode: '0755'
+        remote_src: true
+
+    - name: Delete temporary data
+      ansible.builtin.file:
+        path: "{{ workstation_kuttle_tempfile.path }}"
+        state: absent

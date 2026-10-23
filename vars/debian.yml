@@ -41,6 +41,7 @@ workstation_packages:
   - python3-venv
   - rustc
   - shellcheck
+  - sshuttle
   - swaks
   - tk-dev
   - tmux
