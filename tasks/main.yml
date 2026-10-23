@@ -29,3 +29,8 @@
   ansible.builtin.import_tasks: dotfiles.yml
   when: workstation_dotfiles_enabled
   tags: dotfiles
+-
+  name: Configure Mikroways tools update timer
+  ansible.builtin.import_tasks: updates-timer.yml
+  when: workstation_dotfiles_enabled and workstation_updates_timer_enabled
+  tags: updates_timer

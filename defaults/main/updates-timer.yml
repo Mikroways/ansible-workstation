@@ -1,0 +1,11 @@
+---
+# Periodic Mikroways tools update via a systemd user timer.
+#
+# The login path is already covered by ~/.zshrc.mikroways.updates (it runs
+# `mw-tools-upgrade -y` in the background and leaves notifications in
+# ~/.mw-tools-upgrade.warn / .notify). This timer runs the same update even
+# when no shell was opened that day, so the user is warned of pending updates.
+workstation_updates_timer_enabled: true
+workstation_updates_timer_on_calendar: "daily"
+workstation_updates_timer_unit_dir: "{{ ansible_facts['env']['HOME'] }}/.config/systemd/user"
+workstation_updates_timer_script: "{{ ansible_facts['env']['HOME'] }}/.mikroways/bin/mw-tools-upgrade"
