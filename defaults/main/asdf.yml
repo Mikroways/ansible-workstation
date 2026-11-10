@@ -12,7 +12,12 @@ workstation_asdf_tools:
   direnv: [ latest ]
   dotnet: []
   eksctl: []
-  gitleaks: [ latest ]
+  # Same version as the CI of the bootstrap repos. Bump it together with the
+  # image of the secrets:gitleaks job (projects/bootstrap/.gitlab-ci.yml) and
+  # the gitleaks `rev` of projects/bootstrap/.pre-commit-config.yaml, both in
+  # mw-create-project, and with the `rev` in seguridad/politicas.md of the
+  # bootstrap technical framework.
+  gitleaks: [ 8.30.1 ]
   gohugo: []
   helm: [ latest ]
   helm-docs: []
