@@ -1,6 +1,7 @@
 ---
 - name: Update pacman cache
   become: true
+  become_user: root
   community.general.pacman:
     update_cache: yes
   tags:

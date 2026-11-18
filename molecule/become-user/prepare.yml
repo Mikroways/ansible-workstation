@@ -1,0 +1,14 @@
+---
+- name: Prepare
+  hosts: become_user
+  become: true
+  tasks:
+    - name: Install acl (become a un usuario sin privilegios)
+      ansible.builtin.apt:
+        name: acl
+        update_cache: true
+    - name: Create unprivileged user
+      ansible.builtin.user:
+        name: runner
+        shell: /bin/bash
+        create_home: true

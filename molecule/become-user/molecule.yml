@@ -1,0 +1,35 @@
+---
+# Aplica el role con become_user a un usuario sin sudo (workstation_user): la
+# conexión es la de un administrador (ansible, sudoer) y las tareas
+# privilegiadas del role escalan a root explícitamente.
+dependency:
+  name: galaxy
+  options:
+    role-file: meta/requirements.yml
+driver:
+  name: docker
+platforms:
+  - name: ubuntu-2404
+    image: 'ubuntu:24.04'
+    groups:
+      - become_user
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      allow_world_readable_tmpfiles: true
+    connection:
+      pipelining: true
+  inventory:
+    group_vars:
+      all:
+        ansible_user: ansible
+        workstation_docker_enabled: false
+        workstation_tools_only: []
+        workstation_helm_plugins: []
+        workstation_krew_plugins: []
+        workstation_dotfiles_fonts: []
+        workstation_asdf_tools:
+          direnv: [ "2.37.1" ]
+verifier:
+  name: ansible

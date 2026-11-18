@@ -45,6 +45,7 @@
   register: package_res
   until: package_res is success
   become: true
+  become_user: root
   retries: 3
   delay: 10
 -
@@ -99,6 +100,7 @@
         name: "{{ item }}"
         state: present
       become: true
+      become_user: root
       tags:
         - locales
       with_items: "{{ workstation_locales }}"
