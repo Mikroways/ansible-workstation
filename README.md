@@ -51,6 +51,29 @@ Simplemente agregás en `requirements.yml` las siguientes lineas:
 
 > ¡Verificar si no hay una nueva version!
 
+### Aplicarlo a otro usuario
+
+Por defecto el role configura la workstation del usuario con el que se conecta
+Ansible (`ansible_user`). Para configurarla para otro usuario, incluso uno sin
+sudo, conectarse con un administrador y usar `become_user` junto con
+`workstation_user`:
+
+```yaml
+- hosts: all
+  become: true
+  become_user: runner
+  vars:
+    workstation_user: runner
+  roles:
+    - mikroways.workstation
+```
+
+Shell, dotfiles, asdf y herramientas quedan en el `$HOME` de `runner`. Las
+tareas que necesitan root (paquetes, locales, `chsh`, docker) escalan con
+`become_user: root` explícito, así que `runner` nunca necesita sudo. Para
+becomes a un usuario sin privilegios, Ansible necesita `pipelining = True` o
+el paquete `acl` en el host.
+
 ## Variables
 
 Las variables se han separado en archivos según la siguiente clasificación:
@@ -273,6 +296,14 @@ vacías en sus plataformas:
 
 ```bash
 uv run molecule test -s apt-repos
+```
+
+El escenario `become-user` aplica el role a un usuario sin sudo con
+`become_user` y `workstation_user` (ver [Aplicarlo a otro
+usuario](#aplicarlo-a-otro-usuario)):
+
+```bash
+uv run molecule test -s become-user
 ```
 
 Otras herramientas del entorno se corren igual:

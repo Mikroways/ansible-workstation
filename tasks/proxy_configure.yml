@@ -4,6 +4,7 @@
   ansible.builtin.import_role:
     name: ruzickap.proxy_settings
   become: true
+  become_user: root
   vars:
     proxy_settings_http_proxy: "{{ workstation_proxy_http }}"
     proxy_settings_ftp_proxy: "{{ workstation_proxy_ftp }}"

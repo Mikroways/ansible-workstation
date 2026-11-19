@@ -2,9 +2,10 @@
 -
   name: Change user shell
   become: true
+  become_user: root
   ansible.builtin.user:
     shell: /bin/zsh
-    name: "{{ ansible_user }}"
+    name: "{{ workstation_user }}"
 -
   name: Create antigen directory
   ansible.builtin.file:

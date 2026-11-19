@@ -38,3 +38,5 @@ jobs:
         run: uv run --no-default-groups --group ${{ matrix.ansible }} molecule test
       - name: Run molecule (apt repositories)
         run: uv run --no-default-groups --group ${{ matrix.ansible }} molecule test -s apt-repos
+      - name: Run molecule (become_user to an unprivileged user)
+        run: uv run --no-default-groups --group ${{ matrix.ansible }} molecule test -s become-user

@@ -1,6 +1,7 @@
 ---
 - name: Update apt packages
   become: true
+  become_user: root
   block:
     -
       name: Install essential packages

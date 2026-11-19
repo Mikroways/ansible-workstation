@@ -1,0 +1,45 @@
+---
+- name: Verify
+  hosts: become_user
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Read runner shell
+      ansible.builtin.command: getent passwd runner
+      register: runner_passwd
+      changed_when: false
+    - name: Assert runner shell is zsh
+      ansible.builtin.assert:
+        that: runner_passwd.stdout.split(':')[-1] == '/bin/zsh'
+    - name: Stat files in runner home
+      ansible.builtin.stat:
+        path: "{{ item }}"
+      register: runner_files
+      loop:
+        - /home/runner/.asdf
+        - /home/runner/.zshrc
+        - /home/runner/.mikroways/dotfiles
+    - name: Assert files exist and belong to runner
+      ansible.builtin.assert:
+        that:
+          - item.stat.exists
+          - item.stat.pw_name == 'runner'
+        fail_msg: "{{ item.item }} missing or not owned by runner"
+      loop: "{{ runner_files.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+    - name: Nothing under runner home belongs to another user
+      ansible.builtin.command: find /home/runner ! -user runner -print -quit
+      register: foreign_files
+      changed_when: false
+    - name: Assert no foreign files
+      ansible.builtin.assert:
+        that: foreign_files.stdout == ''
+        fail_msg: "{{ foreign_files.stdout }} is not owned by runner"
+    - name: Check runner has no sudo
+      ansible.builtin.command: sudo -l -n -U runner
+      register: runner_sudo
+      changed_when: false
+    - name: Assert runner has no sudo
+      ansible.builtin.assert:
+        that: "'is not allowed to run sudo' in runner_sudo.stdout"

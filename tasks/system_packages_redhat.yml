@@ -4,10 +4,12 @@
     name: dnf-plugins-core
     state: present
   become: true
+  become_user: root
 
 - name: Enable EPEL repository when requested
   when: workstation_enable_epel | default(false)
   become: true
+  become_user: root
   block:
     - name: Attempt to install epel-release via package manager
       ansible.builtin.package:
@@ -47,3 +49,4 @@
   tags:
     - molecule-idempotence-notest
   become: true
+  become_user: root
