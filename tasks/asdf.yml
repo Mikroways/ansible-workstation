@@ -86,7 +86,10 @@
   when: asdf_version_installed.results[asdf_tool_idx].rc != 0
   environment:
     PATH: "{{ workstation_asdf_dest }}/bin:{{ ansible_facts['env']['PATH'] }}"
-    GITHUB_API_TOKEN: "{{ workstation_github_api_token }}"
+    # The sshuttle plugin sends the token when downloading from
+    # github.com/.../archive, which answers 404 to a valid token, and it does
+    # not use the API. Drop this once xanmanning/asdf-sshuttle#4 is merged.
+    GITHUB_API_TOKEN: "{{ '' if item.0.key == 'sshuttle' else workstation_github_api_token }}"
   loop: "{{ workstation_asdf_tools | dict2items | subelements('value') }}"
   loop_control:
     label: "Installing asdf {{ item.0.key }}@{{ item.1 }}"
