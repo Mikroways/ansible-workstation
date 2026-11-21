@@ -1,0 +1,45 @@
+---
+# Periodic Mikroways tools update via a systemd user timer. Depends on the
+# dotfiles being installed, since mw-tools-upgrade lives in
+# ~/.zshrc.mikroways.updates.
+- name: "Create systemd user unit directory"
+  ansible.builtin.file:
+    path: "{{ workstation_updates_timer_unit_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: "Install mw-tools-upgrade wrapper"
+  ansible.builtin.copy:
+    src: mw-tools-upgrade.sh
+    dest: "{{ workstation_updates_timer_script }}"
+    mode: "0755"
+
+- name: "Install systemd user units"
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "{{ workstation_updates_timer_unit_dir }}/{{ item }}"
+    mode: "0644"
+  loop:
+    - mw-tools-upgrade.service
+    - mw-tools-upgrade.timer
+  register: workstation_updates_timer_units
+
+# In containers/chroots there is no user systemd bus, so enabling the timer
+# would only emit "Failed to connect to bus" warnings. Detect it and skip.
+- name: "Check whether user systemd bus is available"
+  ansible.builtin.command: systemctl --user show-environment  # noqa: command-instead-of-module
+  register: workstation_systemd_user_bus
+  changed_when: false
+  failed_when: false
+  check_mode: false
+
+- name: "Enable mw-tools-upgrade timer"
+  ansible.builtin.systemd_service:
+    name: mw-tools-upgrade.timer
+    enabled: true
+    state: started
+    scope: user
+    daemon_reload: true
+  when:
+    - not ansible_check_mode
+    - workstation_systemd_user_bus.rc == 0

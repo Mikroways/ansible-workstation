@@ -1,0 +1,7 @@
+[Unit]
+Description=Update Mikroways tools
+Documentation=https://github.com/Mikroways/ansible-workstation/issues/28
+
+[Service]
+Type=oneshot
+ExecStart={{ workstation_updates_timer_script }}
