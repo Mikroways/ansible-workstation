@@ -1,0 +1,11 @@
+---
+# kuttle (https://github.com/kayrus/kuttle) is a kubectl wrapper for sshuttle.
+# It has no versioned releases, so it is installed separately from the generic
+# workstation_other_tools flow (which is version based).
+
+workstation_kuttle_enabled: true
+
+# Inherits the shared tools directory from defaults/main/tools.yml.
+workstation_kuttle_install_directory: "{{ workstation_tools_install_directory }}"
+
+workstation_kuttle_url: "https://raw.githubusercontent.com/kayrus/kuttle/master/kuttle"

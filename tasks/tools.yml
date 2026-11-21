@@ -34,6 +34,10 @@
       item.name in workstation_tools_only )
   loop: "{{ workstation_tools }}"
 -
+  name: "Install kuttle"
+  ansible.builtin.include_tasks: kuttle.yml
+  when: workstation_kuttle_enabled
+-
   name: "Install krew plugins"
   ansible.builtin.include_tasks: krew-plugins.yml
 -

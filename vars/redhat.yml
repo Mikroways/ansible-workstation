@@ -19,6 +19,7 @@ workstation_packages:
   - ppp
   - python3
   - shellcheck
+  - sshuttle
   - swaks
   - tmux
   - tree
