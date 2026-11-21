@@ -1,4 +1,11 @@
 ---
-# No default tools: sonobuoy was removed because it is not used. Kept so
-# workstation_tools (and anything overriding this list) keeps working.
-workstation_kubernetes_tools: []
+workstation_kubernetes_tools:
+  -
+    name: kuttle
+    # kuttle has no versioned releases; it is a single shell script downloaded
+    # directly from the master branch. The "version" string is a unique token
+    # present in the script itself, used only to detect whether it is installed.
+    url: "https://github.com/kayrus/kuttle/raw/master/kuttle"
+    version: "kayrus/kuttle"
+    install_command: "chmod +x %downloaded% && mv %downloaded% %install_directory%/kuttle"
+    version_command: "grep 'kayrus/kuttle' %install_directory%/kuttle"
